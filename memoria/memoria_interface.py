@@ -2,29 +2,30 @@ from abc import ABC, abstractmethod
 
 
 class MemoriaInterface(ABC):
+    diretorio: str
     
     @abstractmethod
-    def ler_celula(endereco: str) -> str:
+    def ler_celula(self, endereco: str) -> str:
         pass
     
     @abstractmethod
-    def altera_celula(endereco: str, valor: str):
+    def altera_celula(self, endereco: str, valor: str):
         pass
     
     @abstractmethod
-    def ler_todas_as_celulas() -> dict:
+    def ler_todas_as_celulas(self) -> dict:
         pass
     
     @abstractmethod
-    def altera_todas_as_celulas(dicionario: dict):
+    def altera_todas_as_celulas(self, dicionario: dict):
         pass
     
     @abstractmethod
-    def limpa_memoria():
+    def limpa_memoria(self):
         pass
     
     @abstractmethod
-    def salvar_em_arquivo():
-        pass
+    def salvar_em_arquivo(self):
+        pass    
     
     
