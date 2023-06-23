@@ -2,7 +2,7 @@ from typing import List
 
 
 class Dominio:
-    HEXADECIMAL: List[str] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'E', 'F']
+    HEXADECIMAL: List[str] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
     
     @staticmethod
     def valida_4bit(valor: str):

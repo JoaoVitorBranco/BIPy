@@ -1,11 +1,17 @@
 from typing import List
+from entidades.dominio import Dominio
+
+from entidades.endereco import Endereco
+from erros.erro_de_entidade import ErroDeEntidade
 
 
 class Celula:
-    endereco_col: str
-    endereco_val: str
+    endereco: Endereco
     valor: str
-    hexadecimal: List[str] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'E', 'F']
     
-    def __init__(self, endereco: str = "0000", valor: str = None):
-        pass
+    def __init__(self, endereco: str = "0x000", valor: str = "0000"):
+        self.endereco = endereco
+        
+        if(not Dominio.valida_4bit(valor)):
+            raise ErroDeEntidade(entidade="Celula", mensagem=f"valor {valor} deve ter tamanho 4 e ser hexadecimal")
+        self.valor = valor

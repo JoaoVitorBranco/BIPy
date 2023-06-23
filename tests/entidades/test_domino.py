@@ -7,6 +7,7 @@ class Test_Dominio:
         assert Dominio.valida_4bit("0000")
         assert Dominio.valida_4bit("123E")
         assert Dominio.valida_4bit("FFFF")
+        assert Dominio.valida_4bit("ACDC")
         
     def test_valida_4bit_tamanho(self):
         assert not Dominio.valida_4bit("000")
@@ -15,6 +16,6 @@ class Test_Dominio:
         assert not Dominio.valida_4bit("0x0A")
         assert not Dominio.valida_4bit("00-A")
         assert not Dominio.valida_4bit("00GA")
-        assert not Dominio.valida_4bit("çÇÇÇ")
+        assert not Dominio.valida_4bit("ç000")
         assert not Dominio.valida_4bit("000a")
         
