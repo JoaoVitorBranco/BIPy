@@ -1,2 +1,12 @@
+from typing import List
+
+
 class Main:
-    pass
+    acc: str
+    pc: str
+    instrucao: str
+    add_instrucao: str
+    
+    def __init__(self):
+        pass
+    
