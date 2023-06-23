@@ -1,14 +1,15 @@
 from typing import Dict, List
 
 from entidades.celula import Celula
-from enum.comparacao_enum import ComparacaoEnum
+from enums.comparacao_enum import ComparacaoEnum
+from entidades.dominio import Dominio
 from erros.erro_de_processador import ErroDeProcessador
 from memoria.memoria_interface import MemoriaInterface
 
 
 class BIPy:
     acc: str
-    pc: int
+    pc: str
     memoria_de_programa: MemoriaInterface
     memoria_de_dados: MemoriaInterface
     instrucao: Celula
@@ -37,9 +38,12 @@ class BIPy:
         
     def reset(self):
         self.acc = "0000"
-        self.pc = 0
+        self.pc = "0000"
         self.instrucao = Celula(endereco="0x000", valor=self.memoria_de_programa.ler_celula("0x000")) 
         self.comparacao = ComparacaoEnum.SEM_COMPARACAO
+        
+    def valor_em_endereco(self, valor):
+        return f"0x{valor}"
     
     def executa_comando(self):
         dict_assemblador_inv = {v: k for k, v in self.dict_assemblador.items()}
@@ -49,77 +53,92 @@ class BIPy:
         if(comando not in dict_assemblador_inv.keys()):
             raise ErroDeProcessador(metodo="executa_comando", mensagem=f"comando {comando} não existe")
         elif(comando == "0"):
-            self.HLT()
+            self.HLT(valor=valor)
         else:
             if(comando == "1"):
-                self.STO()
+                self.STO(valor=valor)
             elif(comando == "2"):
-                self.LD()
+                self.LD(valor=valor)
             elif(comando == "3"):
-                self.LDI()
+                self.LDI(valor=valor)
             elif(comando == "4"):
-                self.ADD()
+                self.ADD(valor=valor)
             elif(comando == "5"):
-                self.ADDI()
+                self.ADDI(valor=valor)
             elif(comando == "6"):
-                self.SUB()
+                self.SUB(valor=valor)
             elif(comando == "7"):
-                self.SUBI()
+                self.SUBI(valor=valor)
             elif(comando == "8"):
-                self.JUMP()
+                self.JUMP(valor=valor)
             elif(comando == "9"):
-                self.NOP()
+                self.NOP(valor=valor)
             elif(comando == "A"):
-                self.CMP()
+                self.CMP(valor=valor)
             elif(comando == "B"):
-                self.JNE()
+                self.JNE(valor=valor)
             elif(comando == "C"):
-                self.JL()
+                self.JL(valor=valor)
             elif(comando == "D"):
-                self.JG()
-            # aumenta em 1 o endereço da instrução
+                self.JG(valor=valor)
+            self.instrucao.proximo_endereco()
+            self.instrucao.altera_valor(valor=self.memoria_de_programa.ler_celula(self.instrucao.endereco))
+            self.pc = Dominio.soma(v1=self.pc, v2="0001")
             
-    def HLT(self):
+    def HLT(self, valor: str):
         pass
     
-    def STO(self):
+    def STO(self, valor: str):
+        self.memoria_de_dados.altera_celula(endereco=self.valor_em_endereco(valor), valor=self.acc)
+    
+    def LD(self, valor: str):
+        self.acc = self.memoria_de_dados.ler_celula(endereco=self.valor_em_endereco(valor))
+    
+    def LDI(self, valor:str):
+        self.acc = "0" + valor
+    
+    def ADD(self, valor:str):
+        self.acc = Dominio.soma(v1=self.acc, v2=self.memoria_de_dados.ler_celula(endereco=self.valor_em_endereco(valor)))
+    
+    def ADDI(self, valor: str):
+        self.acc = Dominio.soma(v1=self.acc, v2="0" + valor)
+    
+    def SUB(self, valor: str):
+        self.acc = Dominio.subtracao(v1=self.acc, v2=self.memoria_de_dados.ler_celula(endereco=self.valor_em_endereco(valor)))
+    
+    def SUBI(self, valor: str):
+        self.acc = Dominio.subtracao(v1=self.acc, v2="0" + valor)
+    
+    def JUMP(self, valor: str):
+        self.instrucao.altera_endereco(endereco=self.valor_em_endereco(valor))
+        self.instrucao.altera_valor(valor=self.memoria_de_programa.ler_celula(self.instrucao.endereco))
+    
+    def NOP(self, valor: str):
         pass
     
-    def LD(self):
-        pass
+    def CMP(self, valor: str):
+        valor_a_comparar = self.memoria_de_dados.ler_celula(endereco=self.valor_em_endereco(valor))
+        if(self.acc > valor_a_comparar):
+            self.comparacao = ComparacaoEnum.MAIOR
+        elif(self.acc < valor_a_comparar):
+            self.comparacao = ComparacaoEnum.MENOR
+        else:
+            self.comparacao = ComparacaoEnum.IGUAL
     
-    def LDI(self):
-        pass
+    def JNE(self, valor: str):
+        if(self.comparacao.valor != "IGUAL"):
+            self.instrucao.altera_endereco(endereco=self.valor_em_endereco(valor))
+            self.instrucao.altera_valor(valor=self.memoria_de_programa.ler_celula(self.instrucao.endereco))
     
-    def ADD(self):
-        pass
+    def JL(self, valor: str):
+        if(self.comparacao.valor == "MENOR"):
+            self.instrucao.altera_endereco(endereco=self.valor_em_endereco(valor))
+            self.instrucao.altera_valor(valor=self.memoria_de_programa.ler_celula(self.instrucao.endereco))
     
-    def ADDI(self):
-        pass
-    
-    def SUB(self):
-        pass
-    
-    def SUBI(self):
-        pass
-    
-    def JUMP(self):
-        pass
-    
-    def NOP(self):
-        pass
-    
-    def CMP(self):
-        pass
-    
-    def JNE(self):
-        pass
-    
-    def JL(self):
-        pass
-    
-    def JG(self):
-        pass
+    def JG(self, valor: str):
+        if(self.comparacao.valor == "MAIOR"):
+            self.instrucao.altera_endereco(endereco=self.valor_em_endereco(valor))
+            self.instrucao.altera_valor(valor=self.memoria_de_programa.ler_celula(self.instrucao.endereco))
     
     
 

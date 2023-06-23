@@ -67,3 +67,13 @@ class Test_Celula:
         
         celula.proximo_endereco()
         assert celula.endereco == "0x00F"
+        
+    def test_celula_altera_valor(self):
+        celula = Celula(valor="0000")
+        celula.altera_valor("0001")
+        assert celula.valor == "0001"
+        
+    def test_celula_altera_endereco(self):
+        celula = Celula()
+        celula.altera_endereco("0xABC")
+        assert celula.endereco == "0xABC"

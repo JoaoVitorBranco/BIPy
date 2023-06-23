@@ -29,3 +29,7 @@ class Endereco:
         
     def valor(self):
         return self.linha + self.coluna
+    
+    def __eq__(self, other) -> bool:
+        return self.valor() == other.valor()
+        

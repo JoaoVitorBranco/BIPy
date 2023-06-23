@@ -29,4 +29,12 @@ class Celula:
         if(len(novo_endereco) == 4):
             raise ErroDeEntidade(entidade="Celula", mensagem=f"endereço {novo_endereco} não pode ser maior que 0xFFF")
         self.endereco = "0x"+novo_endereco.zfill(3)
-    
+        
+    def altera_valor(self, valor: str):
+        self.valor = valor
+            
+    def altera_endereco(self, endereco: str):
+        self.endereco = endereco
+        
+    def __eq__(self, other) -> bool:
+        return self.valor == other.valor and self.endereco == other.endereco
