@@ -1,5 +1,5 @@
 import pytest
-from entidades.celula import Celula
+from src.entidades.celula import Celula
 from src.shared.erros.erro_de_entidade import ErroDeEntidade
 
 

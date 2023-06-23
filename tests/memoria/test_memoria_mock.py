@@ -1,5 +1,5 @@
-from entidades.dominio import Dominio
-from memoria.memoria_mock import MemoriaMock
+from src.entidades.dominio import Dominio
+from src.memoria.memoria_mock import MemoriaMock
 
 
 class Test_MemoriaMock:
@@ -59,4 +59,3 @@ class Test_MemoriaMock:
             memoria.salvar_em_arquivo()
             assert True
         
-     

@@ -1,5 +1,5 @@
 import pytest
-from entidades.endereco import Endereco
+from src.entidades.endereco import Endereco
 from src.shared.erros.erro_de_entidade import ErroDeEntidade
 
 

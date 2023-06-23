@@ -1,7 +1,6 @@
-import pytest
-from BIPy import BIPy
-from entidades.celula import Celula
-from memoria.memoria_mock import MemoriaMock
+from src.BIPy import BIPy
+from src.entidades.celula import Celula
+from src.memoria.memoria_mock import MemoriaMock
 
 
 class Test_BIPy:
