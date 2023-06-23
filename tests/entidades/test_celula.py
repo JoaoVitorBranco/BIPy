@@ -1,6 +1,6 @@
 import pytest
 from entidades.celula import Celula
-from erros.erro_de_entidade import ErroDeEntidade
+from src.shared.erros.erro_de_entidade import ErroDeEntidade
 
 
 class Test_Celula:
