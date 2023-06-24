@@ -37,3 +37,6 @@ class Celula:
         
     def __eq__(self, other) -> bool:
         return self.valor == other.valor and self.endereco == other.endereco
+
+    def __str__(self) -> str:
+        return f"{self.endereco}: {self.valor}"

@@ -234,5 +234,282 @@ class Test_BIPy:
         processador.JG(valor="456")
         assert processador.instrucao == Celula(endereco="0x000", valor="0000")
         
+    def test_executa_comando_HLT(self):
+        memoria_de_programa = MemoriaMock()
+        memoria_de_programa.altera_celula("0x000", "0ACB")
         
-    
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=MemoriaMock())
+        processador.LDI(valor="AAA")
+        processador.executa_comando()
+        
+        assert processador.instrucao == Celula(endereco="0x000", valor="0ACB")
+        assert processador.acc == "0AAA"
+        assert processador.pc == "0000"
+        assert processador.comparacao.value == "SEM_COMPARACAO"
+        
+    def test_executa_comando_STO(self):
+        memoria_de_programa = MemoriaMock()
+        memoria_de_programa.altera_celula("0x000", "1ACB")
+        memoria_de_programa.altera_celula("0x001", "ACDC")
+        
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=MemoriaMock())
+        processador.LDI(valor="AAA")
+        processador.executa_comando()
+        
+        assert processador.instrucao == Celula(endereco="0x001", valor="ACDC")
+        assert processador.acc == "0AAA"
+        assert processador.pc == "0001"
+        assert processador.comparacao.value == "SEM_COMPARACAO"
+        assert processador.memoria_de_dados.ler_celula(endereco="0xACB") == "0AAA"
+        
+    def test_executa_comando_LD(self):
+        memoria_de_programa = MemoriaMock()
+        memoria_de_programa.altera_celula("0x000", "2ACB")
+        memoria_de_programa.altera_celula("0x001", "ACDC")
+        
+        memoria_de_dados = MemoriaMock()
+        memoria_de_dados.altera_celula("0xACB", "0AAA")
+        
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
+        processador.executa_comando()
+        
+        assert processador.instrucao == Celula(endereco="0x001", valor="ACDC")
+        assert processador.acc == "0AAA"
+        assert processador.acc == memoria_de_dados.ler_celula(endereco="0xACB")
+        assert processador.pc == "0001"
+        assert processador.comparacao.value == "SEM_COMPARACAO"
+        
+    def test_executa_comando_LDI(self):
+        memoria_de_programa = MemoriaMock()
+        memoria_de_programa.altera_celula("0x000", "3ACB")
+        memoria_de_programa.altera_celula("0x001", "ACDC")
+        
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=MemoriaMock())
+        processador.executa_comando()
+        
+        assert processador.instrucao == Celula(endereco="0x001", valor="ACDC")
+        assert processador.acc == "0ACB"
+        assert processador.pc == "0001"
+        assert processador.comparacao.value == "SEM_COMPARACAO" 
+        
+    def test_executa_comando_ADD(self):
+        memoria_de_programa = MemoriaMock()
+        memoria_de_programa.altera_celula("0x000", "4ACB")
+        memoria_de_programa.altera_celula("0x001", "ACDC")
+        
+        memoria_de_dados = MemoriaMock()
+        memoria_de_dados.altera_celula("0xACB", "0AAA")
+        
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
+        processador.LDI(valor="AAA")
+        processador.executa_comando()
+        
+        assert processador.instrucao == Celula(endereco="0x001", valor="ACDC")
+        assert processador.acc == "1554"
+        assert processador.pc == "0001"
+        assert processador.comparacao.value == "SEM_COMPARACAO"
+        
+    def test_executa_comando_ADDI(self):
+        memoria_de_programa = MemoriaMock()
+        memoria_de_programa.altera_celula("0x000", "5ACB")
+        memoria_de_programa.altera_celula("0x001", "ACDC")
+        
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=MemoriaMock())
+        processador.LDI(valor="AAA")
+        processador.executa_comando()
+        
+        assert processador.instrucao == Celula(endereco="0x001", valor="ACDC")
+        assert processador.acc == "1575"
+        assert processador.pc == "0001"
+        assert processador.comparacao.value == "SEM_COMPARACAO"
+        
+    def test_executa_comando_SUB(self):
+        memoria_de_programa = MemoriaMock()
+        memoria_de_programa.altera_celula("0x000", "6ACB")
+        memoria_de_programa.altera_celula("0x001", "ACDC")
+        
+        memoria_de_dados = MemoriaMock()
+        memoria_de_dados.altera_celula("0xACB", "0AAA")
+        
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
+        processador.LDI(valor="ACB")
+        processador.executa_comando()
+        
+        assert processador.instrucao == Celula(endereco="0x001", valor="ACDC")
+        assert processador.acc == "0021"
+        assert processador.pc == "0001"
+        assert processador.comparacao.value == "SEM_COMPARACAO"
+        
+    def test_executa_comando_SUBI(self):
+        memoria_de_programa = MemoriaMock()
+        memoria_de_programa.altera_celula("0x000", "714D")
+        memoria_de_programa.altera_celula("0x001", "ACDC")
+        
+        memoria_de_dados = MemoriaMock()
+        
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
+        processador.LDI(valor="AFB")
+        processador.executa_comando()
+        
+        assert processador.instrucao == Celula(endereco="0x001", valor="ACDC")
+        assert processador.acc == "09AE"
+        assert processador.pc == "0001"
+        assert processador.comparacao.value == "SEM_COMPARACAO"
+        
+    def test_executa_comando_JUMP(self):
+        memoria_de_programa = MemoriaMock()
+        memoria_de_programa.altera_celula("0x000", "8ACB")
+        memoria_de_programa.altera_celula("0xACB", "FFFF")
+        
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=MemoriaMock())
+        processador.executa_comando()
+        
+        assert processador.instrucao == Celula(endereco="0xACB", valor="FFFF")
+        assert processador.pc == "0001"
+        assert processador.comparacao.value == "SEM_COMPARACAO"
+        
+    def test_executa_comando_NOP(self):
+        memoria_de_programa = MemoriaMock()
+        memoria_de_programa.altera_celula("0x000", "9ACB")
+        memoria_de_programa.altera_celula("0x001", "ACDC")
+        
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=MemoriaMock())
+        processador.executa_comando()
+        
+        assert processador.instrucao == Celula(endereco="0x001", valor="ACDC")
+        assert processador.pc == "0001"
+        assert processador.comparacao.value == "SEM_COMPARACAO"
+        
+    def test_executa_comando_CMP(self):
+        memoria_de_programa = MemoriaMock()
+        memoria_de_programa.altera_celula("0x000", "AACB")
+        memoria_de_programa.altera_celula("0x001", "ACDC")
+        
+        memoria_de_dados = MemoriaMock()
+        memoria_de_dados.altera_celula("0xACB", "0AAA")
+        
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
+        processador.LDI(valor="AA1")
+        processador.executa_comando()
+        
+        assert processador.instrucao == Celula(endereco="0x001", valor="ACDC")
+        assert processador.acc == "0AA1"
+        assert processador.pc == "0001"
+        assert processador.comparacao.value == "MENOR"
+        
+    def test_executa_comando_JNE(self):
+        memoria_de_programa = MemoriaMock()
+        memoria_de_programa.altera_celula("0x000", "AACB")
+        memoria_de_programa.altera_celula("0x001", "BFFF")
+        memoria_de_programa.altera_celula("0xFFF", "FFFF")
+        
+        memoria_de_dados = MemoriaMock()
+        memoria_de_dados.altera_celula("0xACB", "0AAA")
+
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
+        processador.LDI(valor="AA1")
+        processador.executa_comando()
+        processador.executa_comando()
+        
+        assert processador.instrucao == Celula(endereco="0xFFF", valor="FFFF")
+        assert processador.acc == "0AA1"
+        assert processador.pc == "0002"
+        assert processador.comparacao.value == "MENOR"
+        
+    def test_executa_comando_JNE_sem_JUMP(self):
+        memoria_de_programa = MemoriaMock()
+        memoria_de_programa.altera_celula("0x000", "AACB")
+        memoria_de_programa.altera_celula("0x001", "BFFF")
+        memoria_de_programa.altera_celula("0x002", "0002")
+        memoria_de_programa.altera_celula("0xFFF", "FFFF")
+        
+        memoria_de_dados = MemoriaMock()
+        memoria_de_dados.altera_celula("0xACB", "0AAA")
+
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
+        processador.LDI(valor="AAA")
+        processador.executa_comando()
+        processador.executa_comando()
+        
+        assert processador.instrucao == Celula(endereco="0x002", valor="0002")
+        assert processador.acc == "0AAA"
+        assert processador.pc == "0002"
+        assert processador.comparacao.value == "IGUAL"
+        
+    def test_executa_comando_JL(self):
+        memoria_de_programa = MemoriaMock()
+        memoria_de_programa.altera_celula("0x000", "AACB")
+        memoria_de_programa.altera_celula("0x001", "CFFF")
+        memoria_de_programa.altera_celula("0xFFF", "FFFF")
+        
+        memoria_de_dados = MemoriaMock()
+        memoria_de_dados.altera_celula("0xACB", "0AAA")
+
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
+        processador.LDI(valor="AA1")
+        processador.executa_comando()
+        processador.executa_comando()
+        
+        assert processador.instrucao == Celula(endereco="0xFFF", valor="FFFF")
+        assert processador.acc == "0AA1"
+        assert processador.pc == "0002"
+        assert processador.comparacao.value == "MENOR"
+        
+    def test_executa_comando_JL_sem_JUMP(self):
+        memoria_de_programa = MemoriaMock()
+        memoria_de_programa.altera_celula("0x000", "AACB")
+        memoria_de_programa.altera_celula("0x001", "CFFF")
+        memoria_de_programa.altera_celula("0x002", "0002")
+        memoria_de_programa.altera_celula("0xFFF", "FFFF")
+        
+        memoria_de_dados = MemoriaMock()
+        memoria_de_dados.altera_celula("0xACB", "0AAA")
+
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
+        processador.LDI(valor="AAA")
+        processador.executa_comando()
+        processador.executa_comando()
+        
+        assert processador.instrucao == Celula(endereco="0x002", valor="0002")
+        assert processador.acc == "0AAA"
+        assert processador.pc == "0002"
+        assert processador.comparacao.value == "IGUAL"
+        
+    def test_executa_comando_JG(self):
+        memoria_de_programa = MemoriaMock()
+        memoria_de_programa.altera_celula("0x000", "AACB")
+        memoria_de_programa.altera_celula("0x001", "DFFF")
+        memoria_de_programa.altera_celula("0xFFF", "FFFF")
+        
+        memoria_de_dados = MemoriaMock()
+        memoria_de_dados.altera_celula("0xACB", "0AAA")
+
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
+        processador.LDI(valor="F00")
+        processador.executa_comando()
+        processador.executa_comando()
+        
+        assert processador.instrucao == Celula(endereco="0xFFF", valor="FFFF")
+        assert processador.acc == "0F00"
+        assert processador.pc == "0002"
+        assert processador.comparacao.value == "MAIOR"
+        
+    def test_executa_comando_JG_sem_JUMP(self):
+        memoria_de_programa = MemoriaMock()
+        memoria_de_programa.altera_celula("0x000", "AACB")
+        memoria_de_programa.altera_celula("0x001", "DFFF")
+        memoria_de_programa.altera_celula("0x002", "0002")
+        memoria_de_programa.altera_celula("0xFFF", "FFFF")
+        
+        memoria_de_dados = MemoriaMock()
+        memoria_de_dados.altera_celula("0xACB", "0F00")
+
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
+        processador.LDI(valor="AAA")
+        processador.executa_comando()
+        processador.executa_comando()
+        
+        assert processador.instrucao == Celula(endereco="0x002", valor="0002")
+        assert processador.acc == "0AAA"
+        assert processador.pc == "0002"
+        assert processador.comparacao.value == "MENOR"
