@@ -47,14 +47,17 @@ class BIPy:
     
     def executa_comando(self):
         dict_assemblador_inv = {v: k for k, v in self.dict_assemblador.items()}
-        comando = Celula.pega_comando()
-        valor = Celula.pega_valor()
+        comando = self.instrucao.pega_comando()
+        valor = self.instrucao.pega_valor()
         
         if(comando not in dict_assemblador_inv.keys()):
             raise ErroDeProcessador(metodo="executa_comando", mensagem=f"comando {comando} não existe")
         elif(comando == "0"):
             self.HLT(valor=valor)
         else:
+            self.instrucao.proximo_endereco()
+            self.instrucao.altera_valor(valor=self.memoria_de_programa.ler_celula(self.instrucao.endereco))
+            self.pc = Dominio.soma(v1=self.pc, v2="0001")
             if(comando == "1"):
                 self.STO(valor=valor)
             elif(comando == "2"):
@@ -81,9 +84,6 @@ class BIPy:
                 self.JL(valor=valor)
             elif(comando == "D"):
                 self.JG(valor=valor)
-            self.instrucao.proximo_endereco()
-            self.instrucao.altera_valor(valor=self.memoria_de_programa.ler_celula(self.instrucao.endereco))
-            self.pc = Dominio.soma(v1=self.pc, v2="0001")
             
     def HLT(self, valor: str):
         pass
@@ -118,25 +118,28 @@ class BIPy:
     
     def CMP(self, valor: str):
         valor_a_comparar = self.memoria_de_dados.ler_celula(endereco=self.valor_em_endereco(valor))
-        if(self.acc > valor_a_comparar):
+        acc_int = int(self.acc, 16)
+        comparacao_int = int(valor_a_comparar, 16)
+        
+        if(acc_int > comparacao_int):
             self.comparacao = ComparacaoEnum.MAIOR
-        elif(self.acc < valor_a_comparar):
+        elif(acc_int < comparacao_int):
             self.comparacao = ComparacaoEnum.MENOR
         else:
             self.comparacao = ComparacaoEnum.IGUAL
     
     def JNE(self, valor: str):
-        if(self.comparacao.valor != "IGUAL"):
+        if(self.comparacao.value != "IGUAL"):
             self.instrucao.altera_endereco(endereco=self.valor_em_endereco(valor))
             self.instrucao.altera_valor(valor=self.memoria_de_programa.ler_celula(self.instrucao.endereco))
     
     def JL(self, valor: str):
-        if(self.comparacao.valor == "MENOR"):
+        if(self.comparacao.value == "MENOR"):
             self.instrucao.altera_endereco(endereco=self.valor_em_endereco(valor))
             self.instrucao.altera_valor(valor=self.memoria_de_programa.ler_celula(self.instrucao.endereco))
     
     def JG(self, valor: str):
-        if(self.comparacao.valor == "MAIOR"):
+        if(self.comparacao.value == "MAIOR"):
             self.instrucao.altera_endereco(endereco=self.valor_em_endereco(valor))
             self.instrucao.altera_valor(valor=self.memoria_de_programa.ler_celula(self.instrucao.endereco))
     
