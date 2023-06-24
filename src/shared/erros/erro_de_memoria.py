@@ -1,4 +1,4 @@
-from erros.base_error import BaseError
+from src.shared.erros.base_error import BaseError
 
 
 class ErroDeMemoria(BaseError):

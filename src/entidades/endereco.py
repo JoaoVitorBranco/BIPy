@@ -1,7 +1,5 @@
-from typing import List
-
-from entidades.dominio import Dominio
-from erros.erro_de_entidade import ErroDeEntidade
+from src.entidades.dominio import Dominio
+from src.shared.erros.erro_de_entidade import ErroDeEntidade
 
 
 class Endereco:
@@ -32,4 +30,3 @@ class Endereco:
     
     def __eq__(self, other) -> bool:
         return self.valor() == other.valor()
-        

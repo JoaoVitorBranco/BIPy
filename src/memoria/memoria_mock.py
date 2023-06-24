@@ -1,5 +1,5 @@
-from entidades.dominio import Dominio
-from memoria.memoria_interface import MemoriaInterface
+from src.entidades.dominio import Dominio
+from src.memoria.memoria_interface import MemoriaInterface
 
 
 class MemoriaMock(MemoriaInterface):
@@ -36,4 +36,3 @@ class MemoriaMock(MemoriaInterface):
     
     def salvar_em_arquivo(self):
         pass    
-    

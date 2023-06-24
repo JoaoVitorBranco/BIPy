@@ -1,8 +1,7 @@
-from typing import List
-from entidades.dominio import Dominio
+from src.entidades.dominio import Dominio
 
-from entidades.endereco import Endereco
-from erros.erro_de_entidade import ErroDeEntidade
+from src.entidades.endereco import Endereco
+from src.shared.erros.erro_de_entidade import ErroDeEntidade
 
 
 class Celula:

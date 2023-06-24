@@ -1,4 +1,4 @@
-from entidades.dominio import Dominio
+from src.entidades.dominio import Dominio
 
 
 class Test_Dominio:
