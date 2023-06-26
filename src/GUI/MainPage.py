@@ -1,9 +1,19 @@
+import os
+import sys
 from PyQt5 import QtGui, QtWidgets, uic
 from PyQt5.QtWidgets import QMainWindow
 from src.BIPy import BIPy
 
 from src.GUI.Mem_Dados import Mem_Dados
 from src.GUI.Mem_Programa import Mem_Programa
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    
+    return os.path.join(base_path, relative_path)
 
 
 class Ui_MainPage(QMainWindow):
@@ -13,7 +23,7 @@ class Ui_MainPage(QMainWindow):
         super().__init__()
         self.processador = processador
 
-        uic.loadUi('src/GUI/main.ui', self)
+        uic.loadUi(resource_path('src/GUI/main.ui'), self)
         self.show()
 
         self.pushButton.clicked.connect(self.show_popup_mem_dados)
