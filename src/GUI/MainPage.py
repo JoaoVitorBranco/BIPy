@@ -27,11 +27,10 @@ class Ui_MainPage(QMainWindow):
         uic.loadUi(resource_path('src/GUI/main.ui'), self)
         self.show()
 
-        self.program_counter.display(
-            self.processador.instrucao.endereco)
-        self.acumulador.display(self.processador.acc)
-        self.instruct_counter.display(
-            self.processador.instrucao.pega_comando())
+        self.refresh_displays()
+
+        self.ui_dados = Mem_Dados(memoria_de_dados=self.processador.pega_memoria_de_dados())
+        self.ui_programa = Mem_Programa(memoria_de_programa=self.processador.pega_memoria_de_programa())
 
         self.pushButton.clicked.connect(self.show_popup_mem_dados)
         self.pushButton_2.clicked.connect(self.show_popup_mem_programa)
@@ -39,26 +38,24 @@ class Ui_MainPage(QMainWindow):
         self.step_button.clicked.connect(self.step)
 
     def show_popup_mem_dados(self):
-        self.window_dados = QtWidgets.QMainWindow()
-        self.ui_dados = Mem_Dados(
-            memoria_de_dados=self.processador.pega_memoria_de_dados())
+        self.ui_dados.show()
+        
 
     def show_popup_mem_programa(self):
-        self.window_programa = QtWidgets.QMainWindow()
-        self.ui_programa = Mem_Programa(
-            memoria_de_programa=self.processador.pega_memoria_de_programa())
+        self.ui_programa.show()
+        
 
     def reset(self):
         try:
-            self.ui_dados.tableWidget.clearContents()
-            self.program_counter.display(0)
+            self.processador.reset()
+            self.refresh_displays()
         except:
             print("Memoria de dados não iniciada")
 
     def step(self):
-        valor = self.program_counter.intValue()
-        valor += 1
-        self.program_counter.display(valor)
+        self.processador.executa_comando()
+        self.refresh_displays()
+        self.ui_dados.preenche_tabela(self.processador.pega_memoria_de_dados())
 
     def closeEvent(self, event):
         try:
@@ -69,3 +66,9 @@ class Ui_MainPage(QMainWindow):
             self.ui_programa.close()
         except AttributeError:
             print("Memoria de programa não iniciada")
+
+    def refresh_displays(self):
+        self.program_counter.display(self.processador.instrucao.endereco)
+        self.acumulador.display(self.processador.acc)
+        self.instruct_counter.display(
+            self.processador.instrucao.pega_comando())

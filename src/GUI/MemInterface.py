@@ -15,7 +15,6 @@ class Mem_Interface(QMainWindow):
         self.formata_linhas()
         self.preenche_tabela(memoria)
 
-        self.show()
 
 
     def diminui_colunas(self):
