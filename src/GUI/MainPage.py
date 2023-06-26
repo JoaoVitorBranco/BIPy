@@ -1,7 +1,8 @@
-from Mem_Dados import Mem_Dados
-from Mem_Programa import Mem_Programa
-from PyQt5 import QtGui, QtWidgets, uic 
+from PyQt5 import QtGui, QtWidgets, uic
 from PyQt5.QtWidgets import QMainWindow
+
+from src.GUI.Mem_Dados import Mem_Dados
+from src.GUI.Mem_Programa import Mem_Programa
 
 
 class Ui_MainPage(QMainWindow):
@@ -20,7 +21,7 @@ class Ui_MainPage(QMainWindow):
     def show_popup_mem_dados(self):
         self.window_dados = QtWidgets.QMainWindow()
         self.ui_dados = Mem_Dados()
-    
+
     def show_popup_mem_programa(self):
         self.window_programa = QtWidgets.QMainWindow()
         self.ui_programa = Mem_Programa()
@@ -36,8 +37,8 @@ class Ui_MainPage(QMainWindow):
         valor = self.program_counter.intValue()
         valor += 1
         self.program_counter.display(valor)
-    
-    def closeEvent(self,event):
+
+    def closeEvent(self, event):
         try:
             self.ui_dados.close()
         except AttributeError:
@@ -46,6 +47,7 @@ class Ui_MainPage(QMainWindow):
             self.ui_programa.close()
         except AttributeError:
             print("Memoria de programa não iniciada")
+
 
 if __name__ == "__main__":
     import sys

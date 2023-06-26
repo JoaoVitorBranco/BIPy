@@ -48,7 +48,7 @@
           <number>4</number>
          </property>
          <property name="value" stdset="0">
-          <double>5.000000000000000</double>
+          <double>0</double>
          </property>
         </widget>
        </item>
@@ -91,7 +91,7 @@
           <number>1</number>
          </property>
          <property name="value" stdset="0">
-          <double>5.000000000000000</double>
+          <double>0</double>
          </property>
         </widget>
        </item>
