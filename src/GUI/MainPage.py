@@ -28,7 +28,8 @@ class Ui_MainPage(QMainWindow):
 
     def show_popup_mem_programa(self):
         self.window_programa = QtWidgets.QMainWindow()
-        self.ui_programa = Mem_Programa()
+        self.ui_programa = Mem_Programa(
+            memoria_de_programa=self.processador.pega_memoria_de_programa())
 
     def reset(self):
         try:
