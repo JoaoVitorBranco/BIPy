@@ -11,7 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from table import Ui_Form
 from Mem_Dados import Mem_Dados
-
+from Mem_Programa import Mem_Programa
 class Ui_MainWindow(object):
 
     def show_popup_mem_dados(self):
@@ -20,9 +20,8 @@ class Ui_MainWindow(object):
     
     def show_popup_mem_programa(self):
         self.window_programa = QtWidgets.QMainWindow()
-        self.ui_programa = Ui_Form()
-        self.ui_programa.setupUi(self.window_programa, "Memoria de Programa")
-        self.window_programa.show()
+        self.ui_programa = Mem_Programa()
+
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
