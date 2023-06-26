@@ -10,19 +10,18 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from table import Ui_Form
+from Mem_Dados import Mem_Dados
 
 class Ui_MainWindow(object):
 
     def show_popup_mem_dados(self):
         self.window_dados = QtWidgets.QMainWindow()
-        self.ui_dados = Ui_Form()
-        self.ui_dados.setupUi(self.window_dados, "Memoria Dados")
-        self.window_dados.show()
+        self.ui_dados = Mem_Dados()
     
     def show_popup_mem_programa(self):
         self.window_programa = QtWidgets.QMainWindow()
         self.ui_programa = Ui_Form()
-        self.ui_programa.setupUi(self.window_programa, "Memoria Programa")
+        self.ui_programa.setupUi(self.window_programa, "Memoria de Programa")
         self.window_programa.show()
 
     def setupUi(self, MainWindow):
@@ -127,18 +126,18 @@ class Ui_MainWindow(object):
         font.setPointSize(20)
         self.botaoMemProg.setFont(font)
         self.botaoMemProg.setStyleSheet("QPushButton{\n"
-"    border-radius: 30px;\n"
-"    background: rgb(190, 190, 190);\n"
-"    color: black\n"
-"}\n"
-"\n"
-"QPushButton:hover{\n"
-"    background: rgba(190, 190, 190, 220);\n"
-"}\n"
-"\n"
-"QPushButton:pressed{\n"
-"    background: rgba(190, 190, 190, 180)\n"
-"}")
+                                        "    border-radius: 30px;\n"
+                                        "    background: rgb(190, 190, 190);\n"
+                                        "    color: black\n"
+                                        "}\n"
+                                        "\n"
+                                        "QPushButton:hover{\n"
+                                        "    background: rgba(190, 190, 190, 220);\n"
+                                        "}\n"
+                                        "\n"
+                                        "QPushButton:pressed{\n"
+                                        "    background: rgba(190, 190, 190, 180)\n"
+                                        "}")
         self.botaoMemProg.setObjectName("botaoMemProg")
         self.horizontalLayout_3.addWidget(self.botaoMemProg)
         self.verticalLayout.addWidget(self.frame_3)
