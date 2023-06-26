@@ -86,7 +86,7 @@
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QLCDNumber" name="intruct_counter">
+        <widget class="QLCDNumber" name="instruct_counter">
          <property name="digitCount">
           <number>1</number>
          </property>
