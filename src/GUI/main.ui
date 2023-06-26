@@ -71,7 +71,7 @@
           <enum>QLCDNumber::Hex</enum>
          </property>
          <property name="value" stdset="0">
-          <double>0</double>
+          <double>0.000000000000000</double>
          </property>
         </widget>
        </item>
@@ -274,7 +274,7 @@ QPushButton:pressed{
           <string>Memoria de Dados</string>
          </property>
          <property name="shortcut">
-          <string/>
+          <string>Ctrl+D</string>
          </property>
         </widget>
        </item>

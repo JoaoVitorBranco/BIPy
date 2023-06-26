@@ -24,8 +24,7 @@ class StyledItemDelegate(QtWidgets.QStyledItemDelegate):
             validator = QtGui.QRegExpValidator(
                 QtCore.QRegExp(regex,cs=QtCore.Qt.CaseInsensitive), editor,
             )
-            editor.setValidator(validator)           
-        
+            editor.setValidator(validator)
     
         completer = QtWidgets.QCompleter(comandos, editor)
         completer.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
