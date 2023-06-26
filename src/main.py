@@ -14,5 +14,5 @@ processador = BIPy(memoria_de_dados=memoria_de_dados,
 
 
 app = QtWidgets.QApplication(sys.argv)
-UIWindow = Ui_MainPage()
+UIWindow = Ui_MainPage(processador=processador)
 app.exec_()
