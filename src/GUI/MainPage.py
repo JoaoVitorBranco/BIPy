@@ -7,12 +7,13 @@ from src.BIPy import BIPy
 from src.GUI.Mem_Dados import Mem_Dados
 from src.GUI.Mem_Programa import Mem_Programa
 
+
 def resource_path(relative_path):
     try:
         base_path = sys._MEIPASS
     except Exception:
         base_path = os.path.abspath(".")
-    
+
     return os.path.join(base_path, relative_path)
 
 
@@ -25,6 +26,12 @@ class Ui_MainPage(QMainWindow):
 
         uic.loadUi(resource_path('src/GUI/main.ui'), self)
         self.show()
+
+        self.program_counter.display(
+            self.processador.instrucao.endereco)
+        self.acumulador.display(self.processador.acc)
+        self.instruct_counter.display(
+            self.processador.instrucao.pega_comando())
 
         self.pushButton.clicked.connect(self.show_popup_mem_dados)
         self.pushButton_2.clicked.connect(self.show_popup_mem_programa)
