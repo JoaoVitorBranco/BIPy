@@ -86,6 +86,10 @@ class Ui_Form(object):
                 item.setTextAlignment(QtCore.Qt.AlignCenter)
                 self.tableWidget.setItem(i, j, item)
 
+    # def get_table(self):
+
+        
+
 class StyledItemDelegate(QtWidgets.QStyledItemDelegate):
     def createEditor(self, parent, option, index):
         editor = super().createEditor(parent, option, index)

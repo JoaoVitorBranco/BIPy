@@ -13,12 +13,17 @@ from table import Ui_Form
 
 class Ui_MainWindow(object):
 
-    def show_pop_up(self):
-        self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_Form()
-        self.ui.setupUi(self.window, "Memoria")
-        self.window.show()
-
+    def show_popup_mem_dados(self):
+        self.window_dados = QtWidgets.QMainWindow()
+        self.ui_dados = Ui_Form()
+        self.ui_dados.setupUi(self.window_dados, "Memoria Dados")
+        self.window_dados.show()
+    
+    def show_popup_mem_programa(self):
+        self.window_programa = QtWidgets.QMainWindow()
+        self.ui_programa = Ui_Form()
+        self.ui_programa.setupUi(self.window_programa, "Memoria Programa")
+        self.window_programa.show()
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -67,24 +72,24 @@ class Ui_MainWindow(object):
         self.frame_2.setObjectName("frame_2")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.frame_2)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.checkBox = QtWidgets.QCheckBox(self.frame_2)
+        self.reset_button = QtWidgets.QPushButton(self.frame_2)
         font = QtGui.QFont()
         font.setPointSize(20)
-        self.checkBox.setFont(font)
-        self.checkBox.setObjectName("checkBox")
-        self.horizontalLayout_2.addWidget(self.checkBox)
+        self.reset_button.setFont(font)
+        self.reset_button.setObjectName("reset_button")
+        self.horizontalLayout_2.addWidget(self.reset_button)
         self.checkBox_2 = QtWidgets.QCheckBox(self.frame_2)
         font = QtGui.QFont()
         font.setPointSize(20)
         self.checkBox_2.setFont(font)
         self.checkBox_2.setObjectName("checkBox_2")
         self.horizontalLayout_2.addWidget(self.checkBox_2)
-        self.checkBox_3 = QtWidgets.QCheckBox(self.frame_2)
+        self.step_button = QtWidgets.QPushButton(self.frame_2)
         font = QtGui.QFont()
         font.setPointSize(20)
-        self.checkBox_3.setFont(font)
-        self.checkBox_3.setObjectName("checkBox_3")
-        self.horizontalLayout_2.addWidget(self.checkBox_3)
+        self.step_button.setFont(font)
+        self.step_button.setObjectName("step_button")
+        self.horizontalLayout_2.addWidget(self.step_button)
         self.verticalLayout.addWidget(self.frame_2)
         self.frame_3 = QtWidgets.QFrame(self.centralwidget)
         font = QtGui.QFont()
@@ -172,8 +177,9 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        self.botaoMemDados.clicked.connect(self.show_pop_up)
-        self.botaoMemProg.clicked.connect(self.show_pop_up)
+        self.botaoMemDados.clicked.connect(self.show_popup_mem_dados)
+        self.botaoMemProg.clicked.connect(self.show_popup_mem_programa)
+        self.reset_button.clicked.connect(self.reset)
 
 
     def retranslateUi(self, MainWindow):
@@ -182,9 +188,9 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "Instrução"))
         self.label_3.setText(_translate("MainWindow", "Acumulador"))
         self.label_2.setText(_translate("MainWindow", "PC"))
-        self.checkBox.setText(_translate("MainWindow", "Reset"))
+        self.reset_button.setText(_translate("MainWindow", "Reset"))
         self.checkBox_2.setText(_translate("MainWindow", "Halt"))
-        self.checkBox_3.setText(_translate("MainWindow", "Step"))
+        self.step_button.setText(_translate("MainWindow", "Step"))
         self.botaoMemDados.setText(_translate("MainWindow", "Memoria de Dados"))
         self.botaoMemProg.setText(_translate("MainWindow", "Memoria de Programa"))
         self.menuArquivo.setTitle(_translate("MainWindow", "Arquivo"))
@@ -196,6 +202,11 @@ class Ui_MainWindow(object):
         self.actionMemoria_de_Dados_2.setText(_translate("MainWindow", "Memoria de Dados"))
         self.actionMemoria_de_Programa_2.setText(_translate("MainWindow", "Memoria de Programa"))
 
+    def reset(self):
+        try:
+            self.ui_dados.tableWidget.clearContents()
+        except:
+            print("Memoria de dados não iniciada")
 
 
 
