@@ -47,10 +47,3 @@ class Ui_MainPage(QMainWindow):
             self.ui_programa.close()
         except AttributeError:
             print("Memoria de programa não iniciada")
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    UIWindow = Ui_MainPage()
-    app.exec_()

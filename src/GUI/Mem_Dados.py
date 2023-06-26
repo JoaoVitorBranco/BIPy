@@ -1,6 +1,7 @@
 import sys
 from PyQt5 import QtCore, QtWidgets, QtGui
-from MemInterface import Mem_Interface
+
+from src.GUI.MemInterface import Mem_Interface
 
 class Mem_Dados(Mem_Interface):
     def __init__(self):
