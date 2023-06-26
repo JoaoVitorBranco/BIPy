@@ -34,8 +34,9 @@ class BIPy:
     def __init__(self, memoria_de_programa: MemoriaInterface, memoria_de_dados: MemoriaInterface):
         self.memoria_de_programa = memoria_de_programa
         self.memoria_de_dados = memoria_de_dados
+        self.dict_assemblador_inv = {v: k for k, v in self.dict_assemblador.items()}
         self.reset()
-        
+    
     def reset(self):
         self.acc = "0000"
         self.pc = "0000"
@@ -45,12 +46,12 @@ class BIPy:
     def valor_em_endereco(self, valor):
         return f"0x{valor}"
     
-    def executa_comando(self):
-        dict_assemblador_inv = {v: k for k, v in self.dict_assemblador.items()}
+    def executa_comando(self) -> None:
+        
         comando = self.instrucao.pega_comando()
         valor = self.instrucao.pega_valor()
         
-        if(comando not in dict_assemblador_inv.keys()):
+        if(comando not in self.dict_assemblador_inv.keys()):
             raise ErroDeProcessador(metodo="executa_comando", mensagem=f"comando {comando} não existe")
         elif(comando == "0"):
             self.HLT(valor=valor)
@@ -84,7 +85,34 @@ class BIPy:
                 self.JL(valor=valor)
             elif(comando == "D"):
                 self.JG(valor=valor)
-            
+         
+    def pega_memoria_de_dados(self) -> dict:
+        memoria_de_dados = dict()
+        for i in Dominio.HEXADECIMAL:
+            for j in Dominio.HEXADECIMAL:
+                linha = dict()
+                for k in Dominio.HEXADECIMAL:
+                    linha[k] = self.memoria_de_dados.ler_celula(endereco=f"0x{i}{j}{k}")
+                memoria_de_dados[f"0x{i}{j}"] = linha
+        return memoria_de_dados
+
+    
+    def pega_memoria_de_programa(self) -> dict:
+        memoria_de_programa_traduzida = dict()
+        for i in Dominio.HEXADECIMAL:
+            for j in Dominio.HEXADECIMAL:
+                linha = dict()
+                for k in Dominio.HEXADECIMAL:
+                    valor = self.memoria_de_programa.ler_celula(endereco=f"0x{i}{j}{k}")
+                    comando = self.dict_assemblador_inv.get(valor[0])
+                    if (comando == None):
+                        raise ErroDeProcessador(metodo="pega_memoria_de_programa", mensagem=f"Comando {valor[0]} não existe")
+                    linha[k] = comando + ' ' + valor[1:]
+                memoria_de_programa_traduzida[f"0x{i}{j}"] = linha
+        return memoria_de_programa_traduzida
+        
+             
+       
     def HLT(self, valor: str):
         pass
     
