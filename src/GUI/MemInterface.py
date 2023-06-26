@@ -2,7 +2,7 @@ from PyQt5 import QtCore, QtWidgets, uic
 from PyQt5.QtWidgets import QMainWindow
 
 class Mem_Interface(QMainWindow):
-    def __init__(self, UI_string):
+    def __init__(self, UI_string, memoria: dict):
         super().__init__()
 
         uic.loadUi(f'src/GUI/{UI_string}.ui', self)
@@ -10,12 +10,10 @@ class Mem_Interface(QMainWindow):
         self.num_linhas = 256
         self.num_colunas = 16
 
-        self.vazio = '0000' if UI_string == 'MemoriaDados' else 'HLT 000'
-
         self.diminui_colunas()
         self.formata_colunas()
         self.formata_linhas()
-        self.preenche_tabela(UI_string)
+        self.preenche_tabela(memoria)
 
         self.show()
 
@@ -39,10 +37,12 @@ class Mem_Interface(QMainWindow):
             label = '0x'+ hex(i).split('x')[1].upper().zfill(2) + 'X'
             item.setText(_translate("Form", label))     
 
-    def preenche_tabela(self, UI_string):
+    def preenche_tabela(self, memoria):
         for i in range(self.num_linhas):
+            linha = '0x'+ hex(i).split('x')[1].upper().zfill(2)
             for j in range(self.num_colunas):
+                coluna = hex(j)[-1].upper()
                 item = QtWidgets.QTableWidgetItem()
-                item.setText(self.vazio)
+                item.setText(memoria.get(linha).get(coluna))
                 item.setTextAlignment(QtCore.Qt.AlignCenter)
                 self.tableWidget.setItem(i, j, item)

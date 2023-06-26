@@ -1,15 +1,19 @@
-from Mem_Dados import Mem_Dados
-from Mem_Programa import Mem_Programa
-from PyQt5 import QtGui, QtWidgets, uic 
+from PyQt5 import QtGui, QtWidgets, uic
 from PyQt5.QtWidgets import QMainWindow
+from src.BIPy import BIPy
+
+from src.GUI.Mem_Dados import Mem_Dados
+from src.GUI.Mem_Programa import Mem_Programa
 
 
 class Ui_MainPage(QMainWindow):
-    def __init__(self):
+    processador: BIPy
+
+    def __init__(self, processador: BIPy):
         super().__init__()
+        self.processador = processador
 
         uic.loadUi('src/GUI/main.ui', self)
-
         self.show()
 
         self.pushButton.clicked.connect(self.show_popup_mem_dados)
@@ -19,11 +23,13 @@ class Ui_MainPage(QMainWindow):
 
     def show_popup_mem_dados(self):
         self.window_dados = QtWidgets.QMainWindow()
-        self.ui_dados = Mem_Dados()
-    
+        self.ui_dados = Mem_Dados(
+            memoria_de_dados=self.processador.pega_memoria_de_dados())
+
     def show_popup_mem_programa(self):
         self.window_programa = QtWidgets.QMainWindow()
-        self.ui_programa = Mem_Programa()
+        self.ui_programa = Mem_Programa(
+            memoria_de_programa=self.processador.pega_memoria_de_programa())
 
     def reset(self):
         try:
@@ -36,8 +42,8 @@ class Ui_MainPage(QMainWindow):
         valor = self.program_counter.intValue()
         valor += 1
         self.program_counter.display(valor)
-    
-    def closeEvent(self,event):
+
+    def closeEvent(self, event):
         try:
             self.ui_dados.close()
         except AttributeError:
@@ -46,9 +52,3 @@ class Ui_MainPage(QMainWindow):
             self.ui_programa.close()
         except AttributeError:
             print("Memoria de programa não iniciada")
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    UIWindow = Ui_MainPage()
-    app.exec_()
