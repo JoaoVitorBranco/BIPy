@@ -10,8 +10,6 @@ class Mem_Interface(QMainWindow):
         self.num_linhas = 256
         self.num_colunas = 16
 
-        self.vazio = '0000' if UI_string == 'MemoriaDados' else 'HLT 000'
-
         self.diminui_colunas()
         self.formata_colunas()
         self.formata_linhas()
