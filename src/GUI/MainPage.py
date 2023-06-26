@@ -1,8 +1,7 @@
-from PyQt5 import QtCore, QtGui, QtWidgets, uic 
+from Mem_Dados import Mem_Dados
+from Mem_Programa import Mem_Programa
+from PyQt5 import QtGui, QtWidgets, uic 
 from PyQt5.QtWidgets import QMainWindow
-from src.entidades.dominio import Dominio
-from src.GUI.Mem_Dados import Mem_Dados
-from src.GUI.Mem_Programa import Mem_Programa
 
 
 class Ui_MainPage(QMainWindow):
@@ -17,7 +16,6 @@ class Ui_MainPage(QMainWindow):
         self.pushButton_2.clicked.connect(self.show_popup_mem_programa)
         self.reset_button.clicked.connect(self.reset)
         self.step_button.clicked.connect(self.step)
-        
 
     def show_popup_mem_dados(self):
         self.window_dados = QtWidgets.QMainWindow()
@@ -30,15 +28,24 @@ class Ui_MainPage(QMainWindow):
     def reset(self):
         try:
             self.ui_dados.tableWidget.clearContents()
+            self.program_counter.display(0)
         except:
             print("Memoria de dados não iniciada")
 
     def step(self):
         valor = self.program_counter.intValue()
-        valor = Dominio.HEXADECIMAL[valor+1]
+        valor += 1
         self.program_counter.display(valor)
-        # altera o valor do program counter
-        
+    
+    def closeEvent(self,event):
+        try:
+            self.ui_dados.close()
+        except AttributeError:
+            print("Memoria de dados não iniciada")
+        try:
+            self.ui_programa.close()
+        except AttributeError:
+            print("Memoria de programa não iniciada")
 
 if __name__ == "__main__":
     import sys
