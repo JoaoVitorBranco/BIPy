@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Memoria de Dados</string>
+   <string>Memoria de Programa</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">

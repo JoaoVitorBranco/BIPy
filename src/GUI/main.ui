@@ -60,21 +60,32 @@
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QLCDNumber" name="lcdNumber"/>
+        <widget class="QLCDNumber" name="intruct_counter">
+         <property name="digitCount">
+          <number>1</number>
+         </property>
+         <property name="value" stdset="4">
+          <double>5</double>
+         </property>
+        </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLCDNumber" name="lcdNumber_2"/>
-       </item>
-       <item row="1" column="2">
-        <widget class="QLCDNumber" name="lcdNumber_3">
+        <widget class="QLCDNumber" name="program_counter">
          <property name="digitCount">
           <number>4</number>
          </property>
-         <property name="mode">
-          <enum>QLCDNumber::Dec</enum>
+         <property name="value" stdset="0">
+          <double>0</double>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLCDNumber" name="acumulador">
+         <property name="digitCount">
+          <number>4</number>
          </property>
          <property name="value" stdset="0">
-          <double>9999.000000000000000</double>
+          <double>5</double>
          </property>
         </widget>
        </item>
@@ -91,7 +102,7 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QCheckBox" name="checkBox">
+        <widget class="QPushButton" name="reset_button">
          <property name="font">
           <font>
            <pointsize>20</pointsize>
@@ -115,7 +126,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_3">
+        <widget class="QPushButton" name="step_button">
          <property name="font">
           <font>
            <pointsize>20</pointsize>
@@ -167,11 +178,11 @@
 }
 
 QPushButton:hover{
-	background: rgb(190, 190, 190, 220);
+	background: rgba(190, 190, 190, 220);
 }
 
 QPushButton:pressed{
-	background: rgb(190, 190, 190, 180)
+	background: rgba(190, 190, 190, 180)
 }</string>
          </property>
          <property name="text">
@@ -200,11 +211,11 @@ QPushButton:pressed{
 }
 
 QPushButton:hover{
-	background: rgb(190, 190, 190, 220);
+	background: rgba(190, 190, 190, 220);
 }
 
 QPushButton:pressed{
-	background: rgb(190, 190, 190, 180)
+	background: rgba(190, 190, 190, 180)
 }</string>
          </property>
          <property name="text">

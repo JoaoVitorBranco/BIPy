@@ -1,50 +1,12 @@
 import sys
 from PyQt5 import QtCore, QtWidgets, QtGui, uic
 from PyQt5.QtWidgets import QMainWindow
+from MemInterface import Mem_Interface
 
-class Mem_Dados(QMainWindow):
+class Mem_Dados(Mem_Interface):
     def __init__(self):
-        super(Mem_Dados, self).__init__()
+        super().__init__(UI_string='MemoriaDados')
 
-        uic.loadUi('src/GUI/MemoriaDados.ui', self)
-
-        self.show()
-
-        self.num_linhas = 256
-        self.num_colunas = 16
-        self.diminui_colunas()
-        self.formata_colunas()
-        self.formata_linhas()
-        self.preenche_tabela()
-
-
-
-    def diminui_colunas(self):
-        for i in range(self.num_colunas):
-            self.tableWidget.setColumnWidth(i, 60)
-    
-    def formata_colunas(self):
-        _translate = QtCore.QCoreApplication.translate
-        for i in range(self.num_colunas):
-            item = QtWidgets.QTableWidgetItem()
-            self.tableWidget.setHorizontalHeaderItem(i, item)
-            item.setText(_translate("Form", hex(i)[-1].upper()))
-
-    def formata_linhas(self):
-        _translate = QtCore.QCoreApplication.translate
-        for i in range(self.num_linhas):
-            item = QtWidgets.QTableWidgetItem()
-            self.tableWidget.setVerticalHeaderItem(i, item)
-            label = '0x'+ hex(i).split('x')[1].upper().zfill(2) + 'X'
-            item.setText(_translate("Form", label))   
- 
-    def preenche_tabela(self):
-        for i in range(self.num_linhas):
-            for j in range(self.num_colunas):
-                item = QtWidgets.QTableWidgetItem()
-                item.setText("0000")
-                item.setTextAlignment(QtCore.Qt.AlignCenter)
-                self.tableWidget.setItem(i, j, item)
         
 
 # class StyledItemDelegate(QtWidgets.QStyledItemDelegate):

@@ -9,7 +9,6 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from table import Ui_Form
 from Mem_Dados import Mem_Dados
 from Mem_Programa import Mem_Programa
 class Ui_MainWindow(object):
@@ -178,6 +177,7 @@ class Ui_MainWindow(object):
         self.botaoMemDados.clicked.connect(self.show_popup_mem_dados)
         self.botaoMemProg.clicked.connect(self.show_popup_mem_programa)
         self.reset_button.clicked.connect(self.reset)
+        self.step_button.clicked.connect(self.step)
 
 
     def retranslateUi(self, MainWindow):
@@ -206,6 +206,10 @@ class Ui_MainWindow(object):
         except:
             print("Memoria de dados não iniciada")
 
+    def step(self):
+        valor = self.lcdNumber_2.value()
+        print(valor)
+        # self.lcdNumber_2.display()
 
 
 if __name__ == "__main__":
