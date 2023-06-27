@@ -1,0 +1,42 @@
+name: Check & Create PR
+
+on:
+  push:
+    branches:
+      - main
+
+jobs: 
+  check_pr:
+    runs-on: ubuntu-latest
+    outputs:
+      lenPrs: ${{ steps.check_pr.outputs.lenPrs }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+          
+      - id: check_pr
+        name: Check PR list
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          ref: ${{ github.ref_name }}
+        run: |
+          if [[ $ref == 'main' ]]; then
+            lenPrs=$(gh pr list -B prod -H main --json id,title --jq '. | length')
+            echo "lenPrs=$lenPrs" >> "$GITHUB_OUTPUT"
+          fi
+          
+  create-pr-prod:
+    needs: check_pr
+    runs-on: ubuntu-latest
+    if: ${{ github.ref_name == 'main' && needs.check_pr.outputs.lenPrs == 0 }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+          
+      - name: Create PR main into prod
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          gh pr create -B prod -H main --title "Merge branch main -> prod - Criado Automatico" --body "Criado Automaticamente"
+
+        
