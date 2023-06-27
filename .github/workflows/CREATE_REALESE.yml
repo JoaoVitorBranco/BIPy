@@ -25,7 +25,8 @@ jobs:
           pip install -r requirements.txt
           pip install -r requirements-dev.txt
       
-      - name: Generate release
+      - name: Build BIPy
         run: |
-          ls
-          # pyinstaller --noconfirm --onedir --windowed --icon "C:/Maua/Arquitetura/BIPy/processador_bip_em_python/src/GUI/assets/icone.ico" --name "BIPy" --add-data "C:/Maua/Arquitetura/BIPy/processador_bip_em_python/src;src/"  "C:/Maua/Arquitetura/BIPy/processador_bip_em_python/src/main.py"
+          pyinstaller --noconfirm --onedir --windowed --icon "./src/GUI/assets/icone.ico" --name "BIPy" --add-data "./src;src/"  "./src/main.py"
+          cd dist
+          zip -r BIPy.zip BIPy
