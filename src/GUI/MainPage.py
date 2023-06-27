@@ -95,11 +95,13 @@ class Ui_MainPage(QMainWindow):
         self.ui_dados.preenche_tabela(self.processador.pega_memoria_de_dados())
 
         endereco = self.processador.instrucao.endereco
+        valor = self.processador.instrucao.valor
 
         linha = int(self.processador.instrucao.endereco[:-1], 16)
         coluna = int(self.processador.instrucao.endereco[-1], 16)
 
         self.set_selecionado_mem_programa(linha, coluna)
+        self.set_selecionado_mem_dados(valor)
 
     def set_selecionado_mem_programa(self, linha, coluna):
         for i in range(self.ui_programa.tableWidget.rowCount()):
@@ -109,6 +111,19 @@ class Ui_MainPage(QMainWindow):
                 item.setForeground(QtGui.QColor(0, 0, 0))
 
         item = self.ui_programa.tableWidget.item(linha, coluna)
+        item.setBackground(QtGui.QColor(255, 0, 0))
+
+    def set_selecionado_mem_dados(self, valor):
+        linha = int(valor[1:-1], 16)
+        coluna = int(valor[-1], 16)
+
+        for i in range(self.ui_dados.tableWidget.rowCount()):
+            for j in range(self.ui_dados.tableWidget.columnCount()):
+                item = self.ui_dados.tableWidget.item(i, j)
+                item.setBackground(QtGui.QColor(255, 255, 255))
+                item.setForeground(QtGui.QColor(0, 0, 0))
+
+        item = self.ui_dados.tableWidget.item(linha, coluna)
         item.setBackground(QtGui.QColor(255, 0, 0))
 
     def closeEvent(self, event):
