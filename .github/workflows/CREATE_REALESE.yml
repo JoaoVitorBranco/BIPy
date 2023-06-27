@@ -50,8 +50,9 @@ jobs:
           
       - name: Build BIPy Mac
         run: |
-          pyinstaller --noconfirm --onedir  --noconsole --name "BIPy" --add-data "./src:src/"  "./src/main.py"
+          pyinstaller --windowed --noconfirm --clean --name "BIPy" --add-data "./src:src/"  "./src/main.py"
           cd dist
+          ls
 
       - name: Archive artifacts
         uses: actions/upload-artifact@v3
