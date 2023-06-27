@@ -2,7 +2,6 @@ import os
 import sys
 from threading import Thread
 from time import sleep
-import traceback
 from PyQt5 import QtGui, QtWidgets, uic
 from PyQt5.QtWidgets import QMainWindow
 from src.BIPy import BIPy
@@ -36,7 +35,7 @@ class Ui_MainPage(QMainWindow):
 
         comandos = list(processador.dict_assemblador.keys())
 
-        uic.loadUi(resource_path('src/GUI/main.ui'), self)
+        uic.loadUi(resource_path('src/GUI/MainPage.ui'), self)
         self.show()
 
         self.ui_dados = Mem_Dados(memoria_de_dados=self.processador.pega_memoria_de_dados(
