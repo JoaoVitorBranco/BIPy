@@ -37,6 +37,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          gh pr create -B prod -H main --title "Merge branch main -> prod - Criado Automatico" --body "Criado Automaticamente"
+          if [[ $(git rev-parse origin/main) == $(git rev-parse origin/prod) ]]; then
+            echo "Branches are equal"
+            exit 0
+          else
+            gh pr create -B prod -H main --title "Merge branch main -> prod - Criado Automatico" --body "Criado Automaticamente"
+          fi
 
         
