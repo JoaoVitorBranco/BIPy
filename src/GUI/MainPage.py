@@ -58,18 +58,21 @@ class Ui_MainPage(QMainWindow):
         self.actionHexadecimal.triggered.connect(self.altera_acumulador_para_hexadecimal)
         self.clock = 1
 
+
         self.ui_refresh.connect(self.step)
 
 
     def altera_acumulador_para_decimal(self):
         self.acumulador.setDigitCount(5)
-        self.label_4.setText("(decimal)")
         self.acumulador.setDecMode()
+        self.label_5.setStyleSheet("background:rgba(0, 71, 133, 0.4);")
+        self.label_4.setStyleSheet("background:rgba(0, 71, 133, 0.1);")
     
     def altera_acumulador_para_hexadecimal(self):
         self.acumulador.setDigitCount(4)
-        self.label_4.setText("(hexadecimal)")
         self.acumulador.setHexMode()
+        self.label_4.setStyleSheet("background:rgba(0, 71, 133, 0.4);")
+        self.label_5.setStyleSheet("background:rgba(0, 71, 133, 0.1);")
         
 
     def altera_memoria_de_dados(self, endereco, valor):
@@ -82,6 +85,7 @@ class Ui_MainPage(QMainWindow):
         self.processador.memoria_de_programa.altera_celula(endereco, valor)
 
     def set_clock(self):
+        
         msg = QtWidgets.QInputDialog()
         msg.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
         msg.setLabelText("Digite a frequência de clock desejada em Hz:")
@@ -89,8 +93,10 @@ class Ui_MainPage(QMainWindow):
         msg.setOkButtonText("Setar")
         msg.setDoubleValue(1/self.clock)
         msg.setDoubleRange(0.1, 15)
+        msg.setDoubleStep(0.5)
         msg.setWindowTitle("Setar Clock")
         msg.exec_()
+
         try:
             self.clock = 1/msg.doubleValue()
         except:

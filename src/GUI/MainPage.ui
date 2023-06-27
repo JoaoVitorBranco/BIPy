@@ -348,15 +348,67 @@ QLCDNumber{
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_4">
-            <property name="font">
-             <font>
-              <pointsize>10</pointsize>
-             </font>
+           <widget class="QFrame" name="frame_5">
+            <property name="styleSheet">
+             <string notr="true">QLabel{
+	border: 1px solid black;
+	border-radius: 10%;
+	background: rgba(0, 71, 133,0.4);
+}</string>
             </property>
-            <property name="text">
-             <string>{mode}</string>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
             </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="label_4">
+               <property name="styleSheet">
+                <string notr="true">QLabel{
+	background:rgba(0, 71, 133, 0.4);
+}</string>
+               </property>
+               <property name="text">
+                <string>Hexadecimal</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_5">
+               <property name="styleSheet">
+                <string notr="true">QLabel{
+	background:rgba(0, 71, 133, 0.1);
+}</string>
+               </property>
+               <property name="text">
+                <string>Decimal</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
          </layout>
