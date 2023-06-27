@@ -35,7 +35,7 @@ jobs:
           elif [[ -n "$feature" ]]; then
             new_v=$(python -c "print(str(int('$old_v'.split('.')[0]) + 1) + '.' +'$old_v'.split('.')[1])")
           else
-            echo "commit is not feature or fix"
+            echo "Commit is not feature or fix"
             new_v=$old_v
           fi
 
