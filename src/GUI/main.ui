@@ -10,6 +10,9 @@
     <height>689</height>
    </rect>
   </property>
+  <property name="cursor">
+   <cursorShape>PointingHandCursor</cursorShape>
+  </property>
   <property name="windowTitle">
    <string>BIPy</string>
   </property>
@@ -39,13 +42,13 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>Acumulador</string>
+       <item row="1" column="2">
+        <widget class="QLCDNumber" name="acumulador">
+         <property name="digitCount">
+          <number>4</number>
          </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
+         <property name="value" stdset="0">
+          <double>0.000000000000000</double>
          </property>
         </widget>
        </item>
@@ -59,22 +62,36 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QLCDNumber" name="lcdNumber"/>
-       </item>
        <item row="1" column="1">
-        <widget class="QLCDNumber" name="lcdNumber_2"/>
-       </item>
-       <item row="1" column="2">
-        <widget class="QLCDNumber" name="lcdNumber_3">
+        <widget class="QLCDNumber" name="program_counter">
          <property name="digitCount">
           <number>4</number>
          </property>
          <property name="mode">
-          <enum>QLCDNumber::Dec</enum>
+          <enum>QLCDNumber::Hex</enum>
          </property>
          <property name="value" stdset="0">
-          <double>9999.000000000000000</double>
+          <double>0.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Acumulador</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLCDNumber" name="instruct_counter">
+         <property name="digitCount">
+          <number>1</number>
+         </property>
+         <property name="value" stdset="0">
+          <double>0.000000000000000</double>
          </property>
         </widget>
        </item>
@@ -91,11 +108,29 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QCheckBox" name="checkBox">
+        <widget class="QPushButton" name="reset_button">
          <property name="font">
           <font>
            <pointsize>20</pointsize>
           </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+	border-radius: 10px;
+	background: rgb(190, 190, 190);
+	color: black
+}
+
+QPushButton:hover{
+	background: rgba(190, 190, 190, 220);
+}
+
+QPushButton:pressed{
+	background: rgba(190, 190, 190, 180)
+}</string>
          </property>
          <property name="text">
           <string>Reset</string>
@@ -103,23 +138,81 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_2">
+        <widget class="QPushButton" name="halt_check">
          <property name="font">
           <font>
            <pointsize>20</pointsize>
           </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton:checked{ 
+	background-color: rgba(214,69,65,0.6);
+ }
+
+QPushButton{
+	border-radius: 10px;
+	background: rgb(190, 190, 190);
+	color: black;
+}
+
+QPushButton:hover{
+	background: rgba(214,69,65,0.2);
+}
+
+QPushButton:pressed{
+	background: rgba(190, 190, 190, 180);
+}</string>
          </property>
          <property name="text">
           <string>Halt</string>
          </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="default">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>false</bool>
+         </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_3">
+        <widget class="QPushButton" name="step_button">
          <property name="font">
           <font>
            <pointsize>20</pointsize>
           </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+	border-radius: 10px;
+	background: rgb(190, 190, 190);
+	color: black
+}
+
+QPushButton:hover{
+	background: rgba(190, 190, 190, 220);
+}
+
+QPushButton:pressed{
+	background: rgba(190, 190, 190, 180)
+}</string>
          </property>
          <property name="text">
           <string>Step</string>
@@ -159,6 +252,9 @@
            <pointsize>20</pointsize>
           </font>
          </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
          <property name="styleSheet">
           <string notr="true">QPushButton{
 	border-radius: 30px;
@@ -167,15 +263,18 @@
 }
 
 QPushButton:hover{
-	background: rgb(190, 190, 190, 220);
+	background: rgba(190, 190, 190, 220);
 }
 
 QPushButton:pressed{
-	background: rgb(190, 190, 190, 180)
+	background: rgba(190, 190, 190, 180)
 }</string>
          </property>
          <property name="text">
           <string>Memoria de Dados</string>
+         </property>
+         <property name="shortcut">
+          <string>Ctrl+D</string>
          </property>
         </widget>
        </item>
@@ -192,6 +291,18 @@ QPushButton:pressed{
            <pointsize>20</pointsize>
           </font>
          </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="toolTip">
+          <string/>
+         </property>
+         <property name="toolTipDuration">
+          <number>0</number>
+         </property>
+         <property name="statusTip">
+          <string/>
+         </property>
          <property name="styleSheet">
           <string notr="true">QPushButton{
 	border-radius: 30px;
@@ -200,15 +311,18 @@ QPushButton:pressed{
 }
 
 QPushButton:hover{
-	background: rgb(190, 190, 190, 220);
+	background: rgba(190, 190, 190, 220);
 }
 
 QPushButton:pressed{
-	background: rgb(190, 190, 190, 180)
+	background: rgba(190, 190, 190, 180)
 }</string>
          </property>
          <property name="text">
           <string>Memoria de Programa</string>
+         </property>
+         <property name="shortcut">
+          <string>Ctrl+P</string>
          </property>
         </widget>
        </item>
@@ -247,7 +361,14 @@ QPushButton:pressed{
     <addaction name="menuSalvar"/>
     <addaction name="menuAbrir"/>
    </widget>
+   <widget class="QMenu" name="menuConfigura_o">
+    <property name="title">
+     <string>Configuração</string>
+    </property>
+    <addaction name="actionSetar_Clock"/>
+   </widget>
    <addaction name="menuArquivo"/>
+   <addaction name="menuConfigura_o"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionAbrir_Memoria_de_Dados">
@@ -273,6 +394,17 @@ QPushButton:pressed{
   <action name="actionMemoria_de_Programa_2">
    <property name="text">
     <string>Memoria de Programa</string>
+   </property>
+  </action>
+  <action name="actionSetar_Clock">
+   <property name="text">
+    <string>Setar Clock</string>
+   </property>
+   <property name="statusTip">
+    <string>Altera a velocidade do clock</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+H</string>
    </property>
   </action>
  </widget>
