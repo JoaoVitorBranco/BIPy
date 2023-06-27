@@ -42,7 +42,19 @@ class Ui_MainPage(QMainWindow):
         self.reset_button.clicked.connect(self.reset)
         self.step_button.clicked.connect(self.step)
         self.halt_check.clicked.connect(self.halt)
+        self.actionSetar_Clock.triggered.connect(self.set_clock)
         self.clock = 1
+
+    def set_clock(self):
+        msg = QtWidgets.QInputDialog()
+        
+        msg.setLabelText("Digite o clock desejado")
+        msg.setWindowTitle("Setar Clock")
+        msg.exec_()
+        try:
+            self.clock = 1/int(msg.textValue())
+        except:
+            pass    
 
     def halt(self):
         worker = Worker(self.halted, self.clock)
@@ -88,7 +100,7 @@ class Ui_MainPage(QMainWindow):
         self.ui_programa.show()
 
 class Worker(QRunnable):
-    
+
     def __init__(self, fn, *args, **kwargs):
         super(Worker, self).__init__()
 
