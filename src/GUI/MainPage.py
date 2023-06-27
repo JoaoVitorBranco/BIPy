@@ -55,7 +55,8 @@ class Ui_MainPage(QMainWindow):
         self.clock = 1
 
     def altera_memoria_de_dados(self, endereco, valor):
-        self.processador.memoria_de_dados.altera_celula(endereco, valor.upper())
+        self.processador.memoria_de_dados.altera_celula(
+            endereco, valor.upper())
 
     def altera_memoria_de_programa(self, endereco, valor):
         split_valor = valor.split(" ")
@@ -83,16 +84,30 @@ class Ui_MainPage(QMainWindow):
             sleep(clock)
 
     def reset(self):
-        try:
-            self.processador.reset()
-            self.refresh_displays()
-        except:
-            print("Memoria de dados não iniciada")
+        self.processador.reset()
+        self.refresh_displays()
 
     def step(self):
         self.processador.executa_comando()
         self.refresh_displays()
         self.ui_dados.preenche_tabela(self.processador.pega_memoria_de_dados())
+
+        endereco = self.processador.instrucao.endereco
+
+        linha = int(self.processador.instrucao.endereco[:-1], 16)
+        coluna = int(self.processador.instrucao.endereco[-1], 16)
+
+        self.set_selecionado(linha, coluna)
+
+    def set_selecionado(self, linha, coluna):
+        for i in range(self.ui_programa.tableWidget.rowCount()):
+            for j in range(self.ui_programa.tableWidget.columnCount()):
+                item = self.ui_programa.tableWidget.item(i, j)
+                item.setBackground(QtGui.QColor(255, 255, 255))
+                item.setForeground(QtGui.QColor(0, 0, 0))
+
+        item = self.ui_programa.tableWidget.item(linha, coluna)
+        item.setBackground(QtGui.QColor(255, 0, 0))
 
     def closeEvent(self, event):
         try:
@@ -109,6 +124,7 @@ class Ui_MainPage(QMainWindow):
         self.acumulador.display(self.processador.acc)
         self.instruct_counter.display(
             self.processador.instrucao.pega_comando())
+        self.set_selecionado(0, 0)
 
     def show_popup_mem_dados(self):
         self.ui_dados.show()
