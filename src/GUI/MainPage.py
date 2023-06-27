@@ -99,8 +99,8 @@ class Ui_MainPage(QMainWindow):
         endereco = self.processador.instrucao.endereco
         valor = self.processador.instrucao.valor
 
-        linha = int(self.processador.instrucao.endereco[:-1], 16)
-        coluna = int(self.processador.instrucao.endereco[-1], 16)
+        linha = int(endereco[:-1], 16)
+        coluna = int(endereco[-1], 16)
 
         self.set_selecionado_mem_programa(linha, coluna)
         self.set_selecionado_mem_dados(valor)
@@ -108,12 +108,22 @@ class Ui_MainPage(QMainWindow):
     def set_selecionado_mem_programa(self, linha, coluna):
         for i in range(self.ui_programa.tableWidget.rowCount()):
             for j in range(self.ui_programa.tableWidget.columnCount()):
+
                 item = self.ui_programa.tableWidget.item(i, j)
-                item.setBackground(QtGui.QColor(255, 255, 255))
+                
+                if i % 2 == 0:
+                    color = QtGui.QColor(255, 255, 255)
+                else:
+                    color = QtGui.QColor(0, 71, 133)
+                    color.setAlphaF(0.2)
+                
+                item.setBackground(color)
                 item.setForeground(QtGui.QColor(0, 0, 0))
 
         item = self.ui_programa.tableWidget.item(linha, coluna)
-        item.setBackground(QtGui.QColor(255, 0, 0))
+        highlight = QtGui.QColor(0, 71, 133)
+        highlight.setAlphaF(0.8)
+        item.setBackground(highlight)
 
     def set_selecionado_mem_dados(self, valor):
         linha = int(valor[1:-1], 16)
@@ -122,11 +132,20 @@ class Ui_MainPage(QMainWindow):
         for i in range(self.ui_dados.tableWidget.rowCount()):
             for j in range(self.ui_dados.tableWidget.columnCount()):
                 item = self.ui_dados.tableWidget.item(i, j)
-                item.setBackground(QtGui.QColor(255, 255, 255))
+
+                if i % 2 == 0:
+                    color = QtGui.QColor(255, 255, 255)
+                else:
+                    color = QtGui.QColor(0, 71, 133)
+                    color.setAlphaF(0.2)
+                
+                item.setBackground(color)
                 item.setForeground(QtGui.QColor(0, 0, 0))
 
         item = self.ui_dados.tableWidget.item(linha, coluna)
-        item.setBackground(QtGui.QColor(255, 0, 0))
+        highlight = QtGui.QColor(0, 71, 133)
+        highlight.setAlphaF(0.8)
+        item.setBackground(highlight)
 
     def closeEvent(self, event):
         try:
