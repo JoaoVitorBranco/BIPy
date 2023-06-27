@@ -49,7 +49,7 @@ jobs:
           
       - name: Build BIPy Mac
         run: |
-          pyinstaller --windowed --noconfirm --clean --name "BIPy" --add-data "./src:src/"  "./src/main.py"
+          pyinstaller --windowed --onedir --noconfirm --clean --name "BIPy" --add-data "./src:src/"  "./src/main.py"
           cd dist
           ls
 
