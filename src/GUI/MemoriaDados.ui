@@ -26,8 +26,8 @@
    <string>Memoria de Dados</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QMainWindow{
-	background: white:
+   <string notr="true">QTableWidget{
+	background: rgba(0, 71, 133,0.2);
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -36,12 +36,6 @@
      <widget class="QTableWidget" name="tableWidget">
       <property name="autoFillBackground">
        <bool>false</bool>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QTableWidget{
-	background: rgba(0, 71, 133,0.2
-);
-}</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>
@@ -366,7 +360,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1040</width>
+     <width>1030</width>
      <height>21</height>
     </rect>
    </property>
