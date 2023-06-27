@@ -101,7 +101,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: BIPy-linux
-          path: dist/BIPy-linux.zip
+          path: dist/
       - name: Retrieve variables
         run : |
           echo "old_v=$old_v"
