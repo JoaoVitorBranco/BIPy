@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>779</width>
+    <width>778</width>
     <height>689</height>
    </rect>
   </property>
@@ -28,9 +28,32 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <layout class="QGridLayout" name="gridLayout_2">
+      <layout class="QGridLayout" name="gridLayout">
+       <property name="leftMargin">
+        <number>20</number>
+       </property>
+       <property name="topMargin">
+        <number>20</number>
+       </property>
+       <property name="rightMargin">
+        <number>20</number>
+       </property>
+       <property name="bottomMargin">
+        <number>20</number>
+       </property>
+       <property name="horizontalSpacing">
+        <number>20</number>
+       </property>
+       <property name="verticalSpacing">
+        <number>5</number>
+       </property>
        <item row="0" column="0">
         <widget class="QLabel" name="label">
+         <property name="font">
+          <font>
+           <pointsize>20</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>Instrução</string>
          </property>
@@ -39,23 +62,46 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="2">
-        <widget class="QLCDNumber" name="acumulador">
-         <property name="digitCount">
-          <number>4</number>
-         </property>
-         <property name="value" stdset="0">
-          <double>0.000000000000000</double>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="1">
         <widget class="QLabel" name="label_2">
+         <property name="font">
+          <font>
+           <pointsize>20</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>PC</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="label_3">
+         <property name="font">
+          <font>
+           <pointsize>20</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Acumulador</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLCDNumber" name="instruct_counter">
+         <property name="digitCount">
+          <number>1</number>
+         </property>
+         <property name="mode">
+          <enum>QLCDNumber::Hex</enum>
+         </property>
+         <property name="value" stdset="0">
+          <double>0.000000000000000</double>
          </property>
         </widget>
        </item>
@@ -72,20 +118,13 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>Acumulador</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLCDNumber" name="instruct_counter">
+       <item row="1" column="2">
+        <widget class="QLCDNumber" name="acumulador">
          <property name="digitCount">
-          <number>1</number>
+          <number>4</number>
+         </property>
+         <property name="mode">
+          <enum>QLCDNumber::Hex</enum>
          </property>
          <property name="value" stdset="0">
           <double>0.000000000000000</double>
@@ -96,6 +135,9 @@
      </widget>
     </item>
     <item>
+     <widget class="QDialogButtonBox" name="buttonBox"/>
+    </item>
+    <item>
      <widget class="QFrame" name="frame_2">
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -104,8 +146,29 @@
        <enum>QFrame::Raised</enum>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <property name="spacing">
+        <number>20</number>
+       </property>
+       <property name="leftMargin">
+        <number>20</number>
+       </property>
+       <property name="topMargin">
+        <number>20</number>
+       </property>
+       <property name="rightMargin">
+        <number>20</number>
+       </property>
+       <property name="bottomMargin">
+        <number>20</number>
+       </property>
        <item>
         <widget class="QPushButton" name="reset_button">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>60</height>
+          </size>
+         </property>
          <property name="font">
           <font>
            <pointsize>20</pointsize>
@@ -114,19 +177,28 @@
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
+         <property name="toolTip">
+          <string>Reseta o runtime do processador</string>
+         </property>
+         <property name="statusTip">
+          <string>Reseta o runtime do processador</string>
+         </property>
+         <property name="whatsThis">
+          <string/>
+         </property>
          <property name="styleSheet">
           <string notr="true">QPushButton{
 	border-radius: 10px;
-	background: rgb(190, 190, 190);
+	background: rgba(0, 71, 133,0.5);
 	color: black
 }
 
 QPushButton:hover{
-	background: rgba(190, 190, 190, 220);
+	background: rgba(0, 71, 133,0.4);
 }
 
 QPushButton:pressed{
-	background: rgba(190, 190, 190, 180)
+	background:rgba(0, 71, 133,0.3);
 }</string>
          </property>
          <property name="text">
@@ -136,6 +208,12 @@ QPushButton:pressed{
        </item>
        <item>
         <widget class="QPushButton" name="halt_check">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>60</height>
+          </size>
+         </property>
          <property name="font">
           <font>
            <pointsize>20</pointsize>
@@ -144,27 +222,36 @@ QPushButton:pressed{
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
+         <property name="toolTip">
+          <string>Step automático</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-1</number>
+         </property>
+         <property name="statusTip">
+          <string>Step automático</string>
+         </property>
          <property name="layoutDirection">
           <enum>Qt::LeftToRight</enum>
          </property>
          <property name="styleSheet">
-          <string notr="true">QPushButton:checked{ 
-	background-color: rgba(214,69,65,0.6);
- }
-
-QPushButton{
+          <string notr="true">QPushButton{
 	border-radius: 10px;
-	background: rgb(190, 190, 190);
-	color: black;
+	background: rgba(0, 71, 133,0.5);
+	color: black
 }
 
 QPushButton:hover{
-	background: rgba(214,69,65,0.2);
+	background: rgba(0, 71, 133,0.4);
 }
 
 QPushButton:pressed{
-	background: rgba(190, 190, 190, 180);
-}</string>
+	background:rgba(0, 71, 133,0.3);
+}
+
+QPushButton:checked{ 
+	background-color: rgba(214,69,65,0.6);
+ }</string>
          </property>
          <property name="text">
           <string>Halt</string>
@@ -188,6 +275,12 @@ QPushButton:pressed{
        </item>
        <item>
         <widget class="QPushButton" name="step_button">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>60</height>
+          </size>
+         </property>
          <property name="font">
           <font>
            <pointsize>20</pointsize>
@@ -196,19 +289,25 @@ QPushButton:pressed{
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
+         <property name="toolTip">
+          <string>Executar a próxima instrução</string>
+         </property>
+         <property name="statusTip">
+          <string>Executar a próxima instrução</string>
+         </property>
          <property name="styleSheet">
           <string notr="true">QPushButton{
 	border-radius: 10px;
-	background: rgb(190, 190, 190);
+	background: rgba(0, 71, 133,0.5);
 	color: black
 }
 
 QPushButton:hover{
-	background: rgba(190, 190, 190, 220);
+	background: rgba(0, 71, 133,0.4);
 }
 
 QPushButton:pressed{
-	background: rgba(190, 190, 190, 180)
+	background:rgba(0, 71, 133,0.3);
 }</string>
          </property>
          <property name="text">
@@ -236,6 +335,18 @@ QPushButton:pressed{
        <property name="spacing">
         <number>50</number>
        </property>
+       <property name="leftMargin">
+        <number>20</number>
+       </property>
+       <property name="topMargin">
+        <number>20</number>
+       </property>
+       <property name="rightMargin">
+        <number>20</number>
+       </property>
+       <property name="bottomMargin">
+        <number>20</number>
+       </property>
        <item>
         <widget class="QPushButton" name="pushButton">
          <property name="minimumSize">
@@ -252,19 +363,25 @@ QPushButton:pressed{
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
+         <property name="toolTip">
+          <string>Abrir memoria de dados</string>
+         </property>
+         <property name="statusTip">
+          <string>Abrir memoria de dados</string>
+         </property>
          <property name="styleSheet">
           <string notr="true">QPushButton{
 	border-radius: 30px;
-	background: rgb(190, 190, 190);
+	background: rgba(0, 71, 133,0.5);
 	color: black
 }
 
 QPushButton:hover{
-	background: rgba(190, 190, 190, 220);
+	background: rgba(0, 71, 133,0.4);
 }
 
 QPushButton:pressed{
-	background: rgba(190, 190, 190, 180)
+	background:rgba(0, 71, 133,0.3);
 }</string>
          </property>
          <property name="text">
@@ -292,27 +409,27 @@ QPushButton:pressed{
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
          <property name="toolTip">
-          <string/>
+          <string>Abrir memoria de programa</string>
          </property>
          <property name="toolTipDuration">
           <number>0</number>
          </property>
          <property name="statusTip">
-          <string/>
+          <string>Abrir memoria de programa</string>
          </property>
          <property name="styleSheet">
           <string notr="true">QPushButton{
 	border-radius: 30px;
-	background: rgb(190, 190, 190);
+	background: rgba(0, 71, 133,0.5);
 	color: black
 }
 
 QPushButton:hover{
-	background: rgba(190, 190, 190, 220);
+	background: rgba(0, 71, 133,0.4);
 }
 
 QPushButton:pressed{
-	background: rgba(190, 190, 190, 180)
+	background:rgba(0, 71, 133,0.3);
 }</string>
          </property>
          <property name="text">
@@ -333,7 +450,7 @@ QPushButton:pressed{
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>779</width>
+     <width>778</width>
      <height>21</height>
     </rect>
    </property>
@@ -362,7 +479,15 @@ QPushButton:pressed{
     <property name="title">
      <string>Configuração</string>
     </property>
+    <widget class="QMenu" name="menuAlterar_modo_do_acumulador">
+     <property name="title">
+      <string>Alterar modo do acumulador</string>
+     </property>
+     <addaction name="actionHexadecimal"/>
+     <addaction name="actionDecimal"/>
+    </widget>
     <addaction name="actionSetar_Clock"/>
+    <addaction name="menuAlterar_modo_do_acumulador"/>
    </widget>
    <addaction name="menuArquivo"/>
    <addaction name="menuConfigura_o"/>
@@ -402,6 +527,22 @@ QPushButton:pressed{
    </property>
    <property name="shortcut">
     <string>Ctrl+H</string>
+   </property>
+  </action>
+  <action name="actionHexadecimal">
+   <property name="text">
+    <string>Hexadecimal</string>
+   </property>
+   <property name="statusTip">
+    <string>Alternar o modo de display do acumulador para Hexadecimal</string>
+   </property>
+  </action>
+  <action name="actionDecimal">
+   <property name="text">
+    <string>Decimal</string>
+   </property>
+   <property name="statusTip">
+    <string>Alternar o modo de display do acumulador para Decimal</string>
    </property>
   </action>
  </widget>

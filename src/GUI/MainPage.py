@@ -53,27 +53,37 @@ class Ui_MainPage(QMainWindow):
         self.step_button.clicked.connect(self.step)
         self.halt_check.clicked.connect(self.halt)
         self.actionSetar_Clock.triggered.connect(self.set_clock)
+        self.actionDecimal.triggered.connect(self.altera_acumulador_para_decimal)
+        self.actionHexadecimal.triggered.connect(self.acumulador.setHexMode)
         self.clock = 1
 
         self.ui_refresh.connect(self.step)
+
+
+    def altera_acumulador_para_decimal(self):
+        self.acumulador.setDigitCount(5)
+        self.acumulador.setDecMode()
+        
 
     def altera_memoria_de_dados(self, endereco, valor):
         self.processador.memoria_de_dados.altera_celula(
             endereco, valor.upper())
 
     def altera_memoria_de_programa(self, endereco, valor):
-        split_valor = valor.split(" ")
-        valor = self.dict_assemblador[split_valor[0].upper()] + split_valor[1]
+        split_valor = valor.upper().split(" ")
+        valor = self.dict_assemblador[split_valor[0]] + split_valor[1]
         self.processador.memoria_de_programa.altera_celula(endereco, valor)
 
     def set_clock(self):
         msg = QtWidgets.QInputDialog()
-
-        msg.setLabelText("Digite o clock desejado")
+        msg.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
+        msg.setLabelText("Digite a frequência de clock desejada em Hz:")
+        msg.setInputMode(QtWidgets.QInputDialog.DoubleInput)
+        msg.setDoubleRange(0.1, 15)
         msg.setWindowTitle("Setar Clock")
         msg.exec_()
         try:
-            self.clock = 1/int(msg.textValue())
+            self.clock = int(1/msg.doubleValue())
         except:
             pass
 
@@ -159,7 +169,7 @@ class Ui_MainPage(QMainWindow):
 
     def refresh_displays(self):
         self.program_counter.display(self.processador.instrucao.endereco)
-        self.acumulador.display(self.processador.acc)
+        self.acumulador.display(int(self.processador.acc,16))
         self.instruct_counter.display(
             self.processador.instrucao.pega_comando())
         self.set_selecionado_mem_programa(0, 0)
