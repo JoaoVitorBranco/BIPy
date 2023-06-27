@@ -50,7 +50,7 @@ jobs:
           
       - name: Build BIPy Mac
         run: |
-          pyinstaller --noconfirm --onedir --windowed --name "BIPy" --add-data "./src:src/"  "./src/main.py"
+          pyinstaller --noconfirm --onedir  --noconsole --name "BIPy" --add-data "./src:src/"  "./src/main.py"
           cd dist
 
       - name: Archive artifacts
