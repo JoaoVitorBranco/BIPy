@@ -101,12 +101,12 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: BIPy-linux
-          path: dist/
+          path: dist/linus/
       - name: Retrieve Windows Artifact
         uses: actions/download-artifact@v3
         with:
           name: BIPy-windows
-          path: dist/ 
+          path: dist/windows/
 
       - name: Retrieve variables
         run : |
@@ -129,8 +129,12 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.BIPy_TOKEN }}
         run: |
             cd dist
-            echo "Uploading BIPy-linux.zip"
             ls
+            echo "Zipping files"
+            zip -r BIPy-linux.zip linux/
+            zip -r BIPy-windows.zip windows/
+
+            echo "Uploading files"
             gh release upload v$new_v BIPy-linux.zip --clobber
             gh release upload v$new_v BIPy-windows.zip --clobber       
 
