@@ -26,26 +26,7 @@ jobs:
           new_v=$(python -c "print(str(int('$old_v'.split('.')[0]) + 1) + '.0')")
 
           echo "new_v=$new_v" >> $GITHUB_ENV
-        
-      - name: Update setup.py
-        run: |
-          sed -i "s/version='$old_v'/version='$new_v'/" setup.py
-          
-      # - name: Create realese
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.BIPy_TOKEN }}
-      #   run: |
-      #       gh release create v$new_v -t "Release v$new_v"
-            
-      # - name: Commit and push
-      #   env: 
-      #     CI_COMMIT_USER: ${{ github.actor }}
-      #   run: |
-      #     git config --global user.name "${{ env.CI_COMMIT_USER }}"
-      #     git config --global user.email "${{ env.CI_COMMIT_USER }}@users.noreply.github.com"
-      #     git commit -a -m "Bump version from $old_v to $new_v"
-      #     git push origin ${{ github.ref_name }}
-     
+             
     outputs:
       new_v: ${{ env.new_v }}     
       old_v: ${{ env.old_v }} 
@@ -77,13 +58,6 @@ jobs:
         with:
           name: BIPy-linux
           path: dist/BIPy-linux.zip          
-
-      # - name: Upload BIPy.zip
-      #   env:
-      #       GITHUB_TOKEN: ${{ secrets.BIPy_TOKEN }}
-      #   run: |
-      #       gh release upload v$new_v BIPy-linux.zip --clobber
-      #       gh release upload v$new_v BIPy-windows.zip --clobber
   
   publish_release:
     runs-on: ubuntu-latest
@@ -93,12 +67,39 @@ jobs:
         uses: actions/checkout@v3
       
       - name: Retrieve artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: BIPy-linux
           path: dist/BIPy-linux.zip
+      - name: Retrieve variables
+        run : |
+          old_v=${{needs.process_release.outputs.old_v}}
+          new_v=${{needs.process_release.outputs.new_v}}
+          echo "old_v=$old_v"
+          echo "new_v=$new_v"
 
-      - name: Publish release
+      - name: Update setup.py
         run: |
-          ls
-          
+            sed -i "s/version='$old_v'/version='$new_v'/" setup.py
+            
+      - name: Create realese
+        env:
+          GITHUB_TOKEN: ${{ secrets.BIPy_TOKEN }}
+        run: |
+            gh release create v$new_v -t "Release v$new_v"
+      - name: Upload BIPy.zip
+        env:
+            GITHUB_TOKEN: ${{ secrets.BIPy_TOKEN }}
+        run: |
+            cd dist
+            gh release upload v$new_v BIPy-linux.zip --clobber
+            # gh release upload v$new_v BIPy-windows.zip --clobber       
+
+      - name: Commit and push
+        env: 
+          CI_COMMIT_USER: ${{ github.actor }}
+        run: |
+          git config --global user.name "${{ env.CI_COMMIT_USER }}"
+          git config --global user.email "${{ env.CI_COMMIT_USER }}@users.noreply.github.com"
+          git commit -a -m "Bump version from $old_v to $new_v"
+          git push origin ${{ github.ref_name }}
