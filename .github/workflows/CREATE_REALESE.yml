@@ -6,7 +6,6 @@ on:
       - 'setup.py'
     branches:
       - prod
-      - generate-release
 
 jobs:
   process_release:
