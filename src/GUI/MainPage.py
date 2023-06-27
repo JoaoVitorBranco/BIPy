@@ -39,13 +39,13 @@ class Ui_MainPage(QMainWindow):
 
         self.threadpool = QThreadPool()
 
-        self.refresh_displays()
 
         self.ui_dados = Mem_Dados(memoria_de_dados=self.processador.pega_memoria_de_dados(
         ), altera_memoria_de_dados=self.altera_memoria_de_dados)
         self.ui_programa = Mem_Programa(memoria_de_programa=self.processador.pega_memoria_de_programa(
         ), altera_memoria_de_programa=self.altera_memoria_de_programa, comandos=comandos)
 
+        self.refresh_displays()
         self.pushButton.clicked.connect(self.show_popup_mem_dados)
         self.pushButton_2.clicked.connect(self.show_popup_mem_programa)
         self.reset_button.clicked.connect(self.reset)
