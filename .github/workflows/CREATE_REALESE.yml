@@ -31,7 +31,9 @@ jobs:
           cd dist
           zip -r BIPy.zip BIPy
 
-      - name: Upload realese
+      - name: Create realese
+        env:
+          GITHUB_TOKEN: ${{ github.actor.token }}
         run: |
           gh release create v${{ github.ref }} -t "Release v${{ github.ref }}" -F ./dist/BIPy.zip
 
