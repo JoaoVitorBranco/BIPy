@@ -121,6 +121,7 @@ jobs:
         run: |
             ls
             cd dist
+            echo "Uploading BIPy-linux.zip"
             ls
             gh release upload v$new_v BIPy-linux.zip --clobber
             # gh release upload v$new_v BIPy-windows.zip --clobber       
