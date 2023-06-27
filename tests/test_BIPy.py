@@ -4,10 +4,17 @@ from src.entidades.celula import Celula
 from src.entidades.dominio import Dominio
 from src.enums.tipo_de_memoria_enum import TipoDeMemoriaEnum
 from src.memoria.repo.memoria_json import MemoriaJSON
+from src.memoria.repo.memoria_mock import MemoriaMock
 from src.shared.erros.erro_de_processador import ErroDeProcessador
 
-MEMORIA_DE_DADOS = MemoriaJSON(TipoDeMemoriaEnum.MEMORIA_DE_DADOS)
-MEMORIA_DE_PROGRAMA = MemoriaJSON(TipoDeMemoriaEnum.MEMORIA_DE_PROGRAMA)
+md_json = MemoriaJSON(TipoDeMemoriaEnum.MEMORIA_DE_DADOS)
+mp_json = MemoriaJSON(TipoDeMemoriaEnum.MEMORIA_DE_PROGRAMA)
+
+md_mock = MemoriaMock()
+mp_mock = MemoriaMock()
+
+MEMORIA_DE_DADOS = md_json
+MEMORIA_DE_PROGRAMA = mp_json
 
 class Test_BIPy:
     
