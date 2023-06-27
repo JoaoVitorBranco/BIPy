@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QMainWindow
 
 from src.BIPy import BIPy
 from src.GUI.MainPage import Ui_MainPage
-from src.memoria.memoria_mock import MemoriaMock
+from src.memoria.repo.memoria_mock import MemoriaMock
 
 memoria_de_programa = MemoriaMock()
 
