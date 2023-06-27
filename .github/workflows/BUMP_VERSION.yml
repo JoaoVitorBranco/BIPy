@@ -1,0 +1,24 @@
+
+name: Bump Version
+
+on:
+  push:
+    paths-ignore:
+      - 'setup.py'
+    branches:
+      - main
+      - create-bump
+
+jobs:
+  bump_version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Get current version
+        id: get_version
+        run: |
+          old_v=$(grep -oP "version='(\d+\.\d+)'" setup.py | cut -d"'" -f2)
+          echo="Current version: $old_v"
+  
