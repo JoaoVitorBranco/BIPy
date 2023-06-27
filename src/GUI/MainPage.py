@@ -47,33 +47,58 @@ class Ui_MainPage(QMainWindow):
         ), altera_memoria_de_programa=self.altera_memoria_de_programa, comandos=comandos)
 
         self.refresh_displays()
+        self.reset()
         self.pushButton.clicked.connect(self.show_popup_mem_dados)
         self.pushButton_2.clicked.connect(self.show_popup_mem_programa)
         self.reset_button.clicked.connect(self.reset)
         self.step_button.clicked.connect(self.step)
         self.halt_check.clicked.connect(self.halt)
         self.actionSetar_Clock.triggered.connect(self.set_clock)
+        self.actionDecimal.triggered.connect(self.altera_acumulador_para_decimal)
+        self.actionHexadecimal.triggered.connect(self.altera_acumulador_para_hexadecimal)
         self.clock = 1
 
+
         self.ui_refresh.connect(self.step)
+
+
+    def altera_acumulador_para_decimal(self):
+        self.acumulador.setDigitCount(5)
+        self.acumulador.setDecMode()
+        self.label_5.setStyleSheet("background:rgba(0, 71, 133, 0.4);")
+        self.label_4.setStyleSheet("background:rgba(0, 71, 133, 0.1);")
+    
+    def altera_acumulador_para_hexadecimal(self):
+        self.acumulador.setDigitCount(4)
+        self.acumulador.setHexMode()
+        self.label_4.setStyleSheet("background:rgba(0, 71, 133, 0.4);")
+        self.label_5.setStyleSheet("background:rgba(0, 71, 133, 0.1);")
+        
 
     def altera_memoria_de_dados(self, endereco, valor):
         self.processador.memoria_de_dados.altera_celula(
             endereco, valor.upper())
 
     def altera_memoria_de_programa(self, endereco, valor):
-        split_valor = valor.split(" ")
-        valor = self.dict_assemblador[split_valor[0].upper()] + split_valor[1]
+        split_valor = valor.upper().split(" ")
+        valor = self.dict_assemblador[split_valor[0]] + split_valor[1]
         self.processador.memoria_de_programa.altera_celula(endereco, valor)
 
     def set_clock(self):
+        
         msg = QtWidgets.QInputDialog()
-
-        msg.setLabelText("Digite o clock desejado")
+        msg.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
+        msg.setLabelText("Digite a frequência de clock desejada em Hz:")
+        msg.setInputMode(QtWidgets.QInputDialog.DoubleInput)
+        msg.setOkButtonText("Setar")
+        msg.setDoubleValue(1/self.clock)
+        msg.setDoubleRange(0.1, 15)
+        msg.setDoubleStep(0.5)
         msg.setWindowTitle("Setar Clock")
         msg.exec_()
+
         try:
-            self.clock = 1/int(msg.textValue())
+            self.clock = 1/msg.doubleValue()
         except:
             pass
 
@@ -99,8 +124,8 @@ class Ui_MainPage(QMainWindow):
         endereco = self.processador.instrucao.endereco
         valor = self.processador.instrucao.valor
 
-        linha = int(self.processador.instrucao.endereco[:-1], 16)
-        coluna = int(self.processador.instrucao.endereco[-1], 16)
+        linha = int(endereco[:-1], 16)
+        coluna = int(endereco[-1], 16)
 
         self.set_selecionado_mem_programa(linha, coluna)
         self.set_selecionado_mem_dados(valor)
@@ -108,12 +133,22 @@ class Ui_MainPage(QMainWindow):
     def set_selecionado_mem_programa(self, linha, coluna):
         for i in range(self.ui_programa.tableWidget.rowCount()):
             for j in range(self.ui_programa.tableWidget.columnCount()):
+
                 item = self.ui_programa.tableWidget.item(i, j)
-                item.setBackground(QtGui.QColor(255, 255, 255))
+                
+                if i % 2 == 0:
+                    color = QtGui.QColor(255, 255, 255)
+                else:
+                    color = QtGui.QColor(0, 71, 133)
+                    color.setAlphaF(0.2)
+                
+                item.setBackground(color)
                 item.setForeground(QtGui.QColor(0, 0, 0))
 
         item = self.ui_programa.tableWidget.item(linha, coluna)
-        item.setBackground(QtGui.QColor(255, 0, 0))
+        highlight = QtGui.QColor(0, 71, 133)
+        highlight.setAlphaF(0.8)
+        item.setBackground(highlight)
 
     def set_selecionado_mem_dados(self, valor):
         linha = int(valor[1:-1], 16)
@@ -122,11 +157,20 @@ class Ui_MainPage(QMainWindow):
         for i in range(self.ui_dados.tableWidget.rowCount()):
             for j in range(self.ui_dados.tableWidget.columnCount()):
                 item = self.ui_dados.tableWidget.item(i, j)
-                item.setBackground(QtGui.QColor(255, 255, 255))
+
+                if i % 2 == 0:
+                    color = QtGui.QColor(255, 255, 255)
+                else:
+                    color = QtGui.QColor(0, 71, 133)
+                    color.setAlphaF(0.2)
+                
+                item.setBackground(color)
                 item.setForeground(QtGui.QColor(0, 0, 0))
 
         item = self.ui_dados.tableWidget.item(linha, coluna)
-        item.setBackground(QtGui.QColor(255, 0, 0))
+        highlight = QtGui.QColor(0, 71, 133)
+        highlight.setAlphaF(0.8)
+        item.setBackground(highlight)
 
     def closeEvent(self, event):
         try:
@@ -140,7 +184,7 @@ class Ui_MainPage(QMainWindow):
 
     def refresh_displays(self):
         self.program_counter.display(self.processador.instrucao.endereco)
-        self.acumulador.display(self.processador.acc)
+        self.acumulador.display(int(self.processador.acc,16))
         self.instruct_counter.display(
             self.processador.instrucao.pega_comando())
         self.set_selecionado_mem_programa(0, 0)

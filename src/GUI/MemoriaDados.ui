@@ -1,393 +1,377 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QMainWindow" name="Memoria de Dados">
+ <class>Memoria_de_Dados</class>
+ <widget class="QMainWindow" name="Memoria_de_Dados">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>618</width>
-    <height>618</height>
+    <width>1030</width>
+    <height>600</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1030</width>
+    <height>300</height>
+   </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1020</width>
-    <height>10000</height>
-   </size>
-  </property>
-    <property name="minimumSize">
-   <size>
-    <width>1020</width>
-    <height>300</height>
+    <width>1030</width>
+    <height>100000</height>
    </size>
   </property>
   <property name="windowTitle">
    <string>Memoria de Dados</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
-    <widget class="QTableWidget" name="tableWidget">
-     <property name="minimumSize">
-      <size>
-       <width>1650</width>
-       <height>1650</height>
-      </size>
-     </property>
-     <property name="tabletTracking">
-      <bool>false</bool>
-     </property>
-     <property name="gridStyle">
-      <enum>Qt::SolidLine</enum>
-     </property>
-     <property name="sortingEnabled">
-      <bool>false</bool>
-     </property>
-     <property name="rowCount">
-      <number>256</number>
-     </property>
-     <property name="columnCount">
-      <number>16</number>
-     </property>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <row/>
-     <column>
-      <property name="text">
-       <string>0</string>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow{
+	background: white:
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QTableWidget" name="tableWidget">
+      <property name="autoFillBackground">
+       <bool>false</bool>
       </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>1</string>
+      <property name="styleSheet">
+       <string notr="true">QTableWidget{
+	background: rgba(0, 71, 133,0.2
+);
+}</string>
       </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>2</string>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
       </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>3</string>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
       </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>4</string>
+      <property name="lineWidth">
+       <number>1</number>
       </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>5</string>
+      <property name="dragEnabled">
+       <bool>true</bool>
       </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>6</string>
+      <property name="dragDropMode">
+       <enum>QAbstractItemView::DragDrop</enum>
       </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>7</string>
+      <property name="defaultDropAction">
+       <enum>Qt::CopyAction</enum>
       </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>8</string>
+      <property name="alternatingRowColors">
+       <bool>true</bool>
       </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>9</string>
+      <property name="textElideMode">
+       <enum>Qt::ElideNone</enum>
       </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>A</string>
+      <property name="horizontalScrollMode">
+       <enum>QAbstractItemView::ScrollPerItem</enum>
       </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>B</string>
+      <property name="showGrid">
+       <bool>true</bool>
       </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>C</string>
+      <property name="rowCount">
+       <number>256</number>
       </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>D</string>
+      <property name="columnCount">
+       <number>16</number>
       </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>E</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>F</string>
-      </property>
-     </column>
-    </widget>
-   </item>
-  </layout>
+      <attribute name="horizontalHeaderVisible">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="horizontalHeaderCascadingSectionResizes">
+       <bool>false</bool>
+      </attribute>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1040</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

@@ -10,7 +10,8 @@ class Mem_Programa(Mem_Interface):
 
     def __init__(self, memoria_de_programa: dict, altera_memoria_de_programa: callable, comandos: list):
         super().__init__(UI_string='MemoriaPrograma', memoria=memoria_de_programa)
-        self.comandos = comandos
+
+        self.comandos = [i+" " for i in comandos]
         self.altera_memoria_de_programa = altera_memoria_de_programa
 
         for i in range(self.num_colunas):
