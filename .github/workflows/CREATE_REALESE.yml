@@ -57,6 +57,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.BIPy_TOKEN }}
         run: |
+          ls
+          cd dist
           gh release upload v$new_v BIPy.zip --clobber
             
       - name: Commit and push
