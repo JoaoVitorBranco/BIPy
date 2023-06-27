@@ -25,11 +25,17 @@ jobs:
           pip install -r requirements.txt
           pip install -r requirements-dev.txt
       
-      - name: Build BIPy
+      - name: Build BIPy Linux
         run: |
           pyinstaller --noconfirm --onedir --windowed --icon "./src/GUI/assets/icone.ico" --name "BIPy" --add-data "./src:src/"  "./src/main.py"
           cd dist
-          zip -r BIPy.zip BIPy
+          zip -r BIPy-linux.zip BIPy
+
+      - name: Build BIPy Windows
+        run: |
+          docker run -v "$(pwd):/src/" brimstone/pyinstaller "apt-get update -y && apt-get install -y wget && pip install -r requirements.txt && pyinstaller --noconfirm --onedir --windowed --icon "./src/GUI/assets/icone.ico" --name "BIPy" --add-data "./src;src/"  "./src/main.py"
+          cd dist
+          zip -r BIPy-windows.zip BIPy
 
       - name: Get current version
         run: |
@@ -57,16 +63,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.BIPy_TOKEN }}
         run: |
-          ls
-          cd dist
-          ls
-          gh release upload v$new_v BIPy.zip --clobber
+          gh release upload v$new_v BIPy-linux.zip --clobber
+          gh release upload v$new_v BIPy-windows.zip --clobber
             
-      # - name: Commit and push
-      #   env: 
-      #     CI_COMMIT_USER: ${{ github.actor }}
-      #   run: |
-      #     git config --global user.name "${{ env.CI_COMMIT_USER }}"
-      #     git config --global user.email "${{ env.CI_COMMIT_USER }}@users.noreply.github.com"
-      #     git commit -a -m "Bump version from $old_v to $new_v"
-      #     git push origin ${{ github.ref_name }}           
+      - name: Commit and push
+        env: 
+          CI_COMMIT_USER: ${{ github.actor }}
+        run: |
+          git config --global user.name "${{ env.CI_COMMIT_USER }}"
+          git config --global user.email "${{ env.CI_COMMIT_USER }}@users.noreply.github.com"
+          git commit -a -m "Bump version from $old_v to $new_v"
+          git push origin ${{ github.ref_name }}           
