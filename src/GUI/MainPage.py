@@ -30,12 +30,15 @@ class Ui_MainPage(QMainWindow):
         super().__init__()
         self.processador = processador
 
+
         self.dict_assemblador = processador.dict_assemblador
         self.dict_assemblador_inv = processador.dict_assemblador_inv
 
         comandos = list(processador.dict_assemblador.keys())
 
         uic.loadUi(resource_path('src/GUI/MainPage.ui'), self)
+
+        self.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
         self.show()
 
         self.ui_dados = Mem_Dados(memoria_de_dados=self.processador.pega_memoria_de_dados(

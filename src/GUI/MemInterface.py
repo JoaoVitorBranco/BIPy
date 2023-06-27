@@ -1,6 +1,16 @@
-from PyQt5 import QtCore, QtWidgets, uic
+import os
+import sys
+from PyQt5 import QtCore, QtWidgets, uic, QtGui
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtGui import QFont
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 
 class Mem_Interface(QMainWindow):
@@ -11,6 +21,8 @@ class Mem_Interface(QMainWindow):
         self.memoria = memoria
 
         uic.loadUi(f'src/GUI/{UI_string}.ui', self)
+        self.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
+
 
         self.num_linhas = 256
         self.num_colunas = 16
