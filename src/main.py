@@ -13,7 +13,6 @@ memoria_de_dados = MemoriaMock()
 processador = BIPy(memoria_de_dados=memoria_de_dados,
                    memoria_de_programa=memoria_de_programa)
 
-
 app = QtWidgets.QApplication(sys.argv)
 UIWindow = Ui_MainPage(processador=processador)
 app.exec_()
