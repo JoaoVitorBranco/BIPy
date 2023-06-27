@@ -147,4 +147,7 @@ jobs:
           git config --global user.name "${{ env.CI_COMMIT_USER }}"
           git config --global user.email "${{ env.CI_COMMIT_USER }}@users.noreply.github.com"
           git commit -a -m "Bump version from $old_v to $new_v"
-          git push origin ${{ github.ref_name }}
+          git push origin prod
+          git checkout dev
+          git merge prod
+          git push origin dev
