@@ -1,7 +1,7 @@
 import pytest
 from src.BIPy import BIPy
 from src.entidades.celula import Celula
-from src.memoria.memoria_mock import MemoriaMock
+from src.memoria.repo.memoria_mock import MemoriaMock
 from src.shared.erros.erro_de_processador import ErroDeProcessador
 
 
