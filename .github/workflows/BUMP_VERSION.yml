@@ -23,22 +23,8 @@ jobs:
 
       - name: Bump version number
         run: |
-          feature=$(git log -1 --oneline | grep "feature/" | xargs)
-          fix=$(git log -1 --oneline | grep "fix/" | xargs)
+          new_v=$(python -c "print('$old_v'.split('.')[0] + '.' + str(int('$old_v'.split('.')[1]) + 1))")
 
-          echo "feature: $feature"
-          echo "fix: $fix"
-
-          if [[ -n "$fix" ]]; then
-            new_v=$(python -c "print('$old_v'.split('.')[0] + '.' + str(int('$old_v'.split('.')[1]) + 1))")
-          elif [[ -n "$feature" ]]; then
-            new_v=$(python -c "print(str(int('$old_v'.split('.')[0]) + 1) + '.' +'$old_v'.split('.')[1])")
-          else
-            echo "Commit is not feature or fix"
-            new_v=$old_v
-          fi
-
-          echo "New version: $new_v"
           echo "new_v=$new_v" >> $GITHUB_ENV
         
       - name: Update setup.py
@@ -48,7 +34,6 @@ jobs:
       - name: Commit and push
         env: 
           CI_COMMIT_USER: ${{ github.actor }}
-        if: ${{ env.new_v != env.old_v }}
         run: |
           git config --global user.name "${{ env.CI_COMMIT_USER }}"
           git config --global user.email "${{ env.CI_COMMIT_USER }}@users.noreply.github.com"
