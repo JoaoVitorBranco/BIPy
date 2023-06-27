@@ -124,7 +124,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.BIPy_TOKEN }}
         run: |
           date=$(date +'%Y-%m-%d')
-          gh release create v$new_v -t "Release v$new_v" -F "$new_v - Release funcionando! $date :tada:"
+          gh release create v$new_v -t "Release v$new_v" -n "$new_v - Release funcionando! $date :tada:"
           echo "Release created"
           
       - name: Upload BIPy.zip
