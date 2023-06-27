@@ -59,33 +59,33 @@ jobs:
           name: BIPy-linux
           path: dist/BIPy-linux.zip  
 
-  # windows_build:
-  #   runs-on: windows-latest
-  #   needs: process_release
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v3
+  windows_build:
+    runs-on: windows-latest
+    needs: process_release
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
       
-  #     - name: Set up Python 3.9
-  #       uses: actions/setup-python@v3
-  #       with:
-  #         python-version: 3.9
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
 
-  #     - name: Install dependencies
-  #       run: |
-  #         pip install -r requirements.txt
-  #         pip install -r requirements-dev.txt
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
           
-  #     - name: Build BIPy Windows
-  #       run: |
-  #         pyinstaller --noconfirm --onedir --windowed --icon "./src/GUI/assets/icone.ico" --name "BIPy" --add-data "./src;src/"  "./src/main.py"
-  #         cd dist
-  #         zip -r BIPy-windows.zip BIPy
-  #     - name: Archive artifacts
-  #       uses: actions/upload-artifact@v3
-  #       with:
-  #         name: BIPy-windows
-  #         path: dist/BIPy-windows.zip
+      - name: Build BIPy Windows
+        run: |
+          pyinstaller --noconfirm --onedir --windowed --icon "./src/GUI/assets/icone.ico" --name "BIPy" --add-data "./src;src/"  "./src/main.py"
+          cd dist
+          zip -r BIPy-windows.zip BIPy
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: BIPy-windows
+          path: dist/BIPy-windows.zip
 
   publish_release:
     runs-on: ubuntu-latest
@@ -97,11 +97,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       
-      - name: Retrieve artifacts
+      - name: Retrieve Linux Artifact
         uses: actions/download-artifact@v3
         with:
           name: BIPy-linux
           path: dist/
+      - name: Retrieve Windows Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: BIPy-windows
+          path: dist/ 
+
       - name: Retrieve variables
         run : |
           echo "old_v=$old_v"
@@ -126,7 +132,7 @@ jobs:
             echo "Uploading BIPy-linux.zip"
             ls
             gh release upload v$new_v BIPy-linux.zip --clobber
-            # gh release upload v$new_v BIPy-windows.zip --clobber       
+            gh release upload v$new_v BIPy-windows.zip --clobber       
 
       - name: Commit and push
         env: 
