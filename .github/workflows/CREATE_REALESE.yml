@@ -153,6 +153,5 @@ jobs:
         env:
           CI_COMMIT_USER: ${{ github.actor }}
         run: |
-            git checkout main
-            git merge prod
-            git push origin main
+          gh pr create --title "Merge prod into main" --body "Merge prod into main" --base main --head prod
+          gh pr merge --auto --squash --merge prod
