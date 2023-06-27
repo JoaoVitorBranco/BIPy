@@ -33,7 +33,7 @@ jobs:
 
       - name: Build BIPy Windows
         run: |
-          docker run -v "$(pwd):/src/" brimstone/pyinstaller "apt-get update -y && apt-get install -y wget && pip install -r requirements.txt && pyinstaller --noconfirm --onedir --windowed --icon "./src/GUI/assets/icone.ico" --name "BIPy" --add-data "./src;src/"  "./src/main.py"
+          docker run -v "$(pwd):/src/" brimstone/pyinstaller "apt-get update -y && apt-get install -y wget && pip install -r requirements.txt && pyinstaller --noconfirm --onedir --windowed --icon './src/GUI/assets/icone.ico' --name 'BIPy' --add-data './src;src/'  './src/main.py'"
           cd dist
           zip -r BIPy-windows.zip BIPy
 
