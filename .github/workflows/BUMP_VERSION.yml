@@ -24,7 +24,20 @@ jobs:
 
       - name: Bump version number
         run: |
-          new_v=$(python -c "print(str(int('$old_v'.split('.')[0]) + 1) + '.' +'$old_v'.split('.')[1])")
+          feature=$(git log -1 --oneline | grep "feature/" | xargs)
+          fix=$(git log -1 --oneline | grep "fix/" | xargs)
+
+          echo "feature: $feature"
+          echo "fix: $fix"
+
+          if [[ -n "$fix" ]]; then
+            new_v=$(python -c "print('$old_v'.split('.')[0] + '.' + str(int('$old_v'.split('.')[1]) + 1))")
+          elif [[ -n "$feature" ]]; then
+            new_v=$(python -c "print(str(int('$old_v'.split('.')[0]) + 1) + '.' +'$old_v'.split('.')[1])")
+          else
+            echo "commit is not feature or fix"
+          fi
+
           echo "New version: $new_v"
           echo "new_v=$new_v" >> $GITHUB_ENV
         
