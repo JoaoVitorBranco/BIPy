@@ -6,8 +6,7 @@ on:
     paths-ignore:
       - 'setup.py'
     branches:
-      - main
-      - create-bump
+      - dev
 
 jobs:
   bump_version:
