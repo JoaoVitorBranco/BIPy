@@ -52,7 +52,7 @@ jobs:
         run: |
           pyinstaller --noconfirm --onedir --windowed --icon "./src/GUI/assets/icone.ico" --name "BIPy" --add-data "./src:src/"  "./src/main.py"
           cd dist
-          zip -r BIPy-linux.zip BIPy
+
       - name: Archive artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -80,7 +80,7 @@ jobs:
         run: |
           pyinstaller --noconfirm --onedir --windowed --icon "./src/GUI/assets/icone.ico" --name "BIPy" --add-data "./src;src/"  "./src/main.py"
           cd dist
-          zip -r BIPy-windows.zip BIPy
+          
       - name: Archive artifacts
         uses: actions/upload-artifact@v3
         with:
