@@ -90,6 +90,9 @@ jobs:
   publish_release:
     runs-on: ubuntu-latest
     needs: [process_release, linux_build]
+    env: 
+      old_v: ${{ needs.process_release.outputs.old_v }}
+      new_v: ${{ needs.process_release.outputs.new_v }}
     steps: 
       - name: Checkout
         uses: actions/checkout@v3
@@ -101,8 +104,6 @@ jobs:
           path: dist/BIPy-linux.zip
       - name: Retrieve variables
         run : |
-          old_v=${{needs.process_release.outputs.old_v}}
-          new_v=${{needs.process_release.outputs.new_v}}
           echo "old_v=$old_v"
           echo "new_v=$new_v"
 
@@ -121,7 +122,6 @@ jobs:
         env:
             GITHUB_TOKEN: ${{ secrets.BIPy_TOKEN }}
         run: |
-            ls
             cd dist
             echo "Uploading BIPy-linux.zip"
             ls
