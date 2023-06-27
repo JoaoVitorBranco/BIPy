@@ -72,6 +72,11 @@ jobs:
           pyinstaller --noconfirm --onedir --windowed --icon "./src/GUI/assets/icone.ico" --name "BIPy" --add-data "./src:src/"  "./src/main.py"
           cd dist
           zip -r BIPy-linux.zip BIPy
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: BIPy-linux
+          path: dist/BIPy-linux.zip          
 
       # - name: Upload BIPy.zip
       #   env:
@@ -86,8 +91,14 @@ jobs:
     steps: 
       - name: Checkout
         uses: actions/checkout@v3
-        
+      
+      - name: Retrieve artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: BIPy-linux
+          path: dist/BIPy-linux.zip
+
       - name: Publish release
         run: |
-          echo "Publish release"
           ls
+          
