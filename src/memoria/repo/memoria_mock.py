@@ -2,6 +2,7 @@ from typing import Dict
 from src.entidades.dominio import Dominio
 from src.enums.tipo_de_memoria_enum import TipoDeMemoriaEnum
 from src.memoria.repo.memoria_interface import MemoriaInterface
+from src.shared.erros.erro_de_memoria import ErroDeMemoria
 
 
 class MemoriaMock(MemoriaInterface):
@@ -21,7 +22,9 @@ class MemoriaMock(MemoriaInterface):
         self.arquivo = f"src/memoria/armazenamento/{self.nome_do_arquivo}.json"
         
     def ler_celula(self, endereco: str) -> str:
-        valor = self.memoria[endereco]
+        if(self.memoria.get(endereco) == None):
+            raise ErroDeMemoria("MemoriaJSON", f"Endereço {endereco} não encontrado")
+        valor = self.memoria.get(endereco)
         return valor
     
     def altera_celula(self, endereco: str, valor: str) -> None:

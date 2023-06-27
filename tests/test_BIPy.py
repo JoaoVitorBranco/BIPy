@@ -1,44 +1,49 @@
 import pytest
 from src.BIPy import BIPy
 from src.entidades.celula import Celula
-from src.memoria.repo.memoria_mock import MemoriaMock
+from src.entidades.dominio import Dominio
+from src.enums.tipo_de_memoria_enum import TipoDeMemoriaEnum
+from src.memoria.repo.memoria_json import MemoriaJSON
 from src.shared.erros.erro_de_processador import ErroDeProcessador
 
+MEMORIA_DE_DADOS = MemoriaJSON(TipoDeMemoriaEnum.MEMORIA_DE_DADOS)
+MEMORIA_DE_PROGRAMA = MemoriaJSON(TipoDeMemoriaEnum.MEMORIA_DE_PROGRAMA)
 
 class Test_BIPy:
+    
     def test_constructor(self):
-        memoria_mock = MemoriaMock()
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
+        processador.limpa_memorias()
         assert processador.acc == "0000"
         assert processador.comparacao.value == "SEM_COMPARACAO"
         assert processador.pc == "0000"
-        assert processador.instrucao == Celula(endereco="0x000", valor=memoria_mock.ler_celula("0x000"))
-        assert processador.memoria_de_programa.memoria == memoria_mock.memoria
-        assert processador.memoria_de_dados.memoria == memoria_mock.memoria
+        assert processador.instrucao == Celula(endereco="0x000", valor=MEMORIA_DE_PROGRAMA.ler_celula("0x000"))
+        assert processador.memoria_de_programa.memoria == MEMORIA_DE_PROGRAMA.memoria
+        assert processador.memoria_de_dados.memoria == MEMORIA_DE_DADOS.memoria
         
     def test_valor_em_endereco(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
         assert processador.valor_em_endereco("000") == "0x000"
         assert processador.valor_em_endereco("00F") == "0x00F"
         assert processador.valor_em_endereco("0F0") == "0x0F0"
         assert processador.valor_em_endereco("F00") == "0xF00"
         
     def test_HLT(self):
-        memoria_mock = MemoriaMock()
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
+        processador.limpa_memorias()
         processador.HLT(valor="000")
-        assert processador.instrucao == Celula(endereco="0x000", valor=memoria_mock.ler_celula("0x000"))
+        assert processador.instrucao == Celula(endereco="0x000", valor=MEMORIA_DE_DADOS.ler_celula("0x000"))
         assert processador.acc == "0000"
         assert processador.pc == "0000"
         assert processador.comparacao.value == "SEM_COMPARACAO"
         
     def test_LDI(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
         processador.LDI(valor="123")
         assert processador.acc == "0123"
 
     def test_STO(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
         assert processador.memoria_de_dados.ler_celula("0x000") == "0000"
         
         processador.LDI(valor="123")
@@ -46,7 +51,7 @@ class Test_BIPy:
         assert processador.memoria_de_dados.ler_celula("0x123") == "0123"
         
     def test_LD(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
         processador.LDI(valor="123")
         processador.STO(valor="AAA")
         processador.LD(valor="BBB")
@@ -56,7 +61,7 @@ class Test_BIPy:
         assert processador.acc == "0123"
         
     def test_ADD_1(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
         processador.LDI(valor="123")
         processador.STO(valor="123")
         processador.LDI(valor="456")
@@ -64,7 +69,7 @@ class Test_BIPy:
         assert processador.acc == "0579"
         
     def test_ADD_2(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
         processador.LDI(valor="000")
         processador.STO(valor="123")
         processador.LDI(valor="456")
@@ -72,7 +77,7 @@ class Test_BIPy:
         assert processador.acc == "0456"
                 
     def test_ADD_3(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
         processador.LDI(valor="FFF")
         processador.STO(valor="123")
         processador.LDI(valor="001")
@@ -80,25 +85,25 @@ class Test_BIPy:
         assert processador.acc == "1000"
         
     def test_ADDI_1(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
         processador.LDI(valor="123")
         processador.ADDI(valor="123")
         assert processador.acc == "0246"
                 
     def test_ADDI_2(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
         processador.LDI(valor="000")
         processador.ADDI(valor="123")
         assert processador.acc == "0123"
 
     def test_ADDI_3(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
         processador.LDI(valor="FFF")
         processador.ADDI(valor="002")
         assert processador.acc == "1001"
     
     def test_SUB_1(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
         processador.LDI(valor="00F")
         processador.STO(valor="123")
         processador.LDI(valor="014")
@@ -106,7 +111,7 @@ class Test_BIPy:
         assert processador.acc == "0005"
         
     def test_SUB_2(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
         processador.LDI(valor="FAF")
         processador.STO(valor="123")
         processador.LDI(valor="FA0")
@@ -114,7 +119,7 @@ class Test_BIPy:
         assert processador.acc == "FFF1"
         
     def test_SUB_3(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
         processador.LDI(valor="000")
         processador.STO(valor="123")
         processador.LDI(valor="014")
@@ -122,46 +127,46 @@ class Test_BIPy:
         assert processador.acc == "0014"
         
     def test_SUBI_1(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
         processador.LDI(valor="014")
         processador.SUBI(valor="00F")
         assert processador.acc == "0005"
         
     def test_SUBI_2(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
         processador.LDI(valor="FA0")
         processador.SUBI(valor="FAF")
         assert processador.acc == "FFF1"
         
     def test_SUBI_3(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
         processador.LDI(valor="123")
         processador.SUBI(valor="000")
         assert processador.acc == "0123"
         
     def test_JUMP_1(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
         processador.memoria_de_programa.altera_celula("0x123", "0123")
         processador.JUMP(valor="123")
         assert processador.instrucao == Celula(endereco="0x123", valor="0123")
     
     def test_JUMP_2(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
         processador.memoria_de_programa.altera_celula("0x000", "ACDC")
         processador.JUMP(valor="000")
         assert processador.instrucao == Celula(endereco="0x000", valor="ACDC")
         
     def test_NOP(self):
-        memoria_mock = MemoriaMock()
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
+        processador.limpa_memorias()
         processador.NOP(valor="ACD")
-        assert processador.instrucao == Celula(endereco="0x000", valor=memoria_mock.ler_celula("0x000"))
+        assert str(processador.instrucao) == str(Celula(endereco="0x000", valor=MEMORIA_DE_PROGRAMA.ler_celula("0x000")))
         assert processador.acc == "0000"
         assert processador.pc == "0000"
         assert processador.comparacao.value == "SEM_COMPARACAO"
     
     def test_CMP_maior(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
         processador.LDI(valor="123")
         processador.STO(valor="123")
         processador.LDI(valor="456")
@@ -169,7 +174,7 @@ class Test_BIPy:
         assert processador.comparacao.value == "MAIOR"
         
     def test_CMP_menor(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
         processador.LDI(valor="F00")
         processador.STO(valor="123")
         processador.LDI(valor="456")
@@ -177,13 +182,14 @@ class Test_BIPy:
         assert processador.comparacao.value == "MENOR"
         
     def test_CMP_igual(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
+        processador.limpa_memorias()
         processador.LDI(valor="000")
         processador.CMP(valor="123")
         assert processador.comparacao.value == "IGUAL"
         
     def test_JNE_certo(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
         processador.LDI(valor="123")
         processador.STO(valor="123")
         processador.LDI(valor="456")
@@ -193,7 +199,8 @@ class Test_BIPy:
         assert processador.instrucao == Celula(endereco="0x456", valor="0456")
     
     def test_JNE_errado(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
+        processador.limpa_memorias()
         processador.LD(valor="123")
         processador.CMP(valor="123")
         processador.memoria_de_programa.altera_celula("0x456", "0456")
@@ -201,7 +208,7 @@ class Test_BIPy:
         assert processador.instrucao == Celula(endereco="0x000", valor="0000")
         
     def test_JL_certo(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
         processador.LDI(valor="123")
         processador.STO(valor="123")
         processador.LDI(valor="001")
@@ -211,7 +218,8 @@ class Test_BIPy:
         assert processador.instrucao == Celula(endereco="0x456", valor="0456")
         
     def test_JL_errado(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
+        processador.limpa_memorias()
         processador.LD(valor="000")
         processador.CMP(valor="123")
         processador.memoria_de_programa.altera_celula("0x456", "0456")
@@ -219,7 +227,7 @@ class Test_BIPy:
         assert processador.instrucao == Celula(endereco="0x000", valor="0000")
     
     def test_JG_certo(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
         processador.LDI(valor="123")
         processador.STO(valor="123")
         processador.LDI(valor="12F")
@@ -229,7 +237,8 @@ class Test_BIPy:
         assert processador.instrucao == Celula(endereco="0x456", valor="0456")
         
     def test_JG_errado(self):
-        processador = BIPy(memoria_de_programa=MemoriaMock(), memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_DADOS, memoria_de_dados=MEMORIA_DE_PROGRAMA)
+        processador.limpa_memorias()
         processador.LD(valor="000")
         processador.CMP(valor="123")
         processador.memoria_de_programa.altera_celula("0x456", "0456")
@@ -237,10 +246,10 @@ class Test_BIPy:
         assert processador.instrucao == Celula(endereco="0x000", valor="0000")
         
     def test_executa_comando_HLT(self):
-        memoria_de_programa = MemoriaMock()
+        memoria_de_programa = MEMORIA_DE_PROGRAMA
         memoria_de_programa.altera_celula("0x000", "0ACB")
         
-        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=MEMORIA_DE_DADOS)
         processador.LDI(valor="AAA")
         processador.executa_comando()
         
@@ -250,11 +259,11 @@ class Test_BIPy:
         assert processador.comparacao.value == "SEM_COMPARACAO"
         
     def test_executa_comando_STO(self):
-        memoria_de_programa = MemoriaMock()
+        memoria_de_programa = MEMORIA_DE_PROGRAMA
         memoria_de_programa.altera_celula("0x000", "1ACB")
         memoria_de_programa.altera_celula("0x001", "ACDC")
         
-        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=MEMORIA_DE_DADOS)
         processador.LDI(valor="AAA")
         processador.executa_comando()
         
@@ -265,11 +274,11 @@ class Test_BIPy:
         assert processador.memoria_de_dados.ler_celula(endereco="0xACB") == "0AAA"
         
     def test_executa_comando_LD(self):
-        memoria_de_programa = MemoriaMock()
+        memoria_de_programa = MEMORIA_DE_PROGRAMA
         memoria_de_programa.altera_celula("0x000", "2ACB")
         memoria_de_programa.altera_celula("0x001", "ACDC")
         
-        memoria_de_dados = MemoriaMock()
+        memoria_de_dados = MEMORIA_DE_DADOS
         memoria_de_dados.altera_celula("0xACB", "0AAA")
         
         processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
@@ -282,11 +291,11 @@ class Test_BIPy:
         assert processador.comparacao.value == "SEM_COMPARACAO"
         
     def test_executa_comando_LDI(self):
-        memoria_de_programa = MemoriaMock()
+        memoria_de_programa = MEMORIA_DE_PROGRAMA
         memoria_de_programa.altera_celula("0x000", "3ACB")
         memoria_de_programa.altera_celula("0x001", "ACDC")
         
-        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=MEMORIA_DE_DADOS)
         processador.executa_comando()
         
         assert processador.instrucao == Celula(endereco="0x001", valor="ACDC")
@@ -295,11 +304,11 @@ class Test_BIPy:
         assert processador.comparacao.value == "SEM_COMPARACAO" 
         
     def test_executa_comando_ADD(self):
-        memoria_de_programa = MemoriaMock()
+        memoria_de_programa = MEMORIA_DE_PROGRAMA
         memoria_de_programa.altera_celula("0x000", "4ACB")
         memoria_de_programa.altera_celula("0x001", "ACDC")
         
-        memoria_de_dados = MemoriaMock()
+        memoria_de_dados = MEMORIA_DE_DADOS
         memoria_de_dados.altera_celula("0xACB", "0AAA")
         
         processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
@@ -312,11 +321,11 @@ class Test_BIPy:
         assert processador.comparacao.value == "SEM_COMPARACAO"
         
     def test_executa_comando_ADDI(self):
-        memoria_de_programa = MemoriaMock()
+        memoria_de_programa = MEMORIA_DE_PROGRAMA
         memoria_de_programa.altera_celula("0x000", "5ACB")
         memoria_de_programa.altera_celula("0x001", "ACDC")
         
-        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=MEMORIA_DE_DADOS)
         processador.LDI(valor="AAA")
         processador.executa_comando()
         
@@ -326,11 +335,11 @@ class Test_BIPy:
         assert processador.comparacao.value == "SEM_COMPARACAO"
         
     def test_executa_comando_SUB(self):
-        memoria_de_programa = MemoriaMock()
+        memoria_de_programa = MEMORIA_DE_PROGRAMA
         memoria_de_programa.altera_celula("0x000", "6ACB")
         memoria_de_programa.altera_celula("0x001", "ACDC")
         
-        memoria_de_dados = MemoriaMock()
+        memoria_de_dados = MEMORIA_DE_DADOS
         memoria_de_dados.altera_celula("0xACB", "0AAA")
         
         processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
@@ -343,11 +352,11 @@ class Test_BIPy:
         assert processador.comparacao.value == "SEM_COMPARACAO"
         
     def test_executa_comando_SUBI(self):
-        memoria_de_programa = MemoriaMock()
+        memoria_de_programa = MEMORIA_DE_PROGRAMA
         memoria_de_programa.altera_celula("0x000", "714D")
         memoria_de_programa.altera_celula("0x001", "ACDC")
         
-        memoria_de_dados = MemoriaMock()
+        memoria_de_dados = MEMORIA_DE_DADOS
         
         processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
         processador.LDI(valor="AFB")
@@ -359,11 +368,11 @@ class Test_BIPy:
         assert processador.comparacao.value == "SEM_COMPARACAO"
         
     def test_executa_comando_JUMP(self):
-        memoria_de_programa = MemoriaMock()
+        memoria_de_programa = MEMORIA_DE_PROGRAMA
         memoria_de_programa.altera_celula("0x000", "8ACB")
         memoria_de_programa.altera_celula("0xACB", "FFFF")
         
-        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=MEMORIA_DE_DADOS)
         processador.executa_comando()
         
         assert processador.instrucao == Celula(endereco="0xACB", valor="FFFF")
@@ -371,11 +380,11 @@ class Test_BIPy:
         assert processador.comparacao.value == "SEM_COMPARACAO"
         
     def test_executa_comando_NOP(self):
-        memoria_de_programa = MemoriaMock()
+        memoria_de_programa = MEMORIA_DE_PROGRAMA
         memoria_de_programa.altera_celula("0x000", "9ACB")
         memoria_de_programa.altera_celula("0x001", "ACDC")
         
-        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=MemoriaMock())
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=MEMORIA_DE_DADOS)
         processador.executa_comando()
         
         assert processador.instrucao == Celula(endereco="0x001", valor="ACDC")
@@ -383,11 +392,11 @@ class Test_BIPy:
         assert processador.comparacao.value == "SEM_COMPARACAO"
         
     def test_executa_comando_CMP(self):
-        memoria_de_programa = MemoriaMock()
+        memoria_de_programa = MEMORIA_DE_PROGRAMA
         memoria_de_programa.altera_celula("0x000", "AACB")
         memoria_de_programa.altera_celula("0x001", "ACDC")
         
-        memoria_de_dados = MemoriaMock()
+        memoria_de_dados = MEMORIA_DE_DADOS
         memoria_de_dados.altera_celula("0xACB", "0AAA")
         
         processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
@@ -400,12 +409,12 @@ class Test_BIPy:
         assert processador.comparacao.value == "MENOR"
         
     def test_executa_comando_JNE(self):
-        memoria_de_programa = MemoriaMock()
+        memoria_de_programa = MEMORIA_DE_PROGRAMA
         memoria_de_programa.altera_celula("0x000", "AACB")
         memoria_de_programa.altera_celula("0x001", "BFFF")
         memoria_de_programa.altera_celula("0xFFF", "FFFF")
         
-        memoria_de_dados = MemoriaMock()
+        memoria_de_dados = MEMORIA_DE_DADOS
         memoria_de_dados.altera_celula("0xACB", "0AAA")
 
         processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
@@ -419,13 +428,13 @@ class Test_BIPy:
         assert processador.comparacao.value == "MENOR"
         
     def test_executa_comando_JNE_sem_JUMP(self):
-        memoria_de_programa = MemoriaMock()
+        memoria_de_programa = MEMORIA_DE_PROGRAMA
         memoria_de_programa.altera_celula("0x000", "AACB")
         memoria_de_programa.altera_celula("0x001", "BFFF")
         memoria_de_programa.altera_celula("0x002", "0002")
         memoria_de_programa.altera_celula("0xFFF", "FFFF")
         
-        memoria_de_dados = MemoriaMock()
+        memoria_de_dados = MEMORIA_DE_DADOS
         memoria_de_dados.altera_celula("0xACB", "0AAA")
 
         processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
@@ -439,12 +448,12 @@ class Test_BIPy:
         assert processador.comparacao.value == "IGUAL"
         
     def test_executa_comando_JL(self):
-        memoria_de_programa = MemoriaMock()
+        memoria_de_programa = MEMORIA_DE_PROGRAMA
         memoria_de_programa.altera_celula("0x000", "AACB")
         memoria_de_programa.altera_celula("0x001", "CFFF")
         memoria_de_programa.altera_celula("0xFFF", "FFFF")
         
-        memoria_de_dados = MemoriaMock()
+        memoria_de_dados = MEMORIA_DE_DADOS
         memoria_de_dados.altera_celula("0xACB", "0AAA")
 
         processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
@@ -458,13 +467,13 @@ class Test_BIPy:
         assert processador.comparacao.value == "MENOR"
         
     def test_executa_comando_JL_sem_JUMP(self):
-        memoria_de_programa = MemoriaMock()
+        memoria_de_programa = MEMORIA_DE_PROGRAMA
         memoria_de_programa.altera_celula("0x000", "AACB")
         memoria_de_programa.altera_celula("0x001", "CFFF")
         memoria_de_programa.altera_celula("0x002", "0002")
         memoria_de_programa.altera_celula("0xFFF", "FFFF")
         
-        memoria_de_dados = MemoriaMock()
+        memoria_de_dados = MEMORIA_DE_DADOS
         memoria_de_dados.altera_celula("0xACB", "0AAA")
 
         processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
@@ -478,12 +487,12 @@ class Test_BIPy:
         assert processador.comparacao.value == "IGUAL"
         
     def test_executa_comando_JG(self):
-        memoria_de_programa = MemoriaMock()
+        memoria_de_programa = MEMORIA_DE_PROGRAMA
         memoria_de_programa.altera_celula("0x000", "AACB")
         memoria_de_programa.altera_celula("0x001", "DFFF")
         memoria_de_programa.altera_celula("0xFFF", "FFFF")
         
-        memoria_de_dados = MemoriaMock()
+        memoria_de_dados = MEMORIA_DE_DADOS
         memoria_de_dados.altera_celula("0xACB", "0AAA")
 
         processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
@@ -497,13 +506,13 @@ class Test_BIPy:
         assert processador.comparacao.value == "MAIOR"
         
     def test_executa_comando_JG_sem_JUMP(self):
-        memoria_de_programa = MemoriaMock()
+        memoria_de_programa = MEMORIA_DE_PROGRAMA
         memoria_de_programa.altera_celula("0x000", "AACB")
         memoria_de_programa.altera_celula("0x001", "DFFF")
         memoria_de_programa.altera_celula("0x002", "0002")
         memoria_de_programa.altera_celula("0xFFF", "FFFF")
         
-        memoria_de_dados = MemoriaMock()
+        memoria_de_dados = MEMORIA_DE_DADOS
         memoria_de_dados.altera_celula("0xACB", "0F00")
 
         processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
@@ -517,10 +526,11 @@ class Test_BIPy:
         assert processador.comparacao.value == "MENOR"
         
     def test_pega_memoria_de_dados(self):
-        memoria_de_programa = MemoriaMock()
-        memoria_de_dados = MemoriaMock()
+        memoria_de_programa = MEMORIA_DE_PROGRAMA
+        memoria_de_dados = MEMORIA_DE_DADOS
 
         processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
+        processador.limpa_memorias()
         expected = {
         "0x00":{
             "0":"0000",
@@ -5134,8 +5144,8 @@ class Test_BIPy:
         assert processador.pega_memoria_de_dados() == expected
         
     def test_pega_memoria_de_programa(self):
-        memoria_de_programa = MemoriaMock()
-        memoria_de_dados = MemoriaMock()
+        memoria_de_programa = MEMORIA_DE_PROGRAMA
+        memoria_de_dados = MEMORIA_DE_DADOS
 
         memoria_de_programa.altera_celula("0x000", "AACB")
         memoria_de_programa.altera_celula("0x001", "DFFF")
@@ -9756,9 +9766,137 @@ class Test_BIPy:
         assert processador.pega_memoria_de_programa() == expected
         
     def test_pega_memoria_de_programa_erro(self):
-        memoria_de_programa = MemoriaMock()
-        memoria_de_dados = MemoriaMock()
+        memoria_de_programa = MEMORIA_DE_PROGRAMA
+        memoria_de_dados = MEMORIA_DE_DADOS
         memoria_de_programa.altera_celula("0x00F", "FFFF")
         processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
         with pytest.raises(ErroDeProcessador):
             processador.pega_memoria_de_programa()
+            
+    def test_altera_memoria_de_dados(self):
+        memoria_de_programa = MEMORIA_DE_PROGRAMA
+        memoria_de_dados = MEMORIA_DE_DADOS
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
+        
+        memoria_sobrescrita =  {
+            "0x" + Dominio.HEXADECIMAL[i] + Dominio.HEXADECIMAL[j] + Dominio.HEXADECIMAL[k]: "ACDC"
+            for i in range(0, 16)
+            for j in range(0, 16)
+            for k in range(0, 16)
+        }
+        
+        processador.memoria_de_dados.memoria = memoria_sobrescrita
+        input_dict = processador.pega_memoria_de_dados()
+        processador.memoria_de_dados.limpa_memoria()
+        processador.altera_memoria_de_dados(input_dict)
+        assert processador.memoria_de_dados.ler_todas_as_celulas() == memoria_sobrescrita
+        
+    def test_altera_memoria_de_programa(self):
+        memoria_de_programa = MEMORIA_DE_PROGRAMA
+        memoria_de_dados = MEMORIA_DE_DADOS
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
+        processador.limpa_memorias()
+        memoria_sobrescrita =  {
+            "0x" + Dominio.HEXADECIMAL[i] + Dominio.HEXADECIMAL[j] + Dominio.HEXADECIMAL[k]: "ACDC"
+            for i in range(0, 16)
+            for j in range(0, 16)
+            for k in range(0, 16)
+        }
+        
+        processador.memoria_de_programa.memoria = memoria_sobrescrita
+        input_dict = processador.pega_memoria_de_programa()
+        processador.memoria_de_programa.limpa_memoria()
+        processador.altera_memoria_de_programa(input_dict)
+        assert processador.memoria_de_programa.ler_todas_as_celulas() == memoria_sobrescrita
+        
+    def test_altera_memoria_de_programa_erro(self):
+        memoria_de_programa = MEMORIA_DE_PROGRAMA
+        memoria_de_dados = MEMORIA_DE_DADOS
+        processador = BIPy(memoria_de_programa=memoria_de_programa, memoria_de_dados=memoria_de_dados)
+        
+        memoria_sobrescrita =  {
+            "0x" + Dominio.HEXADECIMAL[i] + Dominio.HEXADECIMAL[j] + Dominio.HEXADECIMAL[k]: "ACDC"
+            for i in range(0, 16)
+            for j in range(0, 16)
+            for k in range(0, 16)
+        }
+        
+        processador.memoria_de_programa.memoria = memoria_sobrescrita
+        input_dict = processador.pega_memoria_de_programa()
+        input_dict["0xF0"]["F"] = "GFFF"
+        
+        processador.memoria_de_programa.limpa_memoria()
+        with pytest.raises(ErroDeProcessador):
+            processador.altera_memoria_de_programa(input_dict)
+    
+    def test_limpa_memoria_de_dados(self):
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_PROGRAMA, memoria_de_dados=MEMORIA_DE_DADOS)
+        memoria_sobrescrita =  {
+            "0x" + Dominio.HEXADECIMAL[i] + Dominio.HEXADECIMAL[j] + Dominio.HEXADECIMAL[k]: "ACDC"
+            for i in range(0, 16)
+            for j in range(0, 16)
+            for k in range(0, 16)
+        }
+        
+        processador.memoria_de_dados.memoria = memoria_sobrescrita
+        input_dict = processador.pega_memoria_de_dados()
+        processador.altera_memoria_de_dados(input_dict)
+        processador.limpa_memoria_de_dados()
+        memoria_limpa = {
+            "0x" + Dominio.HEXADECIMAL[i] + Dominio.HEXADECIMAL[j] + Dominio.HEXADECIMAL[k]: "0000"
+            for i in range(0, 16)
+            for j in range(0, 16)
+            for k in range(0, 16)
+        }
+        assert processador.memoria_de_dados.ler_todas_as_celulas() == memoria_limpa
+        
+    def test_limpa_memoria_de_programa(self):
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_PROGRAMA, memoria_de_dados=MEMORIA_DE_DADOS)
+        memoria_sobrescrita =  {
+            "0x" + Dominio.HEXADECIMAL[i] + Dominio.HEXADECIMAL[j] + Dominio.HEXADECIMAL[k]: "ACDC"
+            for i in range(0, 16)
+            for j in range(0, 16)
+            for k in range(0, 16)
+        }
+        
+        processador.memoria_de_programa.memoria = memoria_sobrescrita
+        input_dict = processador.pega_memoria_de_programa()
+        processador.altera_memoria_de_programa(input_dict)
+        processador.limpa_memoria_de_programa()
+        memoria_limpa = {
+            "0x" + Dominio.HEXADECIMAL[i] + Dominio.HEXADECIMAL[j] + Dominio.HEXADECIMAL[k]: "0000"
+            for i in range(0, 16)
+            for j in range(0, 16)
+            for k in range(0, 16)
+        }
+        assert processador.memoria_de_programa.ler_todas_as_celulas() == memoria_limpa
+        
+    def test_limpa_memorias(self):
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_PROGRAMA, memoria_de_dados=MEMORIA_DE_DADOS)
+        memoria_sobrescrita =  {
+            "0x" + Dominio.HEXADECIMAL[i] + Dominio.HEXADECIMAL[j] + Dominio.HEXADECIMAL[k]: "ACDC"
+            for i in range(0, 16)
+            for j in range(0, 16)
+            for k in range(0, 16)
+        }
+        processador.memoria_de_programa.memoria = memoria_sobrescrita
+        processador.memoria_de_dados.memoria = memoria_sobrescrita
+        
+        input_programa = processador.pega_memoria_de_programa()
+        input_dados = processador.pega_memoria_de_dados()
+        
+        processador.altera_memoria_de_programa(nova_memoria=input_programa)
+        processador.altera_memoria_de_dados(nova_memoria=input_dados)
+        
+        processador.limpa_memorias()
+        
+        memoria_limpa = {
+            "0x" + Dominio.HEXADECIMAL[i] + Dominio.HEXADECIMAL[j] + Dominio.HEXADECIMAL[k]: "0000"
+            for i in range(0, 16)
+            for j in range(0, 16)
+            for k in range(0, 16)
+        }
+        
+        assert processador.memoria_de_programa.ler_todas_as_celulas() == memoria_limpa
+        assert processador.memoria_de_dados.ler_todas_as_celulas() == memoria_limpa
+        

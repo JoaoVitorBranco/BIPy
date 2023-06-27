@@ -4,13 +4,20 @@ from src.enums.tipo_de_memoria_enum import TipoDeMemoriaEnum
 from src.memoria.repo.memoria_interface import MemoriaInterface
 import json
 
+from src.shared.erros.erro_de_memoria import ErroDeMemoria
+
 class MemoriaJSON(MemoriaInterface):
     _diretorio: str = "src/memoria/armazenamento"
     caminho_do_arquivo: str
     nome_do_arquivo: str
     memoria: Dict[str, str] # endereco: valor
     
-    def __init__(self, arquivo: TipoDeMemoriaEnum):
+    def __init__(self, arquivo: TipoDeMemoriaEnum = None):
+        if(type(arquivo) == None):
+            raise ErroDeMemoria("MemoriaJSON", "Deve ser inserido um tipo de memória")
+        if(type(arquivo) != TipoDeMemoriaEnum):
+            raise ErroDeMemoria("MemoriaJSON", "Tipo de 'arquivo' está inválido")
+        
         self.nome_do_arquivo = arquivo.value
         self.caminho_do_arquivo = f"{self._diretorio}/{self.nome_do_arquivo}.json"
         with open(self.caminho_do_arquivo) as f:
@@ -19,7 +26,9 @@ class MemoriaJSON(MemoriaInterface):
         self.memoria = memoria
         
     def ler_celula(self, endereco: str) -> str:
-        valor = self.memoria[endereco]
+        if(self.memoria.get(endereco) == None):
+            raise ErroDeMemoria("MemoriaJSON", f"Endereço {endereco} não encontrado")
+        valor = self.memoria.get(endereco)
         return valor
     
     def altera_celula(self, endereco: str, valor: str) -> None:
