@@ -31,6 +31,15 @@ jobs:
       - name: Update setup.py
         run: |
           sed -i "s/version='$old_v'/version='$new_v'/" setup.py
-        
+
+      - name: Commit and push
+        env: 
+          CI_COMMIT_USER: ${{ github.actor }}
+        run: |
+          git config --global user.name "${{ env.CI_COMMIT_USER }}"
+          git config --global user.email "${{ env.CI_COMMIT_USER }}@users.noreply.github.com"
+          git commit -a -m "Bump version from $old_v to $new_v"
+          git push
+             
         
   
