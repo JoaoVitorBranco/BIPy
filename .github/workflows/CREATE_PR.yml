@@ -37,5 +37,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-            gh pr create -B homolog -H dev --title "Merge branch main -> prod - Criado Automatico"
+            gh pr create -B prod -H main --title "Merge branch main -> prod - Criado Automatico"
         
