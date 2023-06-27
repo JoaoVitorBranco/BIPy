@@ -1,15 +1,17 @@
 from PyQt5 import QtCore, QtWidgets, uic
 from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtGui import QFont
+
 
 class Mem_Interface(QMainWindow):
     memoria: dict
-    
+
     def __init__(self, UI_string, memoria: dict):
         super().__init__()
         self.memoria = memoria
 
         uic.loadUi(f'src/GUI/{UI_string}.ui', self)
-  
+
         self.num_linhas = 256
         self.num_colunas = 16
 
@@ -19,12 +21,10 @@ class Mem_Interface(QMainWindow):
         self.preenche_tabela(memoria)
         self.tableWidget.itemChanged.connect(self.on_changed)
 
-
-
     def diminui_colunas(self):
         for i in range(self.num_colunas):
             self.tableWidget.setColumnWidth(i, 60)
-    
+
     def formata_colunas(self):
         _translate = QtCore.QCoreApplication.translate
         for i in range(self.num_colunas):
@@ -37,20 +37,22 @@ class Mem_Interface(QMainWindow):
         for i in range(self.num_linhas):
             item = QtWidgets.QTableWidgetItem()
             self.tableWidget.setVerticalHeaderItem(i, item)
-            label = '0x'+ hex(i).split('x')[1].upper().zfill(2) + 'X'
-            item.setText(_translate("Form", label))     
+            label = '0x' + hex(i).split('x')[1].upper().zfill(2) + 'X'
+            item.setText(_translate("Form", label))
 
     def preenche_tabela(self, memoria):
         self.memoria = memoria
         for i in range(self.num_linhas):
-            linha = '0x'+ hex(i).split('x')[1].upper().zfill(2)
+            linha = '0x' + hex(i).split('x')[1].upper().zfill(2)
             for j in range(self.num_colunas):
                 coluna = hex(j)[-1].upper()
                 item = QtWidgets.QTableWidgetItem()
+                font = QFont()
+                font.setCapitalization(QFont.AllUppercase)
+                item.setFont(font)
                 item.setText(memoria.get(linha).get(coluna))
                 item.setTextAlignment(QtCore.Qt.AlignCenter)
                 self.tableWidget.setItem(i, j, item)
-
 
     def on_changed(self, item):
         pass
