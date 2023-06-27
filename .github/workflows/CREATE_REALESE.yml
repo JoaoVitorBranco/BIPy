@@ -31,9 +31,33 @@ jobs:
           cd dist
           zip -r BIPy.zip BIPy
 
+      - name: Get current version
+        run: |
+          old_v=$(grep -oP "version='(\d+\.\d+)'" setup.py | cut -d"'" -f2)
+          echo "Current version: $old_v"
+          echo "old_v=$old_v" >> $GITHUB_ENV
+
+      - name: Bump version number
+        run: |
+          new_v=$(python -c "print(str(int('$old_v'.split('.')[0]) + 1) + '.0')")
+
+          echo "new_v=$new_v" >> $GITHUB_ENV
+        
+      - name: Update setup.py
+        run: |
+          sed -i "s/version='$old_v'/version='$new_v'/" setup.py
+          
       - name: Create realese
         env:
           GITHUB_TOKEN: ${{ secrets.BIPy_TOKEN }}
         run: |
-          gh release create v${{ github.ref }} -t "Release v${{ github.ref }}" -F ./dist/BIPy.zip
-
+            gh release create v$new_v -t "Release v$new_v"
+            
+      - name: Commit and push
+        env: 
+          CI_COMMIT_USER: ${{ github.actor }}
+        run: |
+          git config --global user.name "${{ env.CI_COMMIT_USER }}"
+          git config --global user.email "${{ env.CI_COMMIT_USER }}@users.noreply.github.com"
+          git commit -a -m "Bump version from $old_v to $new_v"
+          git push origin ${{ github.ref_name }} 
