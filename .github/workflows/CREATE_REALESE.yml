@@ -108,13 +108,15 @@ jobs:
 
       - name: Update setup.py
         run: |
-            sed -i "s/version='$old_v'/version='$new_v'/" setup.py
+          sed -i "s/version='$old_v'/version='$new_v'/" setup.py
+          echo "old_v=$old_v"
+          echo "new_v=$new_v"
             
       - name: Create realese
         env:
           GITHUB_TOKEN: ${{ secrets.BIPy_TOKEN }}
         run: |
-            gh release create v$new_v -t "Release v$new_v"
+          gh release create v$new_v -t "Release v$new_v"
       - name: Upload BIPy.zip
         env:
             GITHUB_TOKEN: ${{ secrets.BIPy_TOKEN }}
