@@ -20,5 +20,5 @@ jobs:
         id: get_version
         run: |
           old_v=$(grep -oP "version='(\d+\.\d+)'" setup.py | cut -d"'" -f2)
-          echo="Current version: $old_v"
+          echo "Current version: $old_v"
   
