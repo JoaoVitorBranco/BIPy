@@ -99,9 +99,9 @@ class Ui_MainPage(QMainWindow):
         linha = int(self.processador.instrucao.endereco[:-1], 16)
         coluna = int(self.processador.instrucao.endereco[-1], 16)
 
-        self.set_selecionado(linha, coluna)
+        self.set_selecionado_mem_programa(linha, coluna)
 
-    def set_selecionado(self, linha, coluna):
+    def set_selecionado_mem_programa(self, linha, coluna):
         for i in range(self.ui_programa.tableWidget.rowCount()):
             for j in range(self.ui_programa.tableWidget.columnCount()):
                 item = self.ui_programa.tableWidget.item(i, j)
@@ -126,11 +126,10 @@ class Ui_MainPage(QMainWindow):
         self.acumulador.display(self.processador.acc)
         self.instruct_counter.display(
             self.processador.instrucao.pega_comando())
-        self.set_selecionado(0, 0)
+        self.set_selecionado_mem_programa(0, 0)
 
     def show_popup_mem_dados(self):
         self.ui_dados.show()
 
     def show_popup_mem_programa(self):
         self.ui_programa.show()
-
