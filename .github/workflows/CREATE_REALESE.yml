@@ -89,7 +89,7 @@ jobs:
 
   publish_release:
     runs-on: ubuntu-latest
-    needs: [process_release, linux_build]
+    needs: [process_release, linux_build, windows_build]
     env: 
       old_v: ${{ needs.process_release.outputs.old_v }}
       new_v: ${{ needs.process_release.outputs.new_v }}
