@@ -1,8 +1,11 @@
 from abc import ABC, abstractmethod
+from typing import Dict
 
 
 class MemoriaInterface(ABC):
-    diretorio: str
+    diretorio: str = "src/memoria/armazenamento"
+    arquivo: str
+    memoria: Dict[str, str] # endereco: valor
     
     @abstractmethod
     def ler_celula(self, endereco: str) -> str:
