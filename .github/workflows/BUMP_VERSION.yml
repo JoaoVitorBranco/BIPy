@@ -17,8 +17,17 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Get current version
-        id: get_version
         run: |
           old_v=$(grep -oP "version='(\d+\.\d+)'" setup.py | cut -d"'" -f2)
           echo "Current version: $old_v"
+          echo "old_v=$old_v" >> $GITHUB_ENV
+
+      - name: Bump version number
+        run: |
+          new_v=$(python -c "print(str(int('$old_v'.split('.')[0]) + 1) + '.' +'$old_v'.split('.')[1])")
+          echo "New version: $new_v"
+          echo "new_v=$new_v" >> $GITHUB_ENV
+        
+
+        
   
