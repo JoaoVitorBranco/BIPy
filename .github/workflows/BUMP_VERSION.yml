@@ -49,6 +49,7 @@ jobs:
       - name: Commit and push
         env: 
           CI_COMMIT_USER: ${{ github.actor }}
+        if: ${{ env.new_v != env.old_v }}
         run: |
           git config --global user.name "${{ env.CI_COMMIT_USER }}"
           git config --global user.email "${{ env.CI_COMMIT_USER }}@users.noreply.github.com"
