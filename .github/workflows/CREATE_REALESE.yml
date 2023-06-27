@@ -101,7 +101,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: BIPy-linux
-          path: dist/linus/
+          path: dist/linux/
       - name: Retrieve Windows Artifact
         uses: actions/download-artifact@v3
         with:
