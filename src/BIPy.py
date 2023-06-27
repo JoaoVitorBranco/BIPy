@@ -3,7 +3,7 @@ from typing import Dict
 from src.entidades.celula import Celula
 from src.enums.comparacao_enum import ComparacaoEnum
 from src.entidades.dominio import Dominio
-from src.memoria.memoria_interface import MemoriaInterface
+from src.memoria.repo.memoria_interface import MemoriaInterface
 from src.shared.erros.erro_de_processador import ErroDeProcessador
 
 
