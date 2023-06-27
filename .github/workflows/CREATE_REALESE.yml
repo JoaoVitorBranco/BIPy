@@ -57,7 +57,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: BIPy-linux
-          path: dist/BIPy-linux.zip  
+          path: dist/BIPy
 
   windows_build:
     runs-on: windows-latest
@@ -85,7 +85,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: BIPy-windows
-          path: dist/BIPy-windows.zip
+          path: dist/BIPy
 
   publish_release:
     runs-on: ubuntu-latest
