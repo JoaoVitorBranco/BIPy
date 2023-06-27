@@ -33,7 +33,7 @@ jobs:
 
       - name: Create realese
         env:
-          GITHUB_TOKEN: ${{ github.actor.token }}
+          GITHUB_TOKEN: ${{ secrets.BIPy_TOKEN }}
         run: |
           gh release create v${{ github.ref }} -t "Release v${{ github.ref }}" -F ./dist/BIPy.zip
 
