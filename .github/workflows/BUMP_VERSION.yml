@@ -28,6 +28,9 @@ jobs:
           echo "New version: $new_v"
           echo "new_v=$new_v" >> $GITHUB_ENV
         
-
+      - name: Update setup.py
+        run: |
+          sed -i "s/version='$old_v'/version='$new_v'/" setup.py
+        
         
   
