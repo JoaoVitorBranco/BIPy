@@ -7,11 +7,7 @@ from src.GUI.MainPage import Ui_MainPage
 from src.memoria.memoria_mock import MemoriaMock
 
 memoria_de_programa = MemoriaMock()
-memoria_de_programa.altera_celula("0x000", "3004")
-memoria_de_programa.altera_celula("0x001", "5004")
-memoria_de_programa.altera_celula("0x002", "5004")
-memoria_de_programa.altera_celula("0x003", "5004")
-memoria_de_programa.altera_celula("0x004", "8000")
+memoria_de_programa.altera_celula("0x000", "2000")
 
 memoria_de_dados = MemoriaMock()
 

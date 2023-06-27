@@ -34,8 +34,10 @@ class Ui_MainPage(QMainWindow):
 
         self.refresh_displays()
 
-        self.ui_dados = Mem_Dados(memoria_de_dados=self.processador.pega_memoria_de_dados())
-        self.ui_programa = Mem_Programa(memoria_de_programa=self.processador.pega_memoria_de_programa())
+        self.ui_dados = Mem_Dados(memoria_de_dados=self.processador.pega_memoria_de_dados(
+        ), altera_memoria_de_dados=self.altera_memoria_de_dados)
+        self.ui_programa = Mem_Programa(
+            memoria_de_programa=self.processador.pega_memoria_de_programa())
 
         self.pushButton.clicked.connect(self.show_popup_mem_dados)
         self.pushButton_2.clicked.connect(self.show_popup_mem_programa)
@@ -45,16 +47,24 @@ class Ui_MainPage(QMainWindow):
         self.actionSetar_Clock.triggered.connect(self.set_clock)
         self.clock = 1
 
+    def altera_memoria_de_dados(self, endereco, valor):
+        self.processador.memoria_de_dados.altera_celula(endereco, valor)
+        self.refresh_displays()
+
+    def altera_memoria_de_programa(self, endereco, valor):
+        self.processador.memoria_de_dados.altera_celula(endereco, valor)
+        self.refresh_displays()
+
     def set_clock(self):
         msg = QtWidgets.QInputDialog()
-        
+
         msg.setLabelText("Digite o clock desejado")
         msg.setWindowTitle("Setar Clock")
         msg.exec_()
         try:
             self.clock = 1/int(msg.textValue())
         except:
-            pass    
+            pass
 
     def halt(self):
         worker = Worker(self.halted, self.clock)
@@ -64,7 +74,6 @@ class Ui_MainPage(QMainWindow):
         while self.halt_check.isChecked():
             self.step()
             sleep(clock)
-
 
     def reset(self):
         try:
@@ -91,13 +100,15 @@ class Ui_MainPage(QMainWindow):
     def refresh_displays(self):
         self.program_counter.display(self.processador.instrucao.endereco)
         self.acumulador.display(self.processador.acc)
-        self.instruct_counter.display(self.processador.instrucao.pega_comando())
+        self.instruct_counter.display(
+            self.processador.instrucao.pega_comando())
 
     def show_popup_mem_dados(self):
         self.ui_dados.show()
 
     def show_popup_mem_programa(self):
         self.ui_programa.show()
+
 
 class Worker(QRunnable):
 
@@ -108,7 +119,6 @@ class Worker(QRunnable):
         self.fn = fn
         self.args = args
         self.kwargs = kwargs
-
 
     @pyqtSlot()
     def run(self):
