@@ -58,7 +58,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: BIPy-mac
-          path: dist/BIPy
+          path: dist/
 
   # linux_build:
   #   runs-on: ubuntu-latest
