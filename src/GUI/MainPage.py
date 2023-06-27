@@ -22,10 +22,17 @@ def resource_path(relative_path):
 
 class Ui_MainPage(QMainWindow):
     processador: BIPy
+    dict_assemblador: dict
+    dict_assemblador_inv: dict
 
     def __init__(self, processador: BIPy):
         super().__init__()
         self.processador = processador
+
+        self.dict_assemblador = processador.dict_assemblador
+        self.dict_assemblador_inv = processador.dict_assemblador_inv
+
+        comandos = list(processador.dict_assemblador.keys())
 
         uic.loadUi(resource_path('src/GUI/main.ui'), self)
         self.show()
@@ -36,8 +43,8 @@ class Ui_MainPage(QMainWindow):
 
         self.ui_dados = Mem_Dados(memoria_de_dados=self.processador.pega_memoria_de_dados(
         ), altera_memoria_de_dados=self.altera_memoria_de_dados)
-        self.ui_programa = Mem_Programa(
-            memoria_de_programa=self.processador.pega_memoria_de_programa())
+        self.ui_programa = Mem_Programa(memoria_de_programa=self.processador.pega_memoria_de_programa(
+        ), altera_memoria_de_programa=self.altera_memoria_de_programa, comandos=comandos)
 
         self.pushButton.clicked.connect(self.show_popup_mem_dados)
         self.pushButton_2.clicked.connect(self.show_popup_mem_programa)
@@ -48,12 +55,12 @@ class Ui_MainPage(QMainWindow):
         self.clock = 1
 
     def altera_memoria_de_dados(self, endereco, valor):
-        self.processador.memoria_de_dados.altera_celula(endereco, valor)
-        self.refresh_displays()
+        self.processador.memoria_de_dados.altera_celula(endereco, valor.upper())
 
     def altera_memoria_de_programa(self, endereco, valor):
-        self.processador.memoria_de_dados.altera_celula(endereco, valor)
-        self.refresh_displays()
+        split_valor = valor.split(" ")
+        valor = self.dict_assemblador[split_valor[0].upper()] + split_valor[1]
+        self.processador.memoria_de_programa.altera_celula(endereco, valor)
 
     def set_clock(self):
         msg = QtWidgets.QInputDialog()

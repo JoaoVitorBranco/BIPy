@@ -5,6 +5,7 @@ from src.GUI.MemInterface import Mem_Interface
 
 
 class Mem_Dados(Mem_Interface):
+    altera_memoria_de_dados: callable
     def __init__(self, memoria_de_dados: dict, altera_memoria_de_dados):
         super().__init__(UI_string='MemoriaDados', memoria=memoria_de_dados)
 
