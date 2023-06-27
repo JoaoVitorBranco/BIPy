@@ -10,6 +10,8 @@ from PyQt5.QtCore import pyqtSignal
 from src.GUI.Mem_Dados import Mem_Dados
 from src.GUI.Mem_Programa import Mem_Programa
 
+import os
+
 
 def resource_path(relative_path):
     try:
@@ -30,15 +32,13 @@ class Ui_MainPage(QMainWindow):
         super().__init__()
         self.processador = processador
 
-
         self.dict_assemblador = processador.dict_assemblador
         self.dict_assemblador_inv = processador.dict_assemblador_inv
 
         comandos = list(processador.dict_assemblador.keys())
+        uic.loadUi(resource_path(os.path.join('src', 'GUI', 'MainPage.ui')), self)
 
-        uic.loadUi(resource_path('src/GUI/MainPage.ui'), self)
-
-        self.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
+        self.setWindowIcon(QtGui.QIcon(resource_path(os.path.join('src', 'GUI', 'assets', 'icone.ico'))))
         self.show()
 
         self.ui_dados = Mem_Dados(memoria_de_dados=self.processador.pega_memoria_de_dados(
@@ -54,26 +54,25 @@ class Ui_MainPage(QMainWindow):
         self.step_button.clicked.connect(self.step)
         self.halt_check.clicked.connect(self.halt)
         self.actionSetar_Clock.triggered.connect(self.set_clock)
-        self.actionDecimal.triggered.connect(self.altera_acumulador_para_decimal)
-        self.actionHexadecimal.triggered.connect(self.altera_acumulador_para_hexadecimal)
+        self.actionDecimal.triggered.connect(
+            self.altera_acumulador_para_decimal)
+        self.actionHexadecimal.triggered.connect(
+            self.altera_acumulador_para_hexadecimal)
         self.clock = 1
 
-
         self.ui_refresh.connect(self.step)
-
 
     def altera_acumulador_para_decimal(self):
         self.acumulador.setDigitCount(5)
         self.acumulador.setDecMode()
         self.label_5.setStyleSheet("background:rgba(0, 71, 133, 0.4);")
         self.label_4.setStyleSheet("background:rgba(0, 71, 133, 0.1);")
-    
+
     def altera_acumulador_para_hexadecimal(self):
         self.acumulador.setDigitCount(4)
         self.acumulador.setHexMode()
         self.label_4.setStyleSheet("background:rgba(0, 71, 133, 0.4);")
         self.label_5.setStyleSheet("background:rgba(0, 71, 133, 0.1);")
-        
 
     def altera_memoria_de_dados(self, endereco, valor):
         self.processador.memoria_de_dados.altera_celula(
@@ -85,9 +84,10 @@ class Ui_MainPage(QMainWindow):
         self.processador.memoria_de_programa.altera_celula(endereco, valor)
 
     def set_clock(self):
-        
+
         msg = QtWidgets.QInputDialog()
-        msg.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
+        msg.setWindowIcon(QtGui.QIcon(
+            resource_path('src/GUI/assets/icone.ico')))
         msg.setLabelText("Digite a frequência de clock desejada em Hz:")
         msg.setInputMode(QtWidgets.QInputDialog.DoubleInput)
         msg.setOkButtonText("Setar")
@@ -135,13 +135,13 @@ class Ui_MainPage(QMainWindow):
             for j in range(self.ui_programa.tableWidget.columnCount()):
 
                 item = self.ui_programa.tableWidget.item(i, j)
-                
+
                 if i % 2 == 0:
                     color = QtGui.QColor(255, 255, 255)
                 else:
                     color = QtGui.QColor(0, 71, 133)
                     color.setAlphaF(0.2)
-                
+
                 item.setBackground(color)
                 item.setForeground(QtGui.QColor(0, 0, 0))
 
@@ -163,7 +163,7 @@ class Ui_MainPage(QMainWindow):
                 else:
                     color = QtGui.QColor(0, 71, 133)
                     color.setAlphaF(0.2)
-                
+
                 item.setBackground(color)
                 item.setForeground(QtGui.QColor(0, 0, 0))
 
@@ -184,7 +184,7 @@ class Ui_MainPage(QMainWindow):
 
     def refresh_displays(self):
         self.program_counter.display(self.processador.instrucao.endereco)
-        self.acumulador.display(int(self.processador.acc,16))
+        self.acumulador.display(int(self.processador.acc, 16))
         self.instruct_counter.display(
             self.processador.instrucao.pega_comando())
         self.set_selecionado_mem_programa(0, 0)
