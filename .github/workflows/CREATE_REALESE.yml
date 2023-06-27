@@ -27,12 +27,10 @@ jobs:
           
       - name: Build BIPy Windows
         run: |
-          docker run -v "$(pwd):/src/" brimstone/pyinstaller-windows
-          ls
+          docker run -v "$(pwd):/src/" brimstone/pyinstaller 
           cd dist
-          ls
           zip -r BIPy-windows.zip BIPy
-
+          
       - name: Build BIPy Linux
         run: |
           pyinstaller --noconfirm --onedir --windowed --icon "./src/GUI/assets/icone.ico" --name "BIPy" --add-data "./src:src/"  "./src/main.py"
