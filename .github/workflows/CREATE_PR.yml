@@ -24,7 +24,7 @@ jobs:
             lenPrs=$(gh pr list -B prod -H main --json id,title --jq '. | length')
             echo "lenPrs=$lenPrs" >> "$GITHUB_OUTPUT"
           fi
-                    
+          
   create-pr-prod:
     needs: check_pr
     runs-on: ubuntu-latest
