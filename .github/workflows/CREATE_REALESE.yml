@@ -154,4 +154,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.BIPy_TOKEN }}
         run: |
           gh pr create --title "Merge prod into main" --body "Merge prod into main" --base main --head prod
-          gh pr merge --auto --squash --merge prod
+          gh pr merge --auto --merge prod
