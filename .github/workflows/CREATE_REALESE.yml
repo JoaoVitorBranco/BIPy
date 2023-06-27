@@ -52,6 +52,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.BIPy_TOKEN }}
         run: |
             gh release create v$new_v -t "Release v$new_v"
+
+      - name: Upload BIPy.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.BIPy_TOKEN }}
+        run: |
+          gh release upload v$new_v BIPy.zip --clobber
             
       - name: Commit and push
         env: 
@@ -60,4 +66,4 @@ jobs:
           git config --global user.name "${{ env.CI_COMMIT_USER }}"
           git config --global user.email "${{ env.CI_COMMIT_USER }}@users.noreply.github.com"
           git commit -a -m "Bump version from $old_v to $new_v"
-          git push origin ${{ github.ref_name }} 
+          git push origin ${{ github.ref_name }}           
