@@ -55,10 +55,10 @@ class Ui_MainPage(QMainWindow):
         self.step_button.clicked.connect(self.step)
         self.halt_check.clicked.connect(self.halt)
         self.actionSetar_Clock.triggered.connect(self.set_clock)
-        self.actionDecimal.triggered.connect(
-            self.altera_acumulador_para_decimal)
-        self.actionHexadecimal.triggered.connect(
-            self.altera_acumulador_para_hexadecimal)
+        self.actionDecimal.triggered.connect(self.altera_acumulador_para_decimal)
+        self.actionHexadecimal.triggered.connect(self.altera_acumulador_para_hexadecimal)
+        self.pushButton_3.clicked.connect(self.altera_acumulador_para_decimal)
+        self.pushButton_4.clicked.connect(self.altera_acumulador_para_hexadecimal)
         self.clock = 1
 
         self.ui_refresh.connect(self.step)

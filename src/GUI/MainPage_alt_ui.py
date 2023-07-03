@@ -20,6 +20,7 @@ class Ui_MainWindow(object):
 "    color: rgb(0, 69, 135);\n"
 "}\n"
 "\n"
+"\n"
 "QPushButton{\n"
 "    border-radius: 20%;;\n"
 "    background-color: rgb(0, 69, 136);\n"
@@ -314,6 +315,7 @@ class Ui_MainWindow(object):
         self.menubar.setGeometry(QtCore.QRect(0, 0, 858, 21))
         self.menubar.setObjectName("menubar")
         self.menuArquivo = QtWidgets.QMenu(self.menubar)
+        self.menuArquivo.setStyleSheet("QMenu:hover{color:red;}")
         self.menuArquivo.setObjectName("menuArquivo")
         self.menuAbrir = QtWidgets.QMenu(self.menuArquivo)
         self.menuAbrir.setObjectName("menuAbrir")
@@ -355,8 +357,9 @@ class Ui_MainWindow(object):
         self.menuArquivo.addAction(self.menuAbrir.menuAction())
         self.menuAlterar_modo_do_acumulador.addAction(self.actionHexadecimal)
         self.menuAlterar_modo_do_acumulador.addAction(self.actionDecimal)
-        self.menuConfigura_o.addAction(self.actionSetar_Clock)
         self.menuConfigura_o.addAction(self.menuAlterar_modo_do_acumulador.menuAction())
+        self.menuConfigura_o.addSeparator()
+        self.menuConfigura_o.addAction(self.actionSetar_Clock)
         self.menuMais.addAction(self.actionSobre)
         self.menubar.addAction(self.menuArquivo.menuAction())
         self.menubar.addAction(self.menuConfigura_o.menuAction())

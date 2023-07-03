@@ -19,6 +19,7 @@
 	color: rgb(0, 69, 135);
 }
 
+
 QPushButton{
 	border-radius: 20%;;
 	background-color: rgb(0, 69, 136);
@@ -783,6 +784,9 @@ QPushButton:checked{
     </rect>
    </property>
    <widget class="QMenu" name="menuArquivo">
+    <property name="styleSheet">
+     <string notr="true">QMenu:hover{color:red;}</string>
+    </property>
     <property name="title">
      <string>Arquivo</string>
     </property>
@@ -814,8 +818,9 @@ QPushButton:checked{
      <addaction name="actionHexadecimal"/>
      <addaction name="actionDecimal"/>
     </widget>
-    <addaction name="actionSetar_Clock"/>
     <addaction name="menuAlterar_modo_do_acumulador"/>
+    <addaction name="separator"/>
+    <addaction name="actionSetar_Clock"/>
    </widget>
    <widget class="QMenu" name="menuMais">
     <property name="title">
