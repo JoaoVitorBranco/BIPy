@@ -36,7 +36,7 @@ class Ui_MainPage(QMainWindow):
 
         comandos = list(processador.dict_assemblador.keys())
 
-        uic.loadUi(resource_path('src/GUI/MainPage.ui'), self)
+        uic.loadUi(resource_path('src/GUI/MainPage_alt.ui'), self)
 
         self.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
         self.show()
@@ -45,7 +45,6 @@ class Ui_MainPage(QMainWindow):
         ), altera_memoria_de_dados=self.altera_memoria_de_dados)
         self.ui_programa = Mem_Programa(memoria_de_programa=self.processador.pega_memoria_de_programa(
         ), altera_memoria_de_programa=self.altera_memoria_de_programa, comandos=comandos)
-
 
 
         self.refresh_displays()
@@ -74,6 +73,7 @@ class Ui_MainPage(QMainWindow):
         self.acumulador.setDigitCount(4)
         self.acumulador.setHexMode()
         self.label_4.setText("(hexadecimal)")
+        
         
     def altera_memoria_de_dados(self, endereco, valor):
         self.processador.memoria_de_dados.altera_celula(
