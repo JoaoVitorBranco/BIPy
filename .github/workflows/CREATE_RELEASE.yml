@@ -1,0 +1,197 @@
+name: Create release
+
+on:
+  workflow_dispatch:
+  push:
+    paths-ignore:
+      - 'setup.py'
+    branches:
+      - prod
+
+jobs:
+  process_release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Get current version
+        run: |
+          old_v=$(grep -oP "version='(\d+\.\d+)'" setup.py | cut -d"'" -f2)
+          echo "Current version: $old_v"
+          echo "old_v=$old_v" >> $GITHUB_ENV
+
+      - name: Bump version number
+        run: |
+          new_v=$(python -c "print(str(int('$old_v'.split('.')[0]) + 1) + '.0')")
+
+          echo "new_v=$new_v" >> $GITHUB_ENV
+             
+    outputs:
+      new_v: ${{ env.new_v }}     
+      old_v: ${{ env.old_v }} 
+  
+  mac_build:
+    runs-on: macos-latest
+    needs: process_release
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+          
+      - name: Build BIPy Mac
+        run: |
+          pyinstaller --windowed --onedir --noconfirm --clean --name "BIPy" --add-data "./src:src/"  "./src/main.py"
+          cd dist
+          ls
+
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: BIPy-mac
+          path: dist/
+
+  linux_build:
+    runs-on: ubuntu-latest
+    needs: process_release
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+          
+      - name: Build BIPy Linux
+        run: |
+          pyinstaller --noconfirm --onedir --windowed --icon "./src/GUI/assets/icone.ico" --name "BIPy" --add-data "./src:src/"  "./src/main.py"
+          cd dist
+            ls
+
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: BIPy-linux
+          path: dist/
+
+  windows_build:
+    runs-on: windows-latest
+    needs: process_release
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+          
+      - name: Build BIPy Windows
+        run: |
+          pyinstaller --noconfirm --onedir --windowed --icon "./src/GUI/assets/icone.ico" --name "BIPy" --add-data "./src;src/"  "./src/main.py"
+          cd dist
+          ls
+          
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: BIPy-windows
+          path: dist/BIPy
+
+  publish_release:
+    runs-on: ubuntu-latest
+    needs: [process_release, linux_build, windows_build, mac_build]
+    env: 
+      old_v: ${{ needs.process_release.outputs.old_v }}
+      new_v: ${{ needs.process_release.outputs.new_v }}
+    steps: 
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Retrieve Linux Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: BIPy-linux
+          path: dist/linux/
+
+      - name: Retrieve Windows Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: BIPy-windows
+          path: dist/windows/
+
+      - name: Retrieve Mac Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: BIPy-mac
+          path: dist/mac/
+
+      - name: Retrieve variables
+        run : |
+          echo "old_v=$old_v"
+          echo "new_v=$new_v"
+
+      - name: Update setup.py
+        run: |
+          sed -i "s/version='$old_v'/version='$new_v'/" setup.py
+          echo "old_v=$old_v"
+          echo "new_v=$new_v"
+            
+      - name: Create realese
+        env:
+          GITHUB_TOKEN: ${{ secrets.BIPy_TOKEN }}
+        run: |
+          date=$(date +'%Y-%m-%d')
+          gh release create v$new_v -t "Release v$new_v" -n "$new_v - Release funcionando! $date :tada:"
+          echo "Release created"
+          
+      - name: Upload BIPy.zip
+        env:
+            GITHUB_TOKEN: ${{ secrets.BIPy_TOKEN }}
+        run: |
+            cd dist
+            echo "Zipping files"
+            zip -r BIPy-linux.zip linux/
+            zip -r BIPy-windows.zip windows/
+            zip -r BIPy-mac.zip mac/
+
+            echo "Uploading files"
+            gh release upload v$new_v BIPy-linux.zip --clobber
+            gh release upload v$new_v BIPy-windows.zip --clobber
+            gh release upload v$new_v BIPy-mac.zip --clobber
+
+      - name: Commit and push
+        env: 
+          CI_COMMIT_USER: ${{ github.actor }}
+        run: |
+          git config --global user.name "${{ env.CI_COMMIT_USER }}"
+          git config --global user.email "${{ env.CI_COMMIT_USER }}@users.noreply.github.com"
+          git commit -a -m "Bump version from $old_v to $new_v"
+          git push origin prod
+
+      - name: Merge prod into main
+        env:
+          GITHUB_TOKEN: ${{ secrets.BIPy_TOKEN }}
+        run: |
+          gh pr create --title "Merge prod into main" --body "Merge prod into main" --base main --head prod
+          gh pr merge --auto --merge prod
