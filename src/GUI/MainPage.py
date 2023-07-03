@@ -67,12 +67,14 @@ class Ui_MainPage(QMainWindow):
     def altera_acumulador_para_decimal(self):
         self.acumulador.setDigitCount(5)
         self.acumulador.setDecMode()
-        self.label_4.setText("(decimal)")
+        self.pushButton_3.setStyleSheet("background-color: rgb(30, 99, 165);")
+        self.pushButton_4.setStyleSheet("background-color:rgb(212, 221, 80);")
     
     def altera_acumulador_para_hexadecimal(self):
         self.acumulador.setDigitCount(4)
         self.acumulador.setHexMode()
-        self.label_4.setText("(hexadecimal)")
+        self.pushButton_4.setStyleSheet("background-color: rgb(30, 99, 165);")
+        self.pushButton_3.setStyleSheet("background-color:rgb(212, 221, 80);")
         
     def altera_memoria_de_dados(self, endereco, valor):
         self.processador.memoria_de_dados.altera_celula(

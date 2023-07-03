@@ -358,7 +358,7 @@ QLCDNumber{
            <widget class="QFrame" name="frame_5">
             <property name="styleSheet">
              <string notr="true">QPushButton{
-	color:rgb(0, 69, 135);
+	color:rgb(30, 99, 165);
 	background-color:rgb(212, 221, 80);
 	border: 2px solid #000;
 	border-width: 0.5%;
@@ -391,6 +391,9 @@ QLCDNumber{
                  <width>60</width>
                  <height>40</height>
                 </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton{background-color:rgb(30, 99, 165);}</string>
                </property>
                <property name="text">
                 <string>Decimal</string>
@@ -653,6 +656,9 @@ QPushButton:checked{
               <width>50</width>
               <height>50</height>
              </size>
+            </property>
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Instituto Mauá de Tecnologia&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="text">
              <string/>

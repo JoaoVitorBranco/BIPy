@@ -163,7 +163,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addWidget(self.label_3)
         self.frame_5 = QtWidgets.QFrame(self.frame_4)
         self.frame_5.setStyleSheet("QPushButton{\n"
-"    color:rgb(0, 69, 135);\n"
+"    color:rgb(30, 99, 165);\n"
 "    background-color:rgb(212, 221, 80);\n"
 "    border: 2px solid #000;\n"
 "    border-width: 0.5%;\n"
@@ -179,6 +179,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addWidget(self.pushButton_3)
         self.pushButton_4 = QtWidgets.QPushButton(self.frame_5)
         self.pushButton_4.setMinimumSize(QtCore.QSize(60, 40))
+        self.pushButton_4.setStyleSheet("QPushButton{background-color:rgb(30, 99, 165);}")
         self.pushButton_4.setObjectName("pushButton_4")
         self.horizontalLayout.addWidget(self.pushButton_4)
         self.verticalLayout_2.addWidget(self.frame_5)
@@ -383,6 +384,7 @@ class Ui_MainWindow(object):
         self.step_button.setStatusTip(_translate("MainWindow", "Executar a próxima instrução"))
         self.step_button.setText(_translate("MainWindow", "Step"))
         self.step_button.setShortcut(_translate("MainWindow", "Space"))
+        self.label_4.setToolTip(_translate("MainWindow", "<html><head/><body><p align=\"right\">Instituto Mauá de Tecnologia</p></body></html>"))
         self.pushButton.setToolTip(_translate("MainWindow", "Abrir memoria de dados"))
         self.pushButton.setStatusTip(_translate("MainWindow", "Abrir memoria de dados"))
         self.pushButton.setText(_translate("MainWindow", "Memoria de Dados"))
