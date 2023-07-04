@@ -58,8 +58,8 @@ class Ui_MainPage(QMainWindow):
         self.actionSetar_Clock.triggered.connect(self.set_clock)
         self.actionDecimal.triggered.connect(self.altera_acumulador_para_decimal)
         self.actionHexadecimal.triggered.connect(self.altera_acumulador_para_hexadecimal)
-        self.pushButton_3.clicked.connect(self.altera_acumulador_para_decimal)
-        self.pushButton_4.clicked.connect(self.altera_acumulador_para_hexadecimal)
+        self.pushButton_3.clicked.connect(self.altera_acumulador_para_hexadecimal)
+        self.pushButton_4.clicked.connect(self.altera_acumulador_para_decimal)
         self.clock = 1
 
         self.ui_refresh.connect(self.step)
@@ -68,14 +68,14 @@ class Ui_MainPage(QMainWindow):
     def altera_acumulador_para_decimal(self):
         self.acumulador.setDigitCount(5)
         self.acumulador.setDecMode()
-        self.pushButton_3.setStyleSheet("background-color: rgb(30, 99, 165);")
-        self.pushButton_4.setStyleSheet("background-color:rgb(212, 221, 80);")
+        self.pushButton_3.setStyleSheet("background-color: rgb(50, 119, 185);border-width: 0.5%;")
+        self.pushButton_4.setStyleSheet("background-color: rgb(0, 69, 135);border-width: 4%;")
     
     def altera_acumulador_para_hexadecimal(self):
         self.acumulador.setDigitCount(4)
         self.acumulador.setHexMode()
-        self.pushButton_4.setStyleSheet("background-color: rgb(30, 99, 165);")
-        self.pushButton_3.setStyleSheet("background-color:rgb(212, 221, 80);")
+        self.pushButton_3.setStyleSheet("background-color: rgb(0, 69, 135);border-width: 4%;")
+        self.pushButton_4.setStyleSheet("background-color: rgb(50, 119, 185);border-width: 0.5%;")
         
     def altera_memoria_de_dados(self, endereco, valor):
         self.processador.memoria_de_dados.altera_celula(
@@ -195,8 +195,7 @@ class Ui_MainPage(QMainWindow):
     def refresh_displays(self):
         self.program_counter.display(self.processador.instrucao.endereco)
         self.acumulador.display(int(self.processador.acc, 16))
-        self.instruct_counter.display(
-            self.processador.instrucao.pega_comando())
+        self.instruct_counter.display(self.processador.instrucao.pega_comando())
         self.set_selecionado_mem_programa(0, 0)
 
     def show_popup_mem_dados(self):

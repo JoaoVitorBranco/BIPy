@@ -359,10 +359,9 @@ QLCDNumber{
            <widget class="QFrame" name="frame_5">
             <property name="styleSheet">
              <string notr="true">QPushButton{
-	color:rgb(30, 99, 165);
-	background-color:rgb(212, 221, 80);
 	border: 2px solid #000;
-	border-width: 0.5%;
+	border-width: 4%;
+	border-radius: 1%;
 }</string>
             </property>
             <property name="frameShape">
@@ -372,6 +371,9 @@ QLCDNumber{
              <enum>QFrame::Raised</enum>
             </property>
             <layout class="QHBoxLayout" name="horizontalLayout">
+             <property name="spacing">
+              <number>0</number>
+             </property>
              <item>
               <widget class="QPushButton" name="pushButton_3">
                <property name="minimumSize">
@@ -394,10 +396,13 @@ QLCDNumber{
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">QPushButton{background-color:rgb(30, 99, 165);}</string>
+                <string notr="true">QPushButton{background-color:rgb(50, 119, 185);border-width:0.5%}</string>
                </property>
                <property name="text">
                 <string>Decimal</string>
+               </property>
+               <property name="flat">
+                <bool>false</bool>
                </property>
               </widget>
              </item>
