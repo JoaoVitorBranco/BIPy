@@ -68,15 +68,17 @@ class Mem_Dados(Mem_Interface):
                 qm.exec_()
 
     def salvar_arquivo(self):
-        nome = QtWidgets.QFileDialog.getSaveFileName(self, 'Salvar Arquivo')
+        tipos_de_arquivo = "CDM (*.cdm);;Texto (*.txt)"
+        nome , _ = QtWidgets.QFileDialog.getSaveFileName(self, 'Salvar arquivo', '', tipos_de_arquivo)
         arquivo = open(nome[0], 'w')
         texto = 'fodase'
         arquivo.write(texto)
         arquivo.close()
 
     def carregar_arquivo(self):
-        nome = QtWidgets.QFileDialog.getOpenFileName(self, 'Abrir Arquivo')
-        arquivo = open(nome[0], 'r')
+        tipos_de_arquivo = "CDM (*.cdm);;Texto (*.txt)"
+        nome , _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Abrir Arquivo', '', tipos_de_arquivo)
+        arquivo = open(nome, 'r')
     
         with arquivo:
             texto = arquivo.read()
