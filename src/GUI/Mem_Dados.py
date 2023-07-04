@@ -28,10 +28,16 @@ class Mem_Dados(Mem_Interface):
         for i in range(self.num_colunas):
             delegate = StyledItemDelegate(self.tableWidget)
             self.tableWidget.setItemDelegateForColumn(i, delegate)
-        
+
+        # region Designando funções aos botões
+
         self.actionZero.triggered.connect(self.zerar_memoria)
         self.actionSalvar.triggered.connect(self.salvar_arquivo)
         self.actionCarregar.triggered.connect(self.carregar_arquivo)
+
+        # endregion
+
+    # region Funções de controle
 
     def on_changed(self, item):
         linha = item.row()
@@ -81,6 +87,8 @@ class Mem_Dados(Mem_Interface):
             print(texto)
         except(FileNotFoundError):
             print("Arquivo não encontrado")
+
+    #endregion
 
 class StyledItemDelegate(QtWidgets.QStyledItemDelegate):
     def createEditor(self, parent, option, index):

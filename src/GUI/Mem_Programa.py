@@ -31,9 +31,16 @@ class Mem_Programa(Mem_Interface):
             delegate = StyledItemDelegate(parent=self.tableWidget, comandos=self.comandos)
             self.tableWidget.setItemDelegateForColumn(i, delegate)
 
+        # region Designando funções aos botões
+
+
         self.actionZero.triggered.connect(self.zerar_memoria)
         self.actionSalvar.triggered.connect(self.salvar_arquivo)
         self.actionCarregar.triggered.connect(self.carregar_arquivo)
+
+        # endregion
+
+    # region Funções de controle
 
     def on_changed(self, item):
         linha = item.row()
@@ -42,7 +49,6 @@ class Mem_Programa(Mem_Interface):
         celula = f'0x{linha:02X}{coluna:X}'
 
         self.altera_memoria_de_programa(celula, valor)
-
     
     def zerar_memoria(self):
         msg = QMessageBox()
@@ -84,6 +90,9 @@ class Mem_Programa(Mem_Interface):
             print(texto)
         except(FileNotFoundError):
             print("Arquivo não encontrado")
+    
+    #endregion
+
 class StyledItemDelegate(QtWidgets.QStyledItemDelegate):
     comandos: list
 

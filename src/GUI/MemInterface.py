@@ -23,15 +23,19 @@ class Mem_Interface(QMainWindow):
         uic.loadUi(f'src/GUI/{UI_string}.ui', self)
         self.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
 
+        # region Formata a tabela
 
         self.num_linhas = 256
         self.num_colunas = 16
-
         self.diminui_colunas()
         self.formata_colunas()
         self.formata_linhas()
         self.preenche_tabela(memoria)
         self.tableWidget.itemChanged.connect(self.on_changed)
+
+        #endregion
+
+    # region Funções de formatação da UI
 
     def diminui_colunas(self):
         for i in range(self.num_colunas):
@@ -65,6 +69,8 @@ class Mem_Interface(QMainWindow):
                 item.setText(self.memoria.get(linha).get(coluna))
                 item.setTextAlignment(QtCore.Qt.AlignCenter)
                 self.tableWidget.setItem(i, j, item)
+
+    # endregion
 
     def on_changed(self, item):
         pass
