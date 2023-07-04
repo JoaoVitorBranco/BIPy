@@ -16,10 +16,12 @@ def resource_path(relative_path):
 
 class Mem_Dados(Mem_Interface):
     altera_memoria_de_dados: callable
-    def __init__(self, memoria_de_dados: dict, altera_memoria_de_dados):
+    limpa_memoria: callable
+    def __init__(self, memoria_de_dados: dict, altera_memoria_de_dados, limpa_memoria):
         super().__init__(UI_string='MemoriaDados', memoria=memoria_de_dados)
 
         self.altera_memoria_de_dados = altera_memoria_de_dados
+        self.limpa_memoria = limpa_memoria
 
         for i in range(self.num_colunas):
             delegate = StyledItemDelegate(self.tableWidget)
@@ -46,25 +48,15 @@ class Mem_Dados(Mem_Interface):
             msg.addButton('Não', QtWidgets.QMessageBox.NoRole)        
             msg.setText('Certeza que quer zerar a memória? ')
             msg.exec_()
-            resposta     = msg.buttonRole(msg.clickedButton())
+            resposta = msg.buttonRole(msg.clickedButton())
 
             if resposta == QtWidgets.QMessageBox.YesRole:
-                '''
-                ZERAR MEMORIA
-                '''
+                self.limpa_memoria()
                 qm = QtWidgets.QMessageBox()
                 qm.setWindowTitle("Zerar memória")
                 qm.setText("Memória zerada")
                 qm.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
                 qm.setIcon(QtWidgets.QMessageBox.Information)
-                qm.exec_()
-            
-            elif resposta == QtWidgets.QMessageBox.NoRole:
-                qm = QtWidgets.QMessageBox()
-                qm.setText("Operação cancelada. Memória permanece inalterada.")
-                qm.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
-                qm.setIcon(QtWidgets.QMessageBox.Information)
-                qm.setWindowTitle("Zerar memória")
                 qm.exec_()
 
     def salvar_arquivo(self):

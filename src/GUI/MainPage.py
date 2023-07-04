@@ -42,9 +42,10 @@ class Ui_MainPage(QMainWindow):
         self.show()
 
         self.ui_dados = Mem_Dados(memoria_de_dados=self.processador.pega_memoria_de_dados(
-        ), altera_memoria_de_dados=self.altera_memoria_de_dados)
+        ), altera_memoria_de_dados=self.altera_memoria_de_dados, limpa_memoria=self.limpa_memoria_de_dados)
+
         self.ui_programa = Mem_Programa(memoria_de_programa=self.processador.pega_memoria_de_programa(
-        ), altera_memoria_de_programa=self.altera_memoria_de_programa, comandos=comandos)
+        ), altera_memoria_de_programa=self.altera_memoria_de_programa, comandos=comandos, limpa_memoria=self.limpa_memoria_de_programa)
 
 
         self.refresh_displays()
@@ -84,6 +85,14 @@ class Ui_MainPage(QMainWindow):
         split_valor = valor.upper().split(" ")
         valor = self.dict_assemblador[split_valor[0]] + split_valor[1]
         self.processador.memoria_de_programa.altera_celula(endereco, valor)
+
+    def limpa_memoria_de_dados(self):
+        self.processador.memoria_de_dados.limpa_memoria()
+        self.ui_dados.preenche_tabela(self.processador.pega_memoria_de_dados())
+
+    def limpa_memoria_de_programa(self):
+        self.processador.memoria_de_programa.limpa_memoria()
+        self.ui_programa.preenche_tabela(self.processador.pega_memoria_de_programa())
 
     def set_clock(self):
 

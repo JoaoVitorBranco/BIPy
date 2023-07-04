@@ -62,7 +62,7 @@ class Mem_Interface(QMainWindow):
                 font = QFont()
                 font.setCapitalization(QFont.AllUppercase)
                 item.setFont(font)
-                item.setText(memoria.get(linha).get(coluna))
+                item.setText(self.memoria.get(linha).get(coluna))
                 item.setTextAlignment(QtCore.Qt.AlignCenter)
                 self.tableWidget.setItem(i, j, item)
 

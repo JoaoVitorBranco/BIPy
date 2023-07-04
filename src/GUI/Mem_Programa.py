@@ -17,11 +17,12 @@ class Mem_Programa(Mem_Interface):
     comandos: list
     altera_memoria_de_programa: callable
 
-    def __init__(self, memoria_de_programa: dict, altera_memoria_de_programa: callable, comandos: list):
+    def __init__(self, memoria_de_programa: dict, altera_memoria_de_programa: callable, comandos: list, limpa_memoria):
         super().__init__(UI_string='MemoriaPrograma', memoria=memoria_de_programa)
 
         self.comandos = [i+" " for i in comandos]
         self.altera_memoria_de_programa = altera_memoria_de_programa
+        self.limpa_memoria = limpa_memoria
 
         for i in range(self.num_colunas):
             delegate = StyledItemDelegate(parent=self.tableWidget, comandos=self.comandos)
@@ -52,22 +53,12 @@ class Mem_Programa(Mem_Interface):
         reply = msg.buttonRole(msg.clickedButton())
 
         if reply == QtWidgets.QMessageBox.YesRole:
-            '''
-            ZERAR MEMORIA
-            '''
+            self.limpa_memoria()
             qm = QtWidgets.QMessageBox()
             qm.setWindowTitle("Zerar memória")
             qm.setText("Memória zerada")
             qm.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
             qm.setIcon(QtWidgets.QMessageBox.Information)
-            qm.exec_()
-        
-        elif reply == QtWidgets.QMessageBox.NoRole:
-            qm = QtWidgets.QMessageBox()
-            qm.setText("Operação cancelada. Memória permanece inalterada.")
-            qm.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
-            qm.setIcon(QtWidgets.QMessageBox.Information)
-            qm.setWindowTitle("Zerar memória")
             qm.exec_()
 
     def salvar_arquivo(self):
