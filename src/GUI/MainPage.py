@@ -1,9 +1,10 @@
 import os
 import sys
+import io
 from threading import Thread
 from time import sleep
 from PyQt5 import QtGui, QtWidgets, uic
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QInputDialog
 from src.BIPy import BIPy
 from PyQt5.QtCore import pyqtSignal
 
@@ -30,16 +31,21 @@ class Ui_MainPage(QMainWindow):
 
     def __init__(self, processador: BIPy):
         super().__init__()
-        self.processador = processador
 
+        # Inicialização de variáveis
+
+        self.processador = processador
         self.dict_assemblador = processador.dict_assemblador
         self.dict_assemblador_inv = processador.dict_assemblador_inv
-
         comandos = list(processador.dict_assemblador.keys())
-        uic.loadUi(resource_path(os.path.join('src', 'GUI', 'MainPage_alt.ui')), self)
 
+        # Inicialização da UI da página
+
+        uic.loadUi(resource_path(os.path.join('src', 'GUI', 'MainPage_alt.ui')), self)
         self.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
         self.show()
+
+        # Inicializando a tabela responsável pela memoria de programa e de dados
 
         self.ui_dados = Mem_Dados(memoria_de_dados=self.processador.pega_memoria_de_dados(
         ), altera_memoria_de_dados=self.altera_memoria_de_dados, limpa_memoria=self.limpa_memoria_de_dados)
@@ -47,9 +53,14 @@ class Ui_MainPage(QMainWindow):
         self.ui_programa = Mem_Programa(memoria_de_programa=self.processador.pega_memoria_de_programa(
         ), altera_memoria_de_programa=self.altera_memoria_de_programa, comandos=comandos, limpa_memoria=self.limpa_memoria_de_programa)
 
-
+        # Inicialização geral da página
+        
         self.refresh_displays()
         self.reset()
+        self.clock = 1
+
+        # region Designando funções aos botões
+
         self.pushButton.clicked.connect(self.show_popup_mem_dados)
         self.pushButton_2.clicked.connect(self.show_popup_mem_programa)
         self.reset_button.clicked.connect(self.reset)
@@ -60,47 +71,22 @@ class Ui_MainPage(QMainWindow):
         self.actionHexadecimal.triggered.connect(self.altera_acumulador_para_hexadecimal)
         self.pushButton_3.clicked.connect(self.altera_acumulador_para_hexadecimal)
         self.pushButton_4.clicked.connect(self.altera_acumulador_para_decimal)
-        self.clock = 1
+        self.actionSobre.triggered.connect(self.exibe_creditos)
+
+        #endregion
 
         self.ui_refresh.connect(self.step)
 
 
-    def altera_acumulador_para_decimal(self):
-        self.acumulador.setDigitCount(5)
-        self.acumulador.setDecMode()
-        self.pushButton_3.setStyleSheet("background-color: rgb(50, 119, 185);border-width: 0.5%;")
-        self.pushButton_4.setStyleSheet("background-color: rgb(0, 69, 135);border-width: 4%;")
-    
-    def altera_acumulador_para_hexadecimal(self):
-        self.acumulador.setDigitCount(4)
-        self.acumulador.setHexMode()
-        self.pushButton_3.setStyleSheet("background-color: rgb(0, 69, 135);border-width: 4%;")
-        self.pushButton_4.setStyleSheet("background-color: rgb(50, 119, 185);border-width: 0.5%;")
-        
-    def altera_memoria_de_dados(self, endereco, valor):
-        self.processador.memoria_de_dados.altera_celula(
-            endereco, valor.upper())
-
-    def altera_memoria_de_programa(self, endereco, valor):
-        split_valor = valor.upper().split(" ")
-        valor = self.dict_assemblador[split_valor[0]] + split_valor[1]
-        self.processador.memoria_de_programa.altera_celula(endereco, valor)
-
-    def limpa_memoria_de_dados(self):
-        self.processador.memoria_de_dados.limpa_memoria()
-        self.ui_dados.preenche_tabela(self.processador.pega_memoria_de_dados())
-
-    def limpa_memoria_de_programa(self):
-        self.processador.memoria_de_programa.limpa_memoria()
-        self.ui_programa.preenche_tabela(self.processador.pega_memoria_de_programa())
+    # region Funções de controle
 
     def set_clock(self):
 
-        msg = QtWidgets.QInputDialog()
+        msg = QInputDialog()
         msg.setWindowIcon(QtGui.QIcon(
             resource_path('src/GUI/assets/icone.ico')))
         msg.setLabelText("Digite a frequência de clock desejada em Hz:")
-        msg.setInputMode(QtWidgets.QInputDialog.DoubleInput)
+        msg.setInputMode(QInputDialog.DoubleInput)
         msg.setOkButtonText("Setar")
         msg.setDoubleValue(1/self.clock)
         msg.setDoubleRange(0.1, 15)
@@ -112,6 +98,28 @@ class Ui_MainPage(QMainWindow):
             self.clock = 1/msg.doubleValue()
         except:
             pass
+
+    def closeEvent(self, event):
+        try:
+            self.ui_dados.close()
+        except AttributeError:
+            print("Memoria de dados não iniciada")
+        try:
+            self.ui_programa.close()
+        except AttributeError:
+            print("Memoria de programa não iniciada")
+
+    def altera_memoria_de_dados(self, endereco, valor):
+        self.processador.memoria_de_dados.altera_celula(endereco, valor.upper())
+
+    def altera_memoria_de_programa(self, endereco, valor):
+        split_valor = valor.upper().split(" ")
+        valor = self.dict_assemblador[split_valor[0]] + split_valor[1]
+        self.processador.memoria_de_programa.altera_celula(endereco, valor)
+
+    #endregion
+
+    # region Funções dos botões que controlam o processador
 
     def halt(self):
         t = Thread(target=self.halted)
@@ -140,6 +148,59 @@ class Ui_MainPage(QMainWindow):
 
         self.set_selecionado_mem_programa(linha, coluna)
         self.set_selecionado_mem_dados(valor)
+
+    #endregion
+
+    # region Funções que conttrolam a UI
+
+    #region Altera a UI da MainPage
+
+    def altera_acumulador_para_decimal(self):
+        self.acumulador.setDigitCount(5)
+        self.acumulador.setDecMode()
+        self.pushButton_3.setStyleSheet("background-color: rgb(50, 119, 185);border-width: 0.5%;")
+        self.pushButton_4.setStyleSheet("background-color: rgb(0, 69, 135);border-width: 4%;")
+    
+    def altera_acumulador_para_hexadecimal(self):
+        self.acumulador.setDigitCount(4)
+        self.acumulador.setHexMode()
+        self.pushButton_3.setStyleSheet("background-color: rgb(0, 69, 135);border-width: 4%;")
+        self.pushButton_4.setStyleSheet("background-color: rgb(50, 119, 185);border-width: 0.5%;")
+
+    def refresh_displays(self):
+        self.program_counter.display(self.processador.instrucao.endereco)
+        self.acumulador.display(int(self.processador.acc, 16))
+        self.instruct_counter.display(self.processador.instrucao.pega_comando())
+        self.set_selecionado_mem_programa(0, 0)
+
+        ## Cria popups
+
+    def exibe_creditos(self):
+        msg = QMessageBox()
+        arquivo = io.open(resource_path(r'src\GUI\assets\creditos.txt'), 'r', encoding='utf8')
+        msg.setText(arquivo.read())
+        msg.setIcon(QMessageBox.Information)
+        msg.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
+        msg.setWindowTitle("Créditos do projeto")
+        msg.exec_()
+        
+    def show_popup_mem_dados(self):
+        self.ui_dados.show()
+
+    def show_popup_mem_programa(self):
+        self.ui_programa.show()
+
+    #endregion
+
+    #region Altera a UI de um popup
+
+    def limpa_memoria_de_dados(self):
+        self.processador.memoria_de_dados.limpa_memoria()
+        self.ui_dados.preenche_tabela(self.processador.pega_memoria_de_dados())
+
+    def limpa_memoria_de_programa(self):
+        self.processador.memoria_de_programa.limpa_memoria()
+        self.ui_programa.preenche_tabela(self.processador.pega_memoria_de_programa())
 
     def set_selecionado_mem_programa(self, linha, coluna):
         for i in range(self.ui_programa.tableWidget.rowCount()):
@@ -177,29 +238,12 @@ class Ui_MainPage(QMainWindow):
                 
                 item.setBackground(color)
 
+
         item = self.ui_dados.tableWidget.item(linha, coluna)
         highlight = QtGui.QColor(0, 71, 133)
         highlight.setAlphaF(0.8)
         item.setBackground(highlight)
 
-    def closeEvent(self, event):
-        try:
-            self.ui_dados.close()
-        except AttributeError:
-            print("Memoria de dados não iniciada")
-        try:
-            self.ui_programa.close()
-        except AttributeError:
-            print("Memoria de programa não iniciada")
-
-    def refresh_displays(self):
-        self.program_counter.display(self.processador.instrucao.endereco)
-        self.acumulador.display(int(self.processador.acc, 16))
-        self.instruct_counter.display(self.processador.instrucao.pega_comando())
-        self.set_selecionado_mem_programa(0, 0)
-
-    def show_popup_mem_dados(self):
-        self.ui_dados.show()
-
-    def show_popup_mem_programa(self):
-        self.ui_programa.show()
+    #endregion
+    
+    #endregion

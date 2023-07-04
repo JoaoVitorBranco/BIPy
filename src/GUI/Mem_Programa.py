@@ -1,6 +1,7 @@
 import sys
 import os
 from PyQt5 import QtCore, QtWidgets, QtGui
+from PyQt5.QtWidgets import QMessageBox
 
 from src.GUI.MemInterface import Mem_Interface
 
@@ -44,23 +45,23 @@ class Mem_Programa(Mem_Interface):
 
     
     def zerar_memoria(self):
-        msg = QtWidgets.QMessageBox()
+        msg = QMessageBox()
         msg.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
         msg.setWindowTitle("Zerar memória")
-        msg.setIcon(QtWidgets.QMessageBox.Question)
-        msg.addButton('Sim', QtWidgets.QMessageBox.YesRole)
-        msg.addButton('Não', QtWidgets.QMessageBox.NoRole)        
+        msg.setIcon(QMessageBox.Question)
+        msg.addButton('Sim', QMessageBox.YesRole)
+        msg.addButton('Não', QMessageBox.NoRole)        
         msg.setText('Certeza que quer zerar a memória? ')
         msg.exec_()
         reply = msg.buttonRole(msg.clickedButton())
 
-        if reply == QtWidgets.QMessageBox.YesRole:
+        if reply == QMessageBox.YesRole:
             self.limpa_memoria()
-            qm = QtWidgets.QMessageBox()
+            qm = QMessageBox()
             qm.setWindowTitle("Zerar memória")
             qm.setText("Memória zerada")
             qm.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
-            qm.setIcon(QtWidgets.QMessageBox.Information)
+            qm.setIcon(QMessageBox.Information)
             qm.exec_()
 
     def salvar_arquivo(self):
