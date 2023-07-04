@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>793</width>
-    <height>727</height>
+    <width>858</width>
+    <height>748</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,31 +15,28 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QWidget{
-	background: #262d37;
-	color: white;
+	background: rgb(213,213,213);
+	color: rgb(0, 69, 135);
 }
+
 
 QPushButton{
 	border-radius: 20%;;
-	background: rgba(0, 71, 133,0.4);
+	background-color: rgb(0, 69, 136);
 	color: white;
-	border: 2px solid #000;
 }
 
 QPushButton:hover{
-	background: rgba(0, 71, 133,0.3);
+	background-color: rgb(0, 59, 126);
 }
-
 QPushButton:pressed{
-	background:rgba(0, 71, 133,0.2);
+	background-color: rgb(0, 49, 116);
 }
 
 QLCDNumber{
-  background-color: rgb(0, 0, 0);
-  border: 2px solid rgb(113, 113, 113);
-  border-width: 2%;
+  background-color: rgb(30, 99, 165);
   border-radius: 20%;
-  color: rgb(255, 255, 255);
+  color: white;
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -49,54 +46,54 @@ QLCDNumber{
       <colorrole role="WindowText">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>255</red>
-         <green>255</green>
-         <blue>255</blue>
+         <red>0</red>
+         <green>69</green>
+         <blue>135</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Button">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>38</red>
-         <green>45</green>
-         <blue>55</blue>
+         <red>213</red>
+         <green>213</green>
+         <blue>213</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Text">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>255</red>
-         <green>255</green>
-         <blue>255</blue>
+         <red>0</red>
+         <green>69</green>
+         <blue>135</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="ButtonText">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>255</red>
-         <green>255</green>
-         <blue>255</blue>
+         <red>0</red>
+         <green>69</green>
+         <blue>135</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Base">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>38</red>
-         <green>45</green>
-         <blue>55</blue>
+         <red>213</red>
+         <green>213</green>
+         <blue>213</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Window">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>38</red>
-         <green>45</green>
-         <blue>55</blue>
+         <red>213</red>
+         <green>213</green>
+         <blue>213</blue>
         </color>
        </brush>
       </colorrole>
@@ -105,54 +102,54 @@ QLCDNumber{
       <colorrole role="WindowText">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>255</red>
-         <green>255</green>
-         <blue>255</blue>
+         <red>0</red>
+         <green>69</green>
+         <blue>135</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Button">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>38</red>
-         <green>45</green>
-         <blue>55</blue>
+         <red>213</red>
+         <green>213</green>
+         <blue>213</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Text">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>255</red>
-         <green>255</green>
-         <blue>255</blue>
+         <red>0</red>
+         <green>69</green>
+         <blue>135</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="ButtonText">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>255</red>
-         <green>255</green>
-         <blue>255</blue>
+         <red>0</red>
+         <green>69</green>
+         <blue>135</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Base">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>38</red>
-         <green>45</green>
-         <blue>55</blue>
+         <red>213</red>
+         <green>213</green>
+         <blue>213</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Window">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>38</red>
-         <green>45</green>
-         <blue>55</blue>
+         <red>213</red>
+         <green>213</green>
+         <blue>213</blue>
         </color>
        </brush>
       </colorrole>
@@ -161,54 +158,54 @@ QLCDNumber{
       <colorrole role="WindowText">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>255</red>
-         <green>255</green>
-         <blue>255</blue>
+         <red>0</red>
+         <green>69</green>
+         <blue>135</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Button">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>38</red>
-         <green>45</green>
-         <blue>55</blue>
+         <red>213</red>
+         <green>213</green>
+         <blue>213</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Text">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>255</red>
-         <green>255</green>
-         <blue>255</blue>
+         <red>0</red>
+         <green>69</green>
+         <blue>135</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="ButtonText">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>255</red>
-         <green>255</green>
-         <blue>255</blue>
+         <red>0</red>
+         <green>69</green>
+         <blue>135</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Base">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>38</red>
-         <green>45</green>
-         <blue>55</blue>
+         <red>213</red>
+         <green>213</green>
+         <blue>213</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Window">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>38</red>
-         <green>45</green>
-         <blue>55</blue>
+         <red>213</red>
+         <green>213</green>
+         <blue>213</blue>
         </color>
        </brush>
       </colorrole>
@@ -243,33 +240,49 @@ QLCDNumber{
         <number>20</number>
        </property>
        <property name="horizontalSpacing">
-        <number>20</number>
+        <number>40</number>
        </property>
        <property name="verticalSpacing">
         <number>0</number>
        </property>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label">
-         <property name="font">
-          <font>
-           <pointsize>20</pointsize>
-          </font>
+       <item row="1" column="2">
+        <widget class="QLCDNumber" name="acumulador">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>100</height>
+          </size>
          </property>
-         <property name="text">
-          <string>Instrução</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLCDNumber" name="program_counter">
          <property name="frameShape">
           <enum>QFrame::NoFrame</enum>
          </property>
          <property name="digitCount">
           <number>4</number>
+         </property>
+         <property name="mode">
+          <enum>QLCDNumber::Hex</enum>
+         </property>
+         <property name="value" stdset="0">
+          <double>0.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLCDNumber" name="instruct_counter">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>100</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
+         <property name="digitCount">
+          <number>1</number>
          </property>
          <property name="mode">
           <enum>QLCDNumber::Hex</enum>
@@ -284,6 +297,8 @@ QLCDNumber{
          <property name="font">
           <font>
            <pointsize>20</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
@@ -294,35 +309,20 @@ QLCDNumber{
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QLCDNumber" name="instruct_counter">
-         <property name="frameShape">
-          <enum>QFrame::NoFrame</enum>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="font">
+          <font>
+           <pointsize>20</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
          </property>
-         <property name="digitCount">
-          <number>1</number>
+         <property name="text">
+          <string>Instrução</string>
          </property>
-         <property name="mode">
-          <enum>QLCDNumber::Hex</enum>
-         </property>
-         <property name="value" stdset="0">
-          <double>0.000000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QLCDNumber" name="acumulador">
-         <property name="frameShape">
-          <enum>QFrame::NoFrame</enum>
-         </property>
-         <property name="digitCount">
-          <number>4</number>
-         </property>
-         <property name="mode">
-          <enum>QLCDNumber::Hex</enum>
-         </property>
-         <property name="value" stdset="0">
-          <double>0.000000000000000</double>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -343,6 +343,8 @@ QLCDNumber{
             <property name="font">
              <font>
               <pointsize>20</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="text">
@@ -355,58 +357,47 @@ QLCDNumber{
           </item>
           <item>
            <widget class="QFrame" name="frame_5">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>50</height>
-             </size>
-            </property>
             <property name="styleSheet">
-             <string notr="true"/>
+             <string notr="true">QPushButton{
+	color:rgb(30, 99, 165);
+	background-color:rgb(212, 221, 80);
+	border: 2px solid #000;
+	border-width: 0.5%;
+}</string>
             </property>
             <property name="frameShape">
-             <enum>QFrame::NoFrame</enum>
+             <enum>QFrame::StyledPanel</enum>
             </property>
             <property name="frameShadow">
              <enum>QFrame::Raised</enum>
             </property>
             <layout class="QHBoxLayout" name="horizontalLayout">
-             <property name="spacing">
-              <number>0</number>
-             </property>
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
              <item>
-              <widget class="QLabel" name="label_4">
-               <property name="enabled">
-                <bool>true</bool>
-               </property>
-               <property name="maximumSize">
+              <widget class="QPushButton" name="pushButton_3">
+               <property name="minimumSize">
                 <size>
-                 <width>16777215</width>
-                 <height>15</height>
+                 <width>60</width>
+                 <height>40</height>
                 </size>
                </property>
-               <property name="font">
-                <font>
-                 <pointsize>10</pointsize>
-                </font>
+               <property name="text">
+                <string>Hexadecimal</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_4">
+               <property name="minimumSize">
+                <size>
+                 <width>60</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton{background-color:rgb(30, 99, 165);}</string>
                </property>
                <property name="text">
-                <string>(hexadecimal)</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
+                <string>Decimal</string>
                </property>
               </widget>
              </item>
@@ -414,6 +405,28 @@ QLCDNumber{
            </widget>
           </item>
          </layout>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLCDNumber" name="program_counter">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>100</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="digitCount">
+          <number>4</number>
+         </property>
+         <property name="mode">
+          <enum>QLCDNumber::Hex</enum>
+         </property>
+         <property name="value" stdset="0">
+          <double>0.000000000000000</double>
+         </property>
         </widget>
        </item>
       </layout>
@@ -424,6 +437,12 @@ QLCDNumber{
     </item>
     <item>
      <widget class="QFrame" name="frame_2">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>100</height>
+       </size>
+      </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
@@ -444,7 +463,7 @@ QLCDNumber{
         <number>20</number>
        </property>
        <property name="bottomMargin">
-        <number>20</number>
+        <number>0</number>
        </property>
        <item>
         <widget class="QPushButton" name="reset_button">
@@ -457,6 +476,8 @@ QLCDNumber{
          <property name="font">
           <font>
            <pointsize>20</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
           </font>
          </property>
          <property name="cursor">
@@ -490,6 +511,8 @@ QLCDNumber{
          <property name="font">
           <font>
            <pointsize>20</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
           </font>
          </property>
          <property name="cursor">
@@ -544,6 +567,8 @@ QPushButton:checked{
          <property name="font">
           <font>
            <pointsize>20</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
           </font>
          </property>
          <property name="cursor">
@@ -571,6 +596,12 @@ QPushButton:checked{
     </item>
     <item>
      <widget class="QFrame" name="frame_3">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>400</height>
+       </size>
+      </property>
       <property name="font">
        <font>
         <pointsize>20</pointsize>
@@ -582,15 +613,15 @@ QPushButton:checked{
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <layout class="QVBoxLayout" name="verticalLayout_3">
        <property name="spacing">
-        <number>50</number>
+        <number>0</number>
        </property>
        <property name="leftMargin">
         <number>20</number>
        </property>
        <property name="topMargin">
-        <number>20</number>
+        <number>0</number>
        </property>
        <property name="rightMargin">
         <number>20</number>
@@ -599,66 +630,143 @@ QPushButton:checked{
         <number>20</number>
        </property>
        <item>
-        <widget class="QPushButton" name="pushButton_2">
-         <property name="minimumSize">
+        <widget class="QFrame" name="frame_7">
+         <property name="maximumSize">
           <size>
-           <width>0</width>
-           <height>75</height>
+           <width>16777215</width>
+           <height>100</height>
           </size>
          </property>
-         <property name="font">
-          <font>
-           <pointsize>20</pointsize>
-          </font>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
          </property>
-         <property name="cursor">
-          <cursorShape>PointingHandCursor</cursorShape>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
          </property>
-         <property name="toolTip">
-          <string>Abrir memoria de programa</string>
-         </property>
-         <property name="toolTipDuration">
-          <number>0</number>
-         </property>
-         <property name="statusTip">
-          <string>Abrir memoria de programa</string>
-         </property>
-         <property name="text">
-          <string>Memoria de Programa</string>
-         </property>
-         <property name="shortcut">
-          <string>Ctrl+P</string>
-         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <property name="topMargin">
+           <number>10</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="label_4">
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Instituto Mauá de Tecnologia&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="pixmap">
+             <pixmap>assets/logo-IMT.png</pixmap>
+            </property>
+            <property name="scaledContents">
+             <bool>true</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>75</height>
-          </size>
+        <widget class="QFrame" name="frame_6">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
          </property>
-         <property name="font">
-          <font>
-           <pointsize>20</pointsize>
-          </font>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
          </property>
-         <property name="cursor">
-          <cursorShape>PointingHandCursor</cursorShape>
-         </property>
-         <property name="toolTip">
-          <string>Abrir memoria de dados</string>
-         </property>
-         <property name="statusTip">
-          <string>Abrir memoria de dados</string>
-         </property>
-         <property name="text">
-          <string>Memoria de Dados</string>
-         </property>
-         <property name="shortcut">
-          <string>Ctrl+D</string>
-         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <property name="spacing">
+           <number>40</number>
+          </property>
+          <property name="leftMargin">
+           <number>40</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>40</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="pushButton">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>75</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>20</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="toolTip">
+             <string>Abrir memoria de dados</string>
+            </property>
+            <property name="statusTip">
+             <string>Abrir memoria de dados</string>
+            </property>
+            <property name="text">
+             <string>Memoria de Dados</string>
+            </property>
+            <property name="shortcut">
+             <string>Ctrl+D</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_2">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>75</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>20</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="toolTip">
+             <string>Abrir memoria de programa</string>
+            </property>
+            <property name="toolTipDuration">
+             <number>0</number>
+            </property>
+            <property name="statusTip">
+             <string>Abrir memoria de programa</string>
+            </property>
+            <property name="text">
+             <string>Memoria de Programa</string>
+            </property>
+            <property name="shortcut">
+             <string>Ctrl+P</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>
@@ -671,31 +779,10 @@ QPushButton:checked{
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>793</width>
+     <width>858</width>
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuArquivo">
-    <property name="title">
-     <string>Arquivo</string>
-    </property>
-    <widget class="QMenu" name="menuAbrir">
-     <property name="title">
-      <string>Carregar</string>
-     </property>
-     <addaction name="actionMemoria_de_Dados"/>
-     <addaction name="actionMemoria_de_Programa"/>
-    </widget>
-    <widget class="QMenu" name="menuSalvar">
-     <property name="title">
-      <string>Salvar</string>
-     </property>
-     <addaction name="actionMemoria_de_Dados_2"/>
-     <addaction name="actionMemoria_de_Programa_2"/>
-    </widget>
-    <addaction name="menuSalvar"/>
-    <addaction name="menuAbrir"/>
-   </widget>
    <widget class="QMenu" name="menuConfigura_o">
     <property name="title">
      <string>Configuração</string>
@@ -707,11 +794,18 @@ QPushButton:checked{
      <addaction name="actionHexadecimal"/>
      <addaction name="actionDecimal"/>
     </widget>
-    <addaction name="actionSetar_Clock"/>
     <addaction name="menuAlterar_modo_do_acumulador"/>
+    <addaction name="separator"/>
+    <addaction name="actionSetar_Clock"/>
    </widget>
-   <addaction name="menuArquivo"/>
+   <widget class="QMenu" name="menuMais">
+    <property name="title">
+     <string>Mais</string>
+    </property>
+    <addaction name="actionSobre"/>
+   </widget>
    <addaction name="menuConfigura_o"/>
+   <addaction name="menuMais"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionAbrir_Memoria_de_Dados">
@@ -770,6 +864,11 @@ QPushButton:checked{
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+D</string>
+   </property>
+  </action>
+  <action name="actionSobre">
+   <property name="text">
+    <string>Sobre</string>
    </property>
   </action>
  </widget>

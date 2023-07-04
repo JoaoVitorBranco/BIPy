@@ -7,12 +7,12 @@
     <x>0</x>
     <y>0</y>
     <width>1030</width>
-    <height>600</height>
+    <height>664</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1030</width>
+    <width>300</width>
     <height>300</height>
    </size>
   </property>
@@ -26,8 +26,8 @@
    <string>Memoria de Dados</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QMainWindow{
-	background: white:
+   <string notr="true">QTableWidget{
+	background: rgba(0, 71, 133,0.2);
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -36,12 +36,6 @@
      <widget class="QTableWidget" name="tableWidget">
       <property name="autoFillBackground">
        <bool>false</bool>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QTableWidget{
-	background: rgba(0, 71, 133,0.2
-);
-}</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>
@@ -366,12 +360,37 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1040</width>
+     <width>1030</width>
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuArquivo">
+    <property name="title">
+     <string>Arquivo</string>
+    </property>
+    <addaction name="actionCarregar"/>
+    <addaction name="actionSalvar"/>
+    <addaction name="separator"/>
+    <addaction name="actionZero"/>
+   </widget>
+   <addaction name="menuArquivo"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionCarregar">
+   <property name="text">
+    <string>Carregar</string>
+   </property>
+  </action>
+  <action name="actionSalvar">
+   <property name="text">
+    <string>Salvar</string>
+   </property>
+  </action>
+  <action name="actionZero">
+   <property name="text">
+    <string>Zerar Memória</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

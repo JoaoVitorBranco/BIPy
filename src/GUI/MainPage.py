@@ -36,15 +36,16 @@ class Ui_MainPage(QMainWindow):
         self.dict_assemblador_inv = processador.dict_assemblador_inv
 
         comandos = list(processador.dict_assemblador.keys())
-        uic.loadUi(resource_path(os.path.join('src', 'GUI', 'MainPage.ui')), self)
+        uic.loadUi(resource_path(os.path.join('src', 'GUI', 'MainPage_alt.ui')), self)
 
-        self.setWindowIcon(QtGui.QIcon(resource_path(os.path.join('src', 'GUI', 'assets', 'icone.ico'))))
+        self.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
         self.show()
 
         self.ui_dados = Mem_Dados(memoria_de_dados=self.processador.pega_memoria_de_dados(
         ), altera_memoria_de_dados=self.altera_memoria_de_dados)
         self.ui_programa = Mem_Programa(memoria_de_programa=self.processador.pega_memoria_de_programa(
         ), altera_memoria_de_programa=self.altera_memoria_de_programa, comandos=comandos)
+
 
         self.refresh_displays()
         self.reset()
@@ -54,26 +55,27 @@ class Ui_MainPage(QMainWindow):
         self.step_button.clicked.connect(self.step)
         self.halt_check.clicked.connect(self.halt)
         self.actionSetar_Clock.triggered.connect(self.set_clock)
-        self.actionDecimal.triggered.connect(
-            self.altera_acumulador_para_decimal)
-        self.actionHexadecimal.triggered.connect(
-            self.altera_acumulador_para_hexadecimal)
+        self.actionDecimal.triggered.connect(self.altera_acumulador_para_decimal)
+        self.actionHexadecimal.triggered.connect(self.altera_acumulador_para_hexadecimal)
+        self.pushButton_3.clicked.connect(self.altera_acumulador_para_decimal)
+        self.pushButton_4.clicked.connect(self.altera_acumulador_para_hexadecimal)
         self.clock = 1
 
         self.ui_refresh.connect(self.step)
 
+
     def altera_acumulador_para_decimal(self):
         self.acumulador.setDigitCount(5)
         self.acumulador.setDecMode()
-        self.label_5.setStyleSheet("background:rgba(0, 71, 133, 0.4);")
-        self.label_4.setStyleSheet("background:rgba(0, 71, 133, 0.1);")
-
+        self.pushButton_3.setStyleSheet("background-color: rgb(30, 99, 165);")
+        self.pushButton_4.setStyleSheet("background-color:rgb(212, 221, 80);")
+    
     def altera_acumulador_para_hexadecimal(self):
         self.acumulador.setDigitCount(4)
         self.acumulador.setHexMode()
-        self.label_4.setStyleSheet("background:rgba(0, 71, 133, 0.4);")
-        self.label_5.setStyleSheet("background:rgba(0, 71, 133, 0.1);")
-
+        self.pushButton_4.setStyleSheet("background-color: rgb(30, 99, 165);")
+        self.pushButton_3.setStyleSheet("background-color:rgb(212, 221, 80);")
+        
     def altera_memoria_de_dados(self, endereco, valor):
         self.processador.memoria_de_dados.altera_celula(
             endereco, valor.upper())
@@ -135,15 +137,15 @@ class Ui_MainPage(QMainWindow):
             for j in range(self.ui_programa.tableWidget.columnCount()):
 
                 item = self.ui_programa.tableWidget.item(i, j)
+                
+                if i % 2 == 1:
 
-                if i % 2 == 0:
                     color = QtGui.QColor(255, 255, 255)
                 else:
                     color = QtGui.QColor(0, 71, 133)
                     color.setAlphaF(0.2)
 
                 item.setBackground(color)
-                item.setForeground(QtGui.QColor(0, 0, 0))
 
         item = self.ui_programa.tableWidget.item(linha, coluna)
         highlight = QtGui.QColor(0, 71, 133)
@@ -158,14 +160,13 @@ class Ui_MainPage(QMainWindow):
             for j in range(self.ui_dados.tableWidget.columnCount()):
                 item = self.ui_dados.tableWidget.item(i, j)
 
-                if i % 2 == 0:
-                    color = QtGui.QColor(255, 255, 255)
+                if i % 2 == 1:
+                    color = QtGui.QColor(255,255,255)
                 else:
                     color = QtGui.QColor(0, 71, 133)
-                    color.setAlphaF(0.2)
-
+                    color.setAlphaF(0.1)
+                
                 item.setBackground(color)
-                item.setForeground(QtGui.QColor(0, 0, 0))
 
         item = self.ui_dados.tableWidget.item(linha, coluna)
         highlight = QtGui.QColor(0, 71, 133)
