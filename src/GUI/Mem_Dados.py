@@ -22,6 +22,7 @@ class Mem_Dados(Mem_Interface):
 
         self.altera_memoria_de_dados = altera_memoria_de_dados
         self.limpa_memoria = limpa_memoria
+        self.tipos_de_arquivo = "Arquivo CedarLogic (*.cdm);; Arquivo de Texto (*.txt)"
 
         for i in range(self.num_colunas):
             delegate = StyledItemDelegate(self.tableWidget)
@@ -60,21 +61,25 @@ class Mem_Dados(Mem_Interface):
                 qm.exec_()
 
     def salvar_arquivo(self):
-        tipos_de_arquivo = "CDM (*.cdm);;Texto (*.txt)"
-        nome , _ = QtWidgets.QFileDialog.getSaveFileName(self, 'Salvar arquivo', '', tipos_de_arquivo)
-        arquivo = open(nome[0], 'w')
-        texto = 'fodase'
-        arquivo.write(texto)
-        arquivo.close()
+        nome , _ = QtWidgets.QFileDialog.getSaveFileName(self, 'Salvar arquivo', '', self.tipos_de_arquivo)
+        try:
+            arquivo = open(nome, 'w')
+            texto = 'fodase'
+            arquivo.write(texto)
+            arquivo.close()
+        except(FileNotFoundError):
+            print("Arquivo não encontrado")
 
     def carregar_arquivo(self):
-        tipos_de_arquivo = "CDM (*.cdm);;Texto (*.txt)"
-        nome , _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Abrir Arquivo', '', tipos_de_arquivo)
-        arquivo = open(nome, 'r')
-    
-        with arquivo:
-            texto = arquivo.read()
-        print(texto)
+        nome , _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Abrir Arquivo', '', self.tipos_de_arquivo)
+        try:
+            arquivo = open(nome, 'r')
+        
+            with arquivo:
+                texto = arquivo.read()
+            print(texto)
+        except(FileNotFoundError):
+            print("Arquivo não encontrado")
 
 class StyledItemDelegate(QtWidgets.QStyledItemDelegate):
     def createEditor(self, parent, option, index):
