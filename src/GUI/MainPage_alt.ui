@@ -783,30 +783,6 @@ QPushButton:checked{
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuArquivo">
-    <property name="styleSheet">
-     <string notr="true">QMenu:hover{color:red;}</string>
-    </property>
-    <property name="title">
-     <string>Arquivo</string>
-    </property>
-    <widget class="QMenu" name="menuAbrir">
-     <property name="title">
-      <string>Carregar</string>
-     </property>
-     <addaction name="actionMemoria_de_Dados"/>
-     <addaction name="actionMemoria_de_Programa"/>
-    </widget>
-    <widget class="QMenu" name="menuSalvar">
-     <property name="title">
-      <string>Salvar</string>
-     </property>
-     <addaction name="actionMemoria_de_Dados_2"/>
-     <addaction name="actionMemoria_de_Programa_2"/>
-    </widget>
-    <addaction name="menuSalvar"/>
-    <addaction name="menuAbrir"/>
-   </widget>
    <widget class="QMenu" name="menuConfigura_o">
     <property name="title">
      <string>Configuração</string>
@@ -828,7 +804,6 @@ QPushButton:checked{
     </property>
     <addaction name="actionSobre"/>
    </widget>
-   <addaction name="menuArquivo"/>
    <addaction name="menuConfigura_o"/>
    <addaction name="menuMais"/>
   </widget>

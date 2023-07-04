@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Pedro\OneDrive - Instituto Maua de Tecnologia\3º ano\Arquitetura\BIPy\processador_bip_em_python\src\GUI\MemoriaDados.ui'
+# Form implementation generated from reading ui file 'c:\Users\Pedro\OneDrive - Instituto Maua de Tecnologia\3º ano\Arquitetura\BIPy\processador_bip_em_python\src\GUI\MemoriaPrograma.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
@@ -11,16 +11,16 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_Memoria_de_Dados(object):
-    def setupUi(self, Memoria_de_Dados):
-        Memoria_de_Dados.setObjectName("Memoria_de_Dados")
-        Memoria_de_Dados.resize(1030, 664)
-        Memoria_de_Dados.setMinimumSize(QtCore.QSize(300, 300))
-        Memoria_de_Dados.setMaximumSize(QtCore.QSize(1030, 100000))
-        Memoria_de_Dados.setStyleSheet("QTableWidget{\n"
+class Ui_Memoria_de_Programa(object):
+    def setupUi(self, Memoria_de_Programa):
+        Memoria_de_Programa.setObjectName("Memoria_de_Programa")
+        Memoria_de_Programa.resize(1030, 600)
+        Memoria_de_Programa.setMinimumSize(QtCore.QSize(1030, 300))
+        Memoria_de_Programa.setMaximumSize(QtCore.QSize(1030, 100000))
+        Memoria_de_Programa.setStyleSheet("QTableWidget{\n"
 "    background: rgba(0, 71, 133,0.2);\n"
 "}")
-        self.centralwidget = QtWidgets.QWidget(Memoria_de_Dados)
+        self.centralwidget = QtWidgets.QWidget(Memoria_de_Programa)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setObjectName("horizontalLayout")
@@ -42,21 +42,21 @@ class Ui_Memoria_de_Dados(object):
         self.tableWidget.horizontalHeader().setVisible(True)
         self.tableWidget.horizontalHeader().setCascadingSectionResizes(False)
         self.horizontalLayout.addWidget(self.tableWidget)
-        Memoria_de_Dados.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(Memoria_de_Dados)
+        Memoria_de_Programa.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(Memoria_de_Programa)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1030, 21))
         self.menubar.setObjectName("menubar")
         self.menuArquivo = QtWidgets.QMenu(self.menubar)
         self.menuArquivo.setObjectName("menuArquivo")
-        Memoria_de_Dados.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(Memoria_de_Dados)
+        Memoria_de_Programa.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(Memoria_de_Programa)
         self.statusbar.setObjectName("statusbar")
-        Memoria_de_Dados.setStatusBar(self.statusbar)
-        self.actionCarregar = QtWidgets.QAction(Memoria_de_Dados)
+        Memoria_de_Programa.setStatusBar(self.statusbar)
+        self.actionCarregar = QtWidgets.QAction(Memoria_de_Programa)
         self.actionCarregar.setObjectName("actionCarregar")
-        self.actionSalvar = QtWidgets.QAction(Memoria_de_Dados)
+        self.actionSalvar = QtWidgets.QAction(Memoria_de_Programa)
         self.actionSalvar.setObjectName("actionSalvar")
-        self.actionZero = QtWidgets.QAction(Memoria_de_Dados)
+        self.actionZero = QtWidgets.QAction(Memoria_de_Programa)
         self.actionZero.setObjectName("actionZero")
         self.menuArquivo.addAction(self.actionCarregar)
         self.menuArquivo.addAction(self.actionSalvar)
@@ -64,13 +64,13 @@ class Ui_Memoria_de_Dados(object):
         self.menuArquivo.addAction(self.actionZero)
         self.menubar.addAction(self.menuArquivo.menuAction())
 
-        self.retranslateUi(Memoria_de_Dados)
-        QtCore.QMetaObject.connectSlotsByName(Memoria_de_Dados)
+        self.retranslateUi(Memoria_de_Programa)
+        QtCore.QMetaObject.connectSlotsByName(Memoria_de_Programa)
 
-    def retranslateUi(self, Memoria_de_Dados):
+    def retranslateUi(self, Memoria_de_Programa):
         _translate = QtCore.QCoreApplication.translate
-        Memoria_de_Dados.setWindowTitle(_translate("Memoria_de_Dados", "Memoria de Dados"))
-        self.menuArquivo.setTitle(_translate("Memoria_de_Dados", "Arquivo"))
-        self.actionCarregar.setText(_translate("Memoria_de_Dados", "Carregar"))
-        self.actionSalvar.setText(_translate("Memoria_de_Dados", "Salvar"))
-        self.actionZero.setText(_translate("Memoria_de_Dados", "Zerar Memória"))
+        Memoria_de_Programa.setWindowTitle(_translate("Memoria_de_Programa", "Memoria de Programa"))
+        self.menuArquivo.setTitle(_translate("Memoria_de_Programa", "Arquivo"))
+        self.actionCarregar.setText(_translate("Memoria_de_Programa", "Carregar"))
+        self.actionSalvar.setText(_translate("Memoria_de_Programa", "Salvar"))
+        self.actionZero.setText(_translate("Memoria_de_Programa", "Zerar Memória"))
