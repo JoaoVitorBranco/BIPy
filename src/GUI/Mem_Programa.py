@@ -62,7 +62,7 @@ class Mem_Programa(Mem_Interface):
             qm.exec_()
 
     def salvar_arquivo(self):
-        nome , _ = QtWidgets.QFileDialog.getSaveFileName(self, 'Salvar arquivo', '', self.tipos_de_arquivo)
+        nome , tipo = QtWidgets.QFileDialog.getSaveFileName(self, 'Salvar arquivo', '', self.tipos_de_arquivo)
         try:
             arquivo = open(nome, 'w')
             texto = 'fodase'
@@ -72,10 +72,9 @@ class Mem_Programa(Mem_Interface):
             print("Arquivo não encontrado")
 
     def carregar_arquivo(self):
-        nome , _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Abrir Arquivo', '', self.tipos_de_arquivo)
+        nome , tipo = QtWidgets.QFileDialog.getOpenFileName(self, 'Abrir Arquivo', '', self.tipos_de_arquivo)
         try:
             arquivo = open(nome, 'r')
-        
             with arquivo:
                 texto = arquivo.read()
             print(texto)
