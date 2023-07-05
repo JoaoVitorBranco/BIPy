@@ -30,6 +30,7 @@ class BIPy:
         "JL": "C",
         "JG": "D"
     }
+    dict_assemblador_inv : Dict[str, str]
     
     def __init__(self, memoria_de_programa: MemoriaInterface, memoria_de_dados: MemoriaInterface):
         self.memoria_de_programa = memoria_de_programa
@@ -43,11 +44,79 @@ class BIPy:
         self.instrucao = Celula(endereco="0x000", valor=self.memoria_de_programa.ler_celula("0x000")) 
         self.comparacao = ComparacaoEnum.SEM_COMPARACAO
         
-    def valor_em_endereco(self, valor):
+    def altera_memoria_de_programa(self, nova_memoria: dict) -> None:
+        self.memoria_de_programa.altera_todas_as_celulas(nova_memoria)
+    
+    def altera_memoria_de_dados(self, nova_memoria: dict) -> None:
+        nova_memoria_de_dados = dict()
+        for linha, dict_linha in nova_memoria.items():
+            for coluna, valor in dict_linha.items():
+                if(len(valor) != 4):
+                    raise ErroDeProcessador(metodo="altera_memoria_de_programa", mensagem=f"Valor deve ser 4 digitos")
+                nova_memoria_de_dados[f"{linha}{coluna}"] = valor
+
+        self.memoria_de_dados.altera_todas_as_celulas(nova_memoria_de_dados)
+        
+    def altera_memoria_de_programa(self, nova_memoria: dict):
+        nova_memoria_de_programa = dict()
+        for linha, dict_linha in nova_memoria.items():
+            for coluna, valor in dict_linha.items():
+                comando_e_valor = valor.split()
+                comando_em_hex = self.dict_assemblador.get(comando_e_valor[0])
+                if(comando_em_hex == None):
+                    raise ErroDeProcessador(metodo="altera_memoria_de_programa", mensagem=f"Comando {comando_e_valor[0]} não existe")
+                    
+                valor_formatado = f'{comando_em_hex}{comando_e_valor[1]}'
+                nova_memoria_de_programa[f"{linha}{coluna}"] = valor_formatado
+
+        self.memoria_de_programa.altera_todas_as_celulas(nova_memoria_de_programa)
+        
+    def limpa_memorias(self) -> None:
+        self.limpa_memoria_de_dados()
+        self.limpa_memoria_de_programa()    
+        self.reset()
+    
+    def valor_em_endereco(self, valor) -> str:
         return f"0x{valor}"
     
-    def executa_comando(self) -> None:
+    def limpa_memoria_de_dados(self) -> None:
+        self.memoria_de_dados.limpa_memoria()
         
+    def limpa_memoria_de_programa(self) -> None:
+        self.memoria_de_programa.limpa_memoria()
+        
+    
+    def pega_memoria_de_dados(self) -> dict:
+        memoria_de_dados = dict()
+        for i in Dominio.HEXADECIMAL:
+            for j in Dominio.HEXADECIMAL:
+                linha = dict()
+                for k in Dominio.HEXADECIMAL:
+                    linha[k] = self.memoria_de_dados.ler_celula(endereco=f"0x{i}{j}{k}")
+                memoria_de_dados[f"0x{i}{j}"] = linha
+        return memoria_de_dados
+
+    def pega_memoria_de_programa(self) -> dict:
+        memoria_de_programa_traduzida = dict()
+        for i in Dominio.HEXADECIMAL:
+            for j in Dominio.HEXADECIMAL:
+                linha = dict()
+                for k in Dominio.HEXADECIMAL:
+                    valor = self.memoria_de_programa.ler_celula(endereco=f"0x{i}{j}{k}")
+                    comando = self.dict_assemblador_inv.get(valor[0])
+                    if (comando == None):
+                        raise ErroDeProcessador(metodo="pega_memoria_de_programa", mensagem=f"Comando {valor} não existe")
+                    linha[k] = comando + ' ' + valor[1:]
+                memoria_de_programa_traduzida[f"0x{i}{j}"] = linha
+        return memoria_de_programa_traduzida
+
+    def memoria_de_dados_para_cdm(self) -> None:
+        self.memoria_de_dados.salvar_em_arquivo()
+
+    def memoria_de_programa_para_cdm(self) -> None:
+        self.memoria_de_programa.salvar_em_arquivo()
+        
+    def executa_comando(self) -> None:
         comando = self.instrucao.pega_comando()
         valor = self.instrucao.pega_valor()
         
@@ -86,32 +155,6 @@ class BIPy:
             elif(comando == "D"):
                 self.JG(valor=valor)
          
-    def pega_memoria_de_dados(self) -> dict:
-        memoria_de_dados = dict()
-        for i in Dominio.HEXADECIMAL:
-            for j in Dominio.HEXADECIMAL:
-                linha = dict()
-                for k in Dominio.HEXADECIMAL:
-                    linha[k] = self.memoria_de_dados.ler_celula(endereco=f"0x{i}{j}{k}")
-                memoria_de_dados[f"0x{i}{j}"] = linha
-        return memoria_de_dados
-
-    
-    def pega_memoria_de_programa(self) -> dict:
-        memoria_de_programa_traduzida = dict()
-        for i in Dominio.HEXADECIMAL:
-            for j in Dominio.HEXADECIMAL:
-                linha = dict()
-                for k in Dominio.HEXADECIMAL:
-                    valor = self.memoria_de_programa.ler_celula(endereco=f"0x{i}{j}{k}")
-                    comando = self.dict_assemblador_inv.get(valor[0])
-                    if (comando == None):
-                        raise ErroDeProcessador(metodo="pega_memoria_de_programa", mensagem=f"Comando {valor[0]} não existe")
-                    linha[k] = comando + ' ' + valor[1:]
-                memoria_de_programa_traduzida[f"0x{i}{j}"] = linha
-        return memoria_de_programa_traduzida
-        
-             
        
     def HLT(self, valor: str):
         pass
