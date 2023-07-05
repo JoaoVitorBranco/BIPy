@@ -116,6 +116,11 @@ class BIPy:
     def memoria_de_programa_para_cdm(self) -> None:
         self.memoria_de_programa.salvar_em_arquivo()
         
+    def salvar(self):
+        self.memoria_de_programa.salvar()
+        self.memoria_de_dados.salvar()
+        
+    
     def executa_comando(self) -> None:
         comando = self.instrucao.pega_comando()
         valor = self.instrucao.pega_valor()

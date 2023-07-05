@@ -46,6 +46,7 @@ class Ui_MainPage(QMainWindow):
         self.show()
 
         # Inicializando a tabela responsável pela memoria de programa e de dados
+        
 
         self.ui_dados = Mem_Dados(memoria_de_dados=self.processador.pega_memoria_de_dados(
         ), altera_memoria_de_dados=self.altera_memoria_de_dados, limpa_memoria=self.limpa_memoria_de_dados)
@@ -53,8 +54,8 @@ class Ui_MainPage(QMainWindow):
         self.ui_programa = Mem_Programa(memoria_de_programa=self.processador.pega_memoria_de_programa(
         ), altera_memoria_de_programa=self.altera_memoria_de_programa, comandos=comandos, limpa_memoria=self.limpa_memoria_de_programa)
 
+
         # Inicialização geral da página
-        
         self.refresh_displays()
         self.reset()
         self.clock = 1
@@ -108,6 +109,8 @@ class Ui_MainPage(QMainWindow):
             self.ui_programa.close()
         except AttributeError:
             print("Memoria de programa não iniciada")
+        
+        self.processador.salvar()
 
     def altera_memoria_de_dados(self, endereco, valor):
         self.processador.memoria_de_dados.altera_celula(endereco, valor.upper())
@@ -207,15 +210,15 @@ class Ui_MainPage(QMainWindow):
             for j in range(self.ui_programa.tableWidget.columnCount()):
 
                 item = self.ui_programa.tableWidget.item(i, j)
-                
-                if i % 2 == 1:
 
+                if i % 2 == 1:
                     color = QtGui.QColor(255, 255, 255)
                 else:
                     color = QtGui.QColor(0, 71, 133)
                     color.setAlphaF(0.2)
 
                 item.setBackground(color)
+                
 
         item = self.ui_programa.tableWidget.item(linha, coluna)
         highlight = QtGui.QColor(0, 71, 133)
