@@ -6,9 +6,9 @@ Autores:
     Vitor Guirão Soller
 
 Agradecimentos:
-    Prof. Nuncio Perella - Supervisão
+    Prof. Nuncio Perrella - Supervisão
     Prof. Dr. Angelo Sebastião Zanini - Supervisão
-    Thiago Perella - Design
+    Tiago Perrella - Design
     Igor Improta - Assemblador
 
 
