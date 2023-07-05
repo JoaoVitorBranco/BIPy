@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, List
 
 from src.entidades.celula import Celula
 from src.enums.comparacao_enum import ComparacaoEnum
@@ -44,9 +44,6 @@ class BIPy:
         self.instrucao = Celula(endereco="0x000", valor=self.memoria_de_programa.ler_celula("0x000")) 
         self.comparacao = ComparacaoEnum.SEM_COMPARACAO
         
-    def altera_memoria_de_programa(self, nova_memoria: dict) -> None:
-        self.memoria_de_programa.altera_todas_as_celulas(nova_memoria)
-    
     def altera_memoria_de_dados(self, nova_memoria: dict) -> None:
         nova_memoria_de_dados = dict()
         for linha, dict_linha in nova_memoria.items():
@@ -71,6 +68,42 @@ class BIPy:
 
         self.memoria_de_programa.altera_todas_as_celulas(nova_memoria_de_programa)
         
+    def altera_memoria_de_dados_com_cdm(self, cdm: List[str]) -> None:
+        indexes = [
+            "0x" + Dominio.HEXADECIMAL[i] + Dominio.HEXADECIMAL[j] + Dominio.HEXADECIMAL[k]
+            for i in range(0, 16)
+            for j in range(0, 16)
+            for k in range(0, 16)
+        ]
+        i = 0
+        nova_memoria_de_dados = dict()
+        for val in cdm:
+            nova_memoria_de_dados[indexes[i]] = val[len(val)-5:len(val)-1]
+            i += 1
+        while(i != len(indexes)):
+            nova_memoria_de_dados[indexes[i]] = "0000"
+            i += 1
+        self.memoria_de_dados.altera_todas_as_celulas(nova_memoria_de_dados)
+        self.memoria_de_dados.salvar_em_json()
+
+    def altera_memoria_de_programa_com_cdm(self, cdm: List[str]) -> None:
+        indexes = [
+            "0x" + Dominio.HEXADECIMAL[i] + Dominio.HEXADECIMAL[j] + Dominio.HEXADECIMAL[k]
+            for i in range(0, 16)
+            for j in range(0, 16)
+            for k in range(0, 16)
+        ]
+        i = 0
+        nova_memoria_de_programa = dict()
+        for val in cdm:
+            nova_memoria_de_programa[indexes[i]] = val[len(val)-5:len(val)-1]
+            i += 1
+        while(i != len(indexes)):
+            nova_memoria_de_programa[indexes[i]] = "0000"
+            i += 1
+        self.memoria_de_programa.altera_todas_as_celulas(nova_memoria_de_programa)
+        self.memoria_de_programa.salvar_em_json()
+
     def limpa_memorias(self) -> None:
         self.limpa_memoria_de_dados()
         self.limpa_memoria_de_programa()    
