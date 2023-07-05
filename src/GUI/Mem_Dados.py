@@ -12,7 +12,7 @@ class Mem_Dados(Mem_Interface):
 
         self.altera_memoria_de_dados = altera_memoria_de_dados
         self.limpa_memoria = limpa_memoria
-        self.tipos_de_arquivo = "Arquivo CedarLogic (*.cdm);; Arquivo de Texto (*.txt)"
+        self.tipos_de_arquivo = "CEDAR Memory files (*.cdm);; Arquivo de Texto (*.txt)"
 
         for i in range(self.num_colunas):
             delegate = StyledItemDelegate(self.tableWidget)

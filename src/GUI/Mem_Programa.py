@@ -15,7 +15,7 @@ class Mem_Programa(Mem_Interface):
         self.comandos = [i+" " for i in comandos]
         self.altera_memoria_de_programa = altera_memoria_de_programa
         self.limpa_memoria = limpa_memoria
-        self.tipos_de_arquivo = "Arquivo CedarLogic (*.cdm);; Arquivo de Texto (*.txt)"
+        self.tipos_de_arquivo = "CEDAR Memory files (*.cdm);; Arquivo de Texto (*.txt)"
 
 
         for i in range(self.num_colunas):
