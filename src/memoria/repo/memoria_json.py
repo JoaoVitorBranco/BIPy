@@ -33,20 +33,12 @@ class MemoriaJSON(MemoriaInterface):
     
     def altera_celula(self, endereco: str, valor: str) -> None:
         self.memoria[endereco] = valor
-        # with open(self.caminho_do_arquivo, 'w') as f:
-        #     json.dump(self.memoria, f, indent=4)
-    
-    def salvar(self):
-        with open(self.caminho_do_arquivo, 'w') as f:
-            json.dump(self.memoria, f, indent=4)
 
     def ler_todas_as_celulas(self) -> dict:
         return self.memoria
     
     def altera_todas_as_celulas(self, nova_memoria: dict) -> None:
         self.memoria = nova_memoria
-        # with open(self.caminho_do_arquivo, 'w') as f:
-        #     json.dump(self.memoria, f, indent=4)
     
     def limpa_memoria(self) -> None:
         self.memoria = {
@@ -58,8 +50,12 @@ class MemoriaJSON(MemoriaInterface):
         with open(self.caminho_do_arquivo, 'w') as f:
             json.dump(self.memoria, f, indent=4)
     
-    def salvar_em_arquivo(self) -> None:
+    def salvar_em_cdm(self) -> None:
         arquivo = open(f'src/cdm/{self.nome_do_arquivo}.cdm', 'w')
         for idx, value in enumerate(self.memoria.values()):
             arquivo.write(f'{hex(idx).upper()[2:]} : {value}\n')
         arquivo.close()
+        
+    def salvar_em_json(self):
+        with open(self.caminho_do_arquivo, 'w') as f:
+            json.dump(self.memoria, f, indent=4)

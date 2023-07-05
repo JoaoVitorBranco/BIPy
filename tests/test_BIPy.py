@@ -1,3 +1,4 @@
+import json
 import pytest
 from src.BIPy import BIPy
 from src.entidades.celula import Celula
@@ -9965,3 +9966,36 @@ class Test_BIPy:
         with open(f'src/cdm/{processador.memoria_de_programa.nome_do_arquivo}.cdm', 'r') as f:
             assert f.readlines() == expected
             f.close()
+            
+    def test_salva_memorias(self):
+        processador = BIPy(memoria_de_programa=MEMORIA_DE_PROGRAMA, memoria_de_dados=MEMORIA_DE_DADOS)
+        memoria_sobrescrita =  {
+            "0x" + Dominio.HEXADECIMAL[i] + Dominio.HEXADECIMAL[j] + Dominio.HEXADECIMAL[k]: "ACDC"
+            for i in range(0, 16)
+            for j in range(0, 16)
+            for k in range(0, 16)
+        }
+        
+        processador.memoria_de_programa.memoria = memoria_sobrescrita
+        processador.limpa_memoria_de_dados()
+        processador.salva_memorias()
+        
+        with open(processador.memoria_de_programa.caminho_do_arquivo, 'r') as f:
+            memoria = json.load(f)
+            assert memoria_sobrescrita == memoria
+            f.close()
+            
+        esperado = memoria_sobrescrita =  {
+            "0x" + Dominio.HEXADECIMAL[i] + Dominio.HEXADECIMAL[j] + Dominio.HEXADECIMAL[k]: "0000"
+            for i in range(0, 16)
+            for j in range(0, 16)
+            for k in range(0, 16)
+        }
+        
+        with open(processador.memoria_de_dados.caminho_do_arquivo, 'r') as f:
+            memoria = json.load(f)
+            assert esperado == memoria
+            f.close()
+            
+            
+        
