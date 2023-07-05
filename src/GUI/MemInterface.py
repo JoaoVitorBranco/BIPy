@@ -4,15 +4,6 @@ from PyQt5 import QtCore, QtWidgets, uic, QtGui
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtGui import QFont
 
-def resource_path(relative_path):
-    try:
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.abspath(".")
-
-    return os.path.join(base_path, relative_path)
-
-
 class Mem_Interface(QMainWindow):
     memoria: dict
 
@@ -21,7 +12,7 @@ class Mem_Interface(QMainWindow):
         self.memoria = memoria
 
         uic.loadUi(f'src/GUI/{UI_string}.ui', self)
-        self.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
+        self.setWindowIcon(QtGui.QIcon(self.resource_path('src/GUI/assets/icone.ico')))
 
         # region Formata a tabela
 
@@ -69,6 +60,20 @@ class Mem_Interface(QMainWindow):
                 item.setText(self.memoria.get(linha).get(coluna))
                 item.setTextAlignment(QtCore.Qt.AlignCenter)
                 self.tableWidget.setItem(i, j, item)
+
+    # endregion
+
+
+    # region Função de controle
+
+    def resource_path(self,relative_path):
+        try:
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath(".")
+
+        return os.path.join(base_path, relative_path)
+
 
     # endregion
 

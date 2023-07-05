@@ -1,18 +1,7 @@
-import sys
 from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtWidgets import QMessageBox
-import os
 
 from src.GUI.MemInterface import Mem_Interface
-
-
-def resource_path(relative_path):
-    try:
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.abspath(".")
-
-    return os.path.join(base_path, relative_path)
 
 
 class Mem_Dados(Mem_Interface):
@@ -49,7 +38,7 @@ class Mem_Dados(Mem_Interface):
 
     def zerar_memoria(self):
             msg = QMessageBox()
-            msg.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
+            msg.setWindowIcon(QtGui.QIcon(self.resource_path('src/GUI/assets/icone.ico')))
             msg.setWindowTitle("Zerar memória")
             msg.setIcon(QMessageBox.Question)
             msg.addButton('Sim', QMessageBox.YesRole)
@@ -63,7 +52,7 @@ class Mem_Dados(Mem_Interface):
                 qm = QMessageBox()
                 qm.setWindowTitle("Zerar memória")
                 qm.setText("Memória zerada")
-                qm.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
+                qm.setWindowIcon(QtGui.QIcon(self.resource_path('src/GUI/assets/icone.ico')))
                 qm.setIcon(QMessageBox.Information)
                 qm.exec_()
 
