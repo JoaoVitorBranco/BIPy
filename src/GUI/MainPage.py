@@ -159,12 +159,12 @@ class Ui_MainPage(QMainWindow):
         self.acumulador.setDigitCount(5)
         self.acumulador.setDecMode()
         self.pushButton_3.setStyleSheet("background-color: rgb(50, 119, 185);border-width: 0.5%;")
-        self.pushButton_4.setStyleSheet("background-color: rgb(0, 69, 135);border-width: 4%;")
+        self.pushButton_4.setStyleSheet("background-color: rgb(0, 69, 135);border-width: 2%;")
     
     def altera_acumulador_para_hexadecimal(self):
         self.acumulador.setDigitCount(4)
         self.acumulador.setHexMode()
-        self.pushButton_3.setStyleSheet("background-color: rgb(0, 69, 135);border-width: 4%;")
+        self.pushButton_3.setStyleSheet("background-color: rgb(0, 69, 135);border-width: 2%;")
         self.pushButton_4.setStyleSheet("background-color: rgb(50, 119, 185);border-width: 0.5%;")
 
     def refresh_displays(self):

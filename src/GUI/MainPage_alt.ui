@@ -360,7 +360,7 @@ QLCDNumber{
             <property name="styleSheet">
              <string notr="true">QPushButton{
 	border: 2px solid #000;
-	border-width: 4%;
+	border-width: 2%;
 	border-radius: 1%;
 }</string>
             </property>

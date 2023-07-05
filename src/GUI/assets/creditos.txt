@@ -1,14 +1,14 @@
-    BIPy foi um projeto realizado por alunos do 3º ano de Engenharia da Computação do Instituto Maua de Tecnologia, sobre supervisão do Prof. Nuncio Perella, com o intuito a ensinar alunos do curso de Ciência da Computação a programar usando um assemblador direto na memória de programa e de dados.
+BIPy é um projeto realizado por alunos do 3º ano de Engenharia da Computação do Instituto Maua de Tecnologia, sobre supervisão do Prof. Nuncio Perella, com o intuito a ensinar alunos do curso de Ciência da Computação a programar usando um assemblador direto na memória de programa e de dados.
 
 Autores:
-    Joâo Vitor Chouri Branco
-    Vitor Guirão Soller
+    Joâo Vitor Choueri Branco
     Pedro Guerra Judice Mesquita
+    Vitor Guirão Soller
 
 Agradecimentos:
     Prof. Nuncio Perella - Supervisão
     Prof. Dr. Angelo Sebastião Zanini - Supervisão
     Thiago Perella - Design
-    Igor Capotta - Assemblador
+    Igor Improta - Assemblador
 
 
