@@ -110,7 +110,7 @@ class Ui_MainPage(QMainWindow):
         except AttributeError:
             print("Memoria de programa não iniciada")
         
-        self.processador.salvar()
+        self.processador.salva_memorias()
 
     def altera_memoria_de_dados(self, endereco, valor):
         self.processador.memoria_de_dados.altera_celula(endereco, valor.upper())

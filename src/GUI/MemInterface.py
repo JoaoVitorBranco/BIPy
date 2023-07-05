@@ -30,7 +30,7 @@ class Mem_Interface(QMainWindow):
 
     def diminui_colunas(self):
         for i in range(self.num_colunas):
-            self.tableWidget.setColumnWidth(i, 60)
+            self.tableWidget.setColumnWidth(i, 70)
 
     def formata_colunas(self):
         _translate = QtCore.QCoreApplication.translate
