@@ -111,15 +111,14 @@ class BIPy:
         return memoria_de_programa_traduzida
 
     def memoria_de_dados_para_cdm(self) -> None:
-        self.memoria_de_dados.salvar_em_arquivo()
+        self.memoria_de_dados.salvar_em_cdm()
 
     def memoria_de_programa_para_cdm(self) -> None:
-        self.memoria_de_programa.salvar_em_arquivo()
+        self.memoria_de_programa.salvar_em_cdm()
         
-    def salvar(self):
-        self.memoria_de_programa.salvar()
-        self.memoria_de_dados.salvar()
-        
+    def salva_memorias(self):
+        self.memoria_de_programa.salvar_em_json()
+        self.memoria_de_dados.salvar_em_json()
     
     def executa_comando(self) -> None:
         comando = self.instrucao.pega_comando()

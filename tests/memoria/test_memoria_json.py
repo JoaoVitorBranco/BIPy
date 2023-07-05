@@ -96,7 +96,7 @@ class Test_MemoriaJSON:
             for k in range(0, 16)
         }
         memoria.altera_todas_as_celulas(nova_memoria)
-        memoria.salvar_em_arquivo()
+        memoria.salvar_em_cdm()
         
         
         with open(f'src/cdm/{memoria.nome_do_arquivo}.cdm', 'r') as f:
@@ -109,7 +109,7 @@ class Test_MemoriaJSON:
         arquivo = TipoDeMemoriaEnum.MEMORIA_DE_PROGRAMA
         memoria = MemoriaJSON(arquivo=arquivo)
         memoria.limpa_memoria()
-        memoria.salvar_em_arquivo()
+        memoria.salvar_em_cdm()
         
         
         with open(f'src/cdm/{memoria.nome_do_arquivo}.cdm', 'r') as f:

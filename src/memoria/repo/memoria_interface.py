@@ -28,7 +28,10 @@ class MemoriaInterface(ABC):
         pass
     
     @abstractmethod
-    def salvar_em_arquivo(self) -> None:
+    def salvar_em_cdm(self) -> None:
         pass    
     
+    @abstractmethod
+    def salvar_em_json(self) -> None:
+        pass    
     
