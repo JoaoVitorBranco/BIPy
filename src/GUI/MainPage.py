@@ -3,6 +3,7 @@ import sys
 import io
 from threading import Thread
 from time import sleep
+from typing import List
 
 from PyQt5 import QtGui, QtWidgets, uic
 from PyQt5.QtGui import QKeySequence
@@ -61,7 +62,7 @@ class Ui_MainPage(QMainWindow):
         # Inicializando a tabela responsável pela memoria de programa e de dados
 
         self.ui_dados = Mem_Dados(memoria_de_dados=self.processador.pega_memoria_de_dados(
-        ), altera_memoria_de_dados=self.altera_memoria_de_dados, limpa_memoria=self.limpa_memoria_de_dados)
+        ), altera_memoria_de_dados=self.altera_memoria_de_dados, limpa_memoria=self.limpa_memoria_de_dados, importa_cdm=self.importa_cdm)
 
         self.ui_programa = Mem_Programa(memoria_de_programa=self.processador.pega_memoria_de_programa(
         ), altera_memoria_de_programa=self.altera_memoria_de_programa, comandos=self.comandos, limpa_memoria=self.limpa_memoria_de_programa)
@@ -131,6 +132,11 @@ class Ui_MainPage(QMainWindow):
         split_valor = valor.upper().split(" ")
         valor = self.dict_assemblador[split_valor[0]] + split_valor[1]
         self.processador.memoria_de_programa.altera_celula(endereco, valor)
+
+    def importa_cdm(self, cdm: List[str]):
+        self.processador.altera_memoria_de_dados_com_cdm(cdm)
+        self.ui_dados.preenche_tabela(self.processador.pega_memoria_de_dados())
+        self.set_selecionado_mem_programa(0, 0)
 
     # endregion
 
