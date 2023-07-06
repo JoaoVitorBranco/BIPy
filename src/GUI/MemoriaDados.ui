@@ -31,7 +31,7 @@
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QTableWidget" name="tableWidget">
       <property name="autoFillBackground">
@@ -360,7 +360,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1030</width>
+     <width>1190</width>
      <height>21</height>
     </rect>
    </property>

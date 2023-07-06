@@ -7,7 +7,7 @@ from typing import List
 
 from PyQt5 import QtGui, QtWidgets, uic
 from PyQt5.QtGui import QKeySequence
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QInputDialog, QShortcut
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QInputDialog, QShortcut, QTableWidget
 from PyQt5.QtCore import pyqtSignal
 
 from src.BIPy import BIPy
@@ -48,8 +48,6 @@ class Ui_MainPage(QMainWindow):
         # Inicialização da UI da página
 
         self.setup_ui('MainPage_alt')
-
-    # region Funções de controle
 
     def setup_ui(self, ui_name: str):
 
@@ -92,6 +90,8 @@ class Ui_MainPage(QMainWindow):
         # endregion
 
         self.ui_refresh.connect(self.step)
+
+    # region Funções de controle
 
     def set_clock(self):
 
@@ -137,6 +137,12 @@ class Ui_MainPage(QMainWindow):
         self.processador.altera_memoria_de_dados_com_cdm(cdm)
         self.ui_dados.preenche_tabela(self.processador.pega_memoria_de_dados())
         self.set_selecionado_mem_programa(0, 0)
+
+    def tamanho_da_tabela(self, tabela: QTableWidget):
+        tamanho = 0
+        for i in range(16):
+            tamanho += tabela.columnWidth(i)
+        return tamanho+65
 
     # endregion
 
@@ -214,9 +220,11 @@ class Ui_MainPage(QMainWindow):
 
     def show_popup_mem_dados(self):
         self.ui_dados.show()
+        self.ui_dados.resize(self.tamanho_da_tabela(self.ui_dados.tableWidget), self.ui_dados.size().height())
 
     def show_popup_mem_programa(self):
         self.ui_programa.show()
+        self.ui_programa.resize(self.tamanho_da_tabela(self.ui_programa.tableWidget), self.ui_programa.size().height())
 
     # endregion
 

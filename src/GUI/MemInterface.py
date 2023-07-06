@@ -16,36 +16,18 @@ class Mem_Interface(QMainWindow):
 
         # region Formata a tabela
 
-        self.num_linhas = 256
-        self.num_colunas = 16
-        self.diminui_colunas()
-        self.formata_colunas()
-        self.formata_linhas()
+        self.num_linhas = self.tableWidget.rowCount()
+        self.num_colunas = self.tableWidget.columnCount()
+        self.tableWidget.setHorizontalHeaderLabels([hex(i)[-1].upper() for i in range(self.num_colunas)])
+        self.tableWidget.setVerticalHeaderLabels(['0x' + hex(i).split('x')[1].upper().zfill(2) + 'X' for i in range(self.num_linhas)])
+        
         self.preenche_tabela(memoria)
+        self.tableWidget.resizeColumnsToContents()
         self.tableWidget.itemChanged.connect(self.on_changed)
 
         #endregion
 
     # region Funções de formatação da UI
-
-    def diminui_colunas(self):
-        for i in range(self.num_colunas):
-            self.tableWidget.setColumnWidth(i, 70)
-
-    def formata_colunas(self):
-        _translate = QtCore.QCoreApplication.translate
-        for i in range(self.num_colunas):
-            item = QtWidgets.QTableWidgetItem()
-            self.tableWidget.setHorizontalHeaderItem(i, item)
-            item.setText(_translate("Form", hex(i)[-1].upper()))
-
-    def formata_linhas(self):
-        _translate = QtCore.QCoreApplication.translate
-        for i in range(self.num_linhas):
-            item = QtWidgets.QTableWidgetItem()
-            self.tableWidget.setVerticalHeaderItem(i, item)
-            label = '0x' + hex(i).split('x')[1].upper().zfill(2) + 'X'
-            item.setText(_translate("Form", label))
 
     def preenche_tabela(self, memoria):
         self.memoria = memoria
