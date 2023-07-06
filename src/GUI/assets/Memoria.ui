@@ -397,7 +397,7 @@
     <string>Zerar Memória</string>
    </property>
    <property name="shortcut">
-    <string/>
+    <string>Ctrl+Del</string>
    </property>
   </action>
  </widget>

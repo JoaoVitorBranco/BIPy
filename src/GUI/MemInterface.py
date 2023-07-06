@@ -13,7 +13,7 @@ class Mem_Interface(QMainWindow):
 
         self.tipos_de_arquivo = "CEDAR Memory files (*.cdm);; Arquivo de Texto (*.txt)"
 
-        uic.loadUi(f'src/GUI/Memoria.ui', self)
+        uic.loadUi(f'src/GUI/assets/Memoria.ui', self)
         self.setWindowIcon(QtGui.QIcon(self.resource_path('src/GUI/assets/icone.ico')))
         self.setWindowTitle(titulo)
 

@@ -7,7 +7,7 @@ from typing import List
 
 from PyQt5 import QtGui, uic
 from PyQt5.QtGui import QKeySequence
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QInputDialog, QShortcut
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QInputDialog, QShortcut, QWidget
 from PyQt5.QtCore import pyqtSignal
 
 from src.BIPy import BIPy
@@ -47,12 +47,11 @@ class Ui_MainPage(QMainWindow):
 
         # Inicialização da UI da página
 
-        self.setup_ui('MainPage_alt')
+        self.setup_ui('MainPage')
 
     def setup_ui(self, ui_name: str):
 
-        uic.loadUi(resource_path(os.path.join(
-            'src', 'GUI', f'{ui_name}.ui')), self)
+        uic.loadUi(resource_path(os.path.join('src', 'GUI','assets', f'{ui_name}.ui')), self)
         self.setWindowIcon(QtGui.QIcon(
             resource_path('src/GUI/assets/icone.ico')))
         self.show()
@@ -70,7 +69,7 @@ class Ui_MainPage(QMainWindow):
         self.reset()
         self.clock = 1
 
-        # region Designando funções aos botões
+        # region Designando funções aos botões da página
 
         self.pushButton.clicked.connect(self.show_popup_mem_dados)
         self.pushButton_2.clicked.connect(self.show_popup_mem_programa)
@@ -79,6 +78,10 @@ class Ui_MainPage(QMainWindow):
         self.halt_check.clicked.connect(self.halt)
         self.pushButton_3.clicked.connect(self.altera_acumulador_para_hexadecimal)
         self.pushButton_4.clicked.connect(self.altera_acumulador_para_decimal)
+
+        # endregion
+
+        # region Designando funções aos botões do menu
 
         self.actionSetar_Clock.triggered.connect(self.set_clock)
         self.actionDecimal.triggered.connect(self.altera_acumulador_para_decimal)
@@ -219,7 +222,7 @@ class Ui_MainPage(QMainWindow):
         self.ui_programa.setFocus(True)
         self.ui_programa.raise_()
 
-    def abre_consulta(self):
+    def abre_consulta(self):      
         msg = QMessageBox()
         arquivo = io.open(resource_path(r'src\GUI\assets\consulta_alt.txt'), 'r', encoding='utf8')
         msg.setText(arquivo.read())
@@ -282,10 +285,19 @@ class Ui_MainPage(QMainWindow):
 
     def set_secret_feature(self):
 
+        # darkmode
         if self.secret_feature_bool:
-            self.setup_ui('MainPage_alt')
+            self.setStyleSheet("QWidget{background: rgb(38, 45, 55);color: rgb(213, 213, 213);}QPushButton{border-radius: 20%;background-color:" 
+                               "rgb(0, 69, 136);color: rgb(213, 213, 213);}QPushButton:hover{background-color: rgb(0, 59, 126);}"
+                               "QPushButton:pressed{background-color: rgb(0, 49, 116);}QLCDNumber{background-color: rgb(30, 99, 165);"
+                               "border-radius: 20%;color: rgb(213, 213, 213);}")
+        
+        #lightmode
         else:
-            self.setup_ui('MainPage')
+            self.setStyleSheet("QWidget{background: rgb(213,213,213);color: rgb(0, 69, 135);}QPushButton{border-radius: 20%;background-color:" 
+                               "rgb(0, 69, 136);color: white;}QPushButton:hover{background-color: rgb(0, 59, 126);}"
+                               "QPushButton:pressed{background-color: rgb(0, 49, 116);}QLCDNumber{background-color: rgb(30, 99, 165);"
+                               "border-radius: 20%;color: white;}")
 
         self.secret_feature_bool = not self.secret_feature_bool
 
