@@ -1,7 +1,7 @@
 import os
 import sys
 from PyQt5 import QtCore, QtWidgets, uic, QtGui
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMainWindow, QTableWidget
 from PyQt5.QtGui import QFont
 
 class Mem_Interface(QMainWindow):
@@ -23,7 +23,9 @@ class Mem_Interface(QMainWindow):
         
         self.preenche_tabela(memoria)
         self.tableWidget.resizeColumnsToContents()
+        self.ajusta_janela()
         self.tableWidget.itemChanged.connect(self.on_changed)
+        self.tableWidget.itemActivated.connect(self.user_change)
 
         #endregion
 
@@ -56,8 +58,20 @@ class Mem_Interface(QMainWindow):
 
         return os.path.join(base_path, relative_path)
 
+    def tamanho_da_tabela(self, tabela: QTableWidget):
+        tamanho = 0
+        for i in range(16):
+            tamanho += tabela.columnWidth(i)
+        return tamanho+65
+    
+    def ajusta_janela(self):
+        self.resize(self.tamanho_da_tabela(self.tableWidget), self.size().height())
+
 
     # endregion
 
     def on_changed(self, item):
+        pass
+
+    def user_change(self, item):
         pass

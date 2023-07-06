@@ -38,8 +38,12 @@ class Mem_Programa(Mem_Interface):
         coluna = item.column()
         valor = item.text()
         celula = f'0x{linha:02X}{coluna:X}'
-
         self.altera_memoria_de_programa(celula, valor)
+
+    def user_change(self, item):
+        coluna = item.column()
+        self.tableWidget.resizeColumnToContents(coluna)
+        self.resize(self.tamanho_da_tabela(self.tableWidget), self.size().height())
     
     def zerar_memoria(self):
         msg = QMessageBox()

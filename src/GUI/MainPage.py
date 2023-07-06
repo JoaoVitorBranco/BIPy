@@ -138,12 +138,6 @@ class Ui_MainPage(QMainWindow):
         self.ui_dados.preenche_tabela(self.processador.pega_memoria_de_dados())
         self.set_selecionado_mem_programa(0, 0)
 
-    def tamanho_da_tabela(self, tabela: QTableWidget):
-        tamanho = 0
-        for i in range(16):
-            tamanho += tabela.columnWidth(i)
-        return tamanho+65
-
     # endregion
 
     # region Funções dos botões que controlam o processador
@@ -220,11 +214,9 @@ class Ui_MainPage(QMainWindow):
 
     def show_popup_mem_dados(self):
         self.ui_dados.show()
-        self.ui_dados.resize(self.tamanho_da_tabela(self.ui_dados.tableWidget), self.ui_dados.size().height())
 
     def show_popup_mem_programa(self):
         self.ui_programa.show()
-        self.ui_programa.resize(self.tamanho_da_tabela(self.ui_programa.tableWidget), self.ui_programa.size().height())
 
     # endregion
 
