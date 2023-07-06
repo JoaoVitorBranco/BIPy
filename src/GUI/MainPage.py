@@ -211,9 +211,13 @@ class Ui_MainPage(QMainWindow):
 
     def show_popup_mem_dados(self):
         self.ui_dados.show()
+        self.ui_dados.setFocus(True)
+        self.ui_dados.raise_()
 
     def show_popup_mem_programa(self):
         self.ui_programa.show()
+        self.ui_programa.setFocus(True)
+        self.ui_programa.raise_()
 
     def abre_consulta(self):
         msg = QMessageBox()

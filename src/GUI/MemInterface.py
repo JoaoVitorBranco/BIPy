@@ -32,6 +32,9 @@ class Mem_Interface(QMainWindow):
         self.secret_feature.activated.connect(self.close)
         self.tableWidget.itemChanged.connect(self.on_changed)
         self.tableWidget.itemActivated.connect(self.user_change)
+        self.actionZero.triggered.connect(self.zerar_memoria)
+        self.actionSalvar.triggered.connect(self.salvar_arquivo)
+        self.actionCarregar.triggered.connect(self.carregar_arquivo)
 
         #endregion
 
@@ -50,6 +53,14 @@ class Mem_Interface(QMainWindow):
                 item.setText(self.memoria.get(linha).get(coluna))
                 item.setTextAlignment(QtCore.Qt.AlignCenter)
                 self.tableWidget.setItem(i, j, item)
+
+    def ajusta_janela(self):
+        self.resize(self.tamanho_da_tabela(self.tableWidget), self.size().height())
+
+    def user_change(self, item):
+        coluna = item.column()
+        self.tableWidget.resizeColumnToContents(coluna)
+        self.resize(self.tamanho_da_tabela(self.tableWidget), self.size().height())
 
     # endregion
 
@@ -70,16 +81,17 @@ class Mem_Interface(QMainWindow):
             tamanho += tabela.columnWidth(i)
         return tamanho+65
     
-    def ajusta_janela(self):
-        self.resize(self.tamanho_da_tabela(self.tableWidget), self.size().height())
-
-
     # endregion
 
     def on_changed(self, item):
         pass
 
-    def user_change(self, item):
-        coluna = item.column()
-        self.tableWidget.resizeColumnToContents(coluna)
-        self.resize(self.tamanho_da_tabela(self.tableWidget), self.size().height())
+    def zerar_memoria(self):
+        pass
+
+    def salvar_arquivo(self):
+        pass
+
+    def carregar_arquivo(self):
+        pass
+
