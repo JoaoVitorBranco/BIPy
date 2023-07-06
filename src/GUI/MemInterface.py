@@ -1,8 +1,8 @@
 import os
 import sys
 from PyQt5 import QtCore, QtWidgets, uic, QtGui
-from PyQt5.QtWidgets import QMainWindow, QTableWidget
-from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import QMainWindow, QTableWidget, QShortcut
+from PyQt5.QtGui import QFont, QKeySequence
 
 class Mem_Interface(QMainWindow):
     memoria: dict
@@ -20,10 +20,12 @@ class Mem_Interface(QMainWindow):
         self.num_colunas = self.tableWidget.columnCount()
         self.tableWidget.setHorizontalHeaderLabels([hex(i)[-1].upper() for i in range(self.num_colunas)])
         self.tableWidget.setVerticalHeaderLabels(['0x' + hex(i).split('x')[1].upper().zfill(2) + 'X' for i in range(self.num_linhas)])
-        
         self.preenche_tabela(memoria)
         self.tableWidget.resizeColumnsToContents()
         self.ajusta_janela()
+
+        self.secret_feature = QShortcut(QKeySequence('Esc'), self)
+        self.secret_feature.activated.connect(self.close)
         self.tableWidget.itemChanged.connect(self.on_changed)
         self.tableWidget.itemActivated.connect(self.user_change)
 

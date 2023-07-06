@@ -36,7 +36,7 @@ class Mem_Dados(Mem_Interface):
         coluna = item.column()
         valor = item.text()
         celula = f'0x{linha:02X}{coluna:X}'
-        
+
         self.altera_memoria_de_dados(celula, valor)
 
     def user_change(self, item):
@@ -46,8 +46,7 @@ class Mem_Dados(Mem_Interface):
 
     def zerar_memoria(self):
         msg = QMessageBox()
-        msg.setWindowIcon(QtGui.QIcon(
-            self.resource_path('src/GUI/assets/icone.ico')))
+        msg.setWindowIcon(QtGui.QIcon(self.resource_path('src/GUI/assets/icone.ico')))
         msg.setWindowTitle("Zerar memória")
         msg.setIcon(QMessageBox.Question)
         msg.addButton('Sim', QMessageBox.YesRole)

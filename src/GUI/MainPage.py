@@ -5,9 +5,9 @@ from threading import Thread
 from time import sleep
 from typing import List
 
-from PyQt5 import QtGui, QtWidgets, uic
+from PyQt5 import QtGui, uic
 from PyQt5.QtGui import QKeySequence
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QInputDialog, QShortcut, QTableWidget
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QInputDialog, QShortcut
 from PyQt5.QtCore import pyqtSignal
 
 from src.BIPy import BIPy
@@ -77,15 +77,14 @@ class Ui_MainPage(QMainWindow):
         self.reset_button.clicked.connect(self.reset)
         self.step_button.clicked.connect(self.step)
         self.halt_check.clicked.connect(self.halt)
-        self.actionSetar_Clock.triggered.connect(self.set_clock)
-        self.actionDecimal.triggered.connect(
-            self.altera_acumulador_para_decimal)
-        self.actionHexadecimal.triggered.connect(
-            self.altera_acumulador_para_hexadecimal)
-        self.pushButton_3.clicked.connect(
-            self.altera_acumulador_para_hexadecimal)
+        self.pushButton_3.clicked.connect(self.altera_acumulador_para_hexadecimal)
         self.pushButton_4.clicked.connect(self.altera_acumulador_para_decimal)
+
+        self.actionSetar_Clock.triggered.connect(self.set_clock)
+        self.actionDecimal.triggered.connect(self.altera_acumulador_para_decimal)
+        self.actionHexadecimal.triggered.connect(self.altera_acumulador_para_hexadecimal)
         self.actionSobre.triggered.connect(self.exibe_creditos)
+        self.actionConsulta.triggered.connect(self.abre_consulta)
 
         # endregion
 
@@ -203,12 +202,10 @@ class Ui_MainPage(QMainWindow):
 
     def exibe_creditos(self):
         msg = QMessageBox()
-        arquivo = io.open(resource_path(
-            r'src\GUI\assets\creditos.txt'), 'r', encoding='utf8')
+        arquivo = io.open(resource_path(r'src\GUI\assets\creditos.txt'), 'r', encoding='utf8')
         msg.setText(arquivo.read())
         msg.setIcon(QMessageBox.Information)
-        msg.setWindowIcon(QtGui.QIcon(
-            resource_path('src/GUI/assets/icone.ico')))
+        msg.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
         msg.setWindowTitle("Créditos do projeto")
         msg.exec_()
 
@@ -217,6 +214,15 @@ class Ui_MainPage(QMainWindow):
 
     def show_popup_mem_programa(self):
         self.ui_programa.show()
+
+    def abre_consulta(self):
+        msg = QMessageBox()
+        arquivo = io.open(resource_path(r'src\GUI\assets\consulta_alt.txt'), 'r', encoding='utf8')
+        msg.setText(arquivo.read())
+        msg.setIcon(QMessageBox.Information)
+        msg.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
+        msg.setWindowTitle("Consulta de comnados")
+        msg.exec_()
 
     # endregion
 

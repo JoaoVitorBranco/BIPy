@@ -382,6 +382,12 @@ QLCDNumber{
                  <height>40</height>
                 </size>
                </property>
+               <property name="toolTip">
+                <string>Modo Hexadecimal</string>
+               </property>
+               <property name="statusTip">
+                <string>Altera o modo do acumulador para hexadecimal</string>
+               </property>
                <property name="text">
                 <string>Hexadecimal</string>
                </property>
@@ -394,6 +400,12 @@ QLCDNumber{
                  <width>60</width>
                  <height>40</height>
                 </size>
+               </property>
+               <property name="toolTip">
+                <string>Modo Decimal</string>
+               </property>
+               <property name="statusTip">
+                <string>Altera o modo do acumulador para decimal</string>
                </property>
                <property name="styleSheet">
                 <string notr="true">QPushButton{background-color:rgb(50, 119, 185);border-width:0.5%}</string>
@@ -808,6 +820,7 @@ QPushButton:checked{
      <string>Mais</string>
     </property>
     <addaction name="actionSobre"/>
+    <addaction name="actionConsulta"/>
    </widget>
    <addaction name="menuConfigura_o"/>
    <addaction name="menuMais"/>
@@ -874,6 +887,14 @@ QPushButton:checked{
   <action name="actionSobre">
    <property name="text">
     <string>Sobre</string>
+   </property>
+   <property name="statusTip">
+    <string>Créditos do projeto</string>
+   </property>
+  </action>
+  <action name="actionConsulta">
+   <property name="text">
+    <string>Consulta</string>
    </property>
   </action>
  </widget>
