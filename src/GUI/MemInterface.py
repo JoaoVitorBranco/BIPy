@@ -7,12 +7,16 @@ from PyQt5.QtGui import QFont, QKeySequence
 class Mem_Interface(QMainWindow):
     memoria: dict
 
-    def __init__(self, UI_string, memoria: dict):
+    def __init__(self, titulo, memoria: dict):
         super().__init__()
         self.memoria = memoria
 
-        uic.loadUi(f'src/GUI/{UI_string}.ui', self)
+        self.tipos_de_arquivo = "CEDAR Memory files (*.cdm);; Arquivo de Texto (*.txt)"
+
+        uic.loadUi(f'src/GUI/Memoria.ui', self)
         self.setWindowIcon(QtGui.QIcon(self.resource_path('src/GUI/assets/icone.ico')))
+        self.setWindowTitle(titulo)
+
 
         # region Formata a tabela
 
@@ -76,4 +80,6 @@ class Mem_Interface(QMainWindow):
         pass
 
     def user_change(self, item):
-        pass
+        coluna = item.column()
+        self.tableWidget.resizeColumnToContents(coluna)
+        self.resize(self.tamanho_da_tabela(self.tableWidget), self.size().height())

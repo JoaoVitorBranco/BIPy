@@ -10,12 +10,11 @@ class Mem_Programa(Mem_Interface):
     altera_memoria_de_programa: callable
 
     def __init__(self, memoria_de_programa: dict, altera_memoria_de_programa: callable, comandos: list, limpa_memoria):
-        super().__init__(UI_string='MemoriaPrograma', memoria=memoria_de_programa)
+        super().__init__(titulo='Memoria de Programa', memoria=memoria_de_programa)
 
         self.comandos = [i+" " for i in comandos]
         self.altera_memoria_de_programa = altera_memoria_de_programa
         self.limpa_memoria = limpa_memoria
-        self.tipos_de_arquivo = "CEDAR Memory files (*.cdm);; Arquivo de Texto (*.txt)"
 
 
         for i in range(self.num_colunas):
@@ -38,12 +37,8 @@ class Mem_Programa(Mem_Interface):
         coluna = item.column()
         valor = item.text()
         celula = f'0x{linha:02X}{coluna:X}'
-        self.altera_memoria_de_programa(celula, valor)
 
-    def user_change(self, item):
-        coluna = item.column()
-        self.tableWidget.resizeColumnToContents(coluna)
-        self.resize(self.tamanho_da_tabela(self.tableWidget), self.size().height())
+        self.altera_memoria_de_programa(celula, valor)
     
     def zerar_memoria(self):
         msg = QMessageBox()

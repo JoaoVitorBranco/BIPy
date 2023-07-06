@@ -10,12 +10,11 @@ class Mem_Dados(Mem_Interface):
     importa_cdm: callable
 
     def __init__(self, memoria_de_dados: dict, altera_memoria_de_dados, limpa_memoria, importa_cdm):
-        super().__init__(UI_string='MemoriaDados', memoria=memoria_de_dados)
+        super().__init__(titulo='Memoria de Dados', memoria=memoria_de_dados)
 
         self.importa_cdm = importa_cdm
         self.altera_memoria_de_dados = altera_memoria_de_dados
         self.limpa_memoria = limpa_memoria
-        self.tipos_de_arquivo = "CEDAR Memory files (*.cdm);; Arquivo de Texto (*.txt)"
 
         for i in range(self.num_colunas):
             delegate = StyledItemDelegate(self.tableWidget)
@@ -38,11 +37,6 @@ class Mem_Dados(Mem_Interface):
         celula = f'0x{linha:02X}{coluna:X}'
 
         self.altera_memoria_de_dados(celula, valor)
-
-    def user_change(self, item):
-        coluna = item.column()
-        self.tableWidget.resizeColumnToContents(coluna)
-        self.resize(self.tamanho_da_tabela(self.tableWidget), self.size().height())
 
     def zerar_memoria(self):
         msg = QMessageBox()
