@@ -10000,7 +10000,7 @@ class Test_BIPy:
         processador = BIPy(memoria_de_programa=MEMORIA_DE_PROGRAMA, memoria_de_dados=MEMORIA_DE_DADOS)
         memoria_sobrescrita =  {
             "0x" + Dominio.HEXADECIMAL[i] + Dominio.HEXADECIMAL[j] + Dominio.HEXADECIMAL[k]: "ACDC"
-            for i in range(0, 16)
+            for i in range(0, 16) 
             for j in range(0, 16)
             for k in range(0, 16)
         }
