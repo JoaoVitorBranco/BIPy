@@ -19,7 +19,7 @@ class MemoriaInterface(ABC):
     def ler_todas_as_celulas(self) -> dict:
         pass
     
-    @abstractmethod
+    @abstractmethod 
     def altera_todas_as_celulas(self, dicionario: dict) -> None:
         pass
     
@@ -32,6 +32,6 @@ class MemoriaInterface(ABC):
         pass    
     
     @abstractmethod
-    def salvar_em_json(self) -> None:
+    def salvar_em_json(self, caminho:str) -> None:
         pass    
     

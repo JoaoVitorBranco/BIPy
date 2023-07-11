@@ -54,8 +54,4 @@ class Test_MemoriaMock:
         assert memoria.memoria["0xA2D"] == "0000"
         assert memoria.memoria["0x1C3"] == "0000"
         
-        def test_salvar_em_arquivo(self):
-            memoria = MemoriaMock()
-            memoria.salvar_em_arquivo()
-            assert True
         

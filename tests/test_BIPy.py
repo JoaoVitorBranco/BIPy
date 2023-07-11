@@ -10013,7 +10013,7 @@ class Test_BIPy:
             f.close()
         
         processador.altera_memoria_de_programa_com_cdm(cdm=arquivo)
-        assert processador.memoria_de_programa.memoria == memoria_sobrescrita
+        assert processador.memoria_de_programa.memoria == memoria_sobrescritag
         
     def test_altera_memoria_de_dados_com_cdm(self) -> None:
         processador = BIPy(memoria_de_programa=MEMORIA_DE_PROGRAMA, memoria_de_dados=MEMORIA_DE_DADOS)
