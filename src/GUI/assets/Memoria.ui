@@ -7,12 +7,12 @@
     <x>0</x>
     <y>0</y>
     <width>1190</width>
-    <height>600</height>
+    <height>662</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1190</width>
+    <width>300</width>
     <height>300</height>
    </size>
   </property>
@@ -360,7 +360,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1030</width>
+     <width>1190</width>
      <height>21</height>
     </rect>
    </property>
@@ -380,15 +380,24 @@
    <property name="text">
     <string>Carregar</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
   </action>
   <action name="actionSalvar">
    <property name="text">
     <string>Salvar</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
   </action>
   <action name="actionZero">
    <property name="text">
     <string>Zerar Memória</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Del</string>
    </property>
   </action>
  </widget>

@@ -1,12 +1,10 @@
 import sys
-from PyQt5 import QtGui, QtWidgets, uic
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5 import QtWidgets
 
 from src.BIPy import BIPy
 from src.GUI.MainPage import Ui_MainPage
 from src.enums.tipo_de_memoria_enum import TipoDeMemoriaEnum
 from src.memoria.repo.memoria_json import MemoriaJSON
-from src.memoria.repo.memoria_mock import MemoriaMock
 
 memoria_de_programa = MemoriaJSON(arquivo=TipoDeMemoriaEnum.MEMORIA_DE_PROGRAMA)
 

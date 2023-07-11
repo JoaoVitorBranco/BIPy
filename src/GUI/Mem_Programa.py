@@ -10,26 +10,16 @@ class Mem_Programa(Mem_Interface):
     altera_memoria_de_programa: callable
 
     def __init__(self, memoria_de_programa: dict, altera_memoria_de_programa: callable, comandos: list, limpa_memoria):
-        super().__init__(UI_string='MemoriaPrograma', memoria=memoria_de_programa)
+        super().__init__(titulo='Memoria de Programa', memoria=memoria_de_programa)
 
         self.comandos = [i+" " for i in comandos]
         self.altera_memoria_de_programa = altera_memoria_de_programa
         self.limpa_memoria = limpa_memoria
-        self.tipos_de_arquivo = "CEDAR Memory files (*.cdm);; Arquivo de Texto (*.txt)"
 
 
         for i in range(self.num_colunas):
             delegate = StyledItemDelegate(parent=self.tableWidget, comandos=self.comandos)
             self.tableWidget.setItemDelegateForColumn(i, delegate)
-
-        # region Designando funções aos botões
-
-
-        self.actionZero.triggered.connect(self.zerar_memoria)
-        self.actionSalvar.triggered.connect(self.salvar_arquivo)
-        self.actionCarregar.triggered.connect(self.carregar_arquivo)
-
-        # endregion
 
     # region Funções de controle
 
