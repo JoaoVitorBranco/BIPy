@@ -143,11 +143,11 @@ class BIPy:
                 memoria_de_programa_traduzida[f"0x{i}{j}"] = linha
         return memoria_de_programa_traduzida
 
-    def memoria_de_dados_para_cdm(self) -> None:
-        self.memoria_de_dados.salvar_em_cdm()
+    def memoria_de_dados_para_cdm(self, caminho:str) -> None:
+        self.memoria_de_dados.salvar_em_cdm(caminho=caminho)
 
-    def memoria_de_programa_para_cdm(self) -> None:
-        self.memoria_de_programa.salvar_em_cdm()
+    def memoria_de_programa_para_cdm(self, caminho:str) -> None:
+        self.memoria_de_programa.salvar_em_cdm(caminho=caminho)
         
     def salva_memorias(self):
         self.memoria_de_programa.salvar_em_json()
