@@ -59,7 +59,7 @@ class Ui_MainPage(QMainWindow):
         # Inicializando a tabela responsável pela memoria de programa e de dados
 
         self.ui_dados = Mem_Dados(memoria_de_dados=self.processador.pega_memoria_de_dados(
-        ), altera_memoria_de_dados=self.altera_memoria_de_dados, limpa_memoria=self.limpa_memoria_de_dados, importa_cdm=self.importa_cdm)
+        ), altera_memoria_de_dados=self.altera_memoria_de_dados, limpa_memoria=self.limpa_memoria_de_dados, importa_cdm=self.importa_cdm, salva_memmoria_de_dados_em_cdm=self.salva_memmoria_de_dados_em_cdm)
 
         self.ui_programa = Mem_Programa(memoria_de_programa=self.processador.pega_memoria_de_programa(
         ), altera_memoria_de_programa=self.altera_memoria_de_programa, comandos=self.comandos, limpa_memoria=self.limpa_memoria_de_programa)
@@ -238,6 +238,9 @@ class Ui_MainPage(QMainWindow):
     def limpa_memoria_de_dados(self):
         self.processador.memoria_de_dados.limpa_memoria()
         self.ui_dados.preenche_tabela(self.processador.pega_memoria_de_dados())
+
+    def salva_memmoria_de_dados_em_cdm(self, caminho: str):
+       self.processador.memoria_de_dados_para_cdm(caminho) 
 
     def limpa_memoria_de_programa(self):
         self.processador.memoria_de_programa.limpa_memoria()

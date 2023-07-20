@@ -8,13 +8,15 @@ class Mem_Dados(Mem_Interface):
     altera_memoria_de_dados: callable
     limpa_memoria: callable
     importa_cdm: callable
+    salva_memmoria_de_dados_em_cdm: callable
 
-    def __init__(self, memoria_de_dados: dict, altera_memoria_de_dados, limpa_memoria, importa_cdm):
+    def __init__(self, memoria_de_dados: dict, altera_memoria_de_dados, limpa_memoria, importa_cdm, salva_memmoria_de_dados_em_cdm):
         super().__init__(titulo='Memoria de Dados', memoria=memoria_de_dados)
 
         self.importa_cdm = importa_cdm
         self.altera_memoria_de_dados = altera_memoria_de_dados
         self.limpa_memoria = limpa_memoria
+        self.salva_memmoria_de_dados_em_cdm = salva_memmoria_de_dados_em_cdm
 
         for i in range(self.num_colunas):
             delegate = StyledItemDelegate(self.tableWidget)
@@ -54,13 +56,9 @@ class Mem_Dados(Mem_Interface):
     def salvar_arquivo(self):
         nome, tipo = QtWidgets.QFileDialog.getSaveFileName(
             self, 'Salvar arquivo', '', self.tipos_de_arquivo)
-        try:
-            arquivo = open(nome, 'w')
-            texto = 'fodase'
-            arquivo.write(texto)
-            arquivo.close()
-        except (FileNotFoundError):
-            print("Arquivo não encontrado")
+        # self.salva_memmoria_de_dados_em_cdm(nome)
+
+
 
     def carregar_arquivo(self):
         nome, tipo = QtWidgets.QFileDialog.getOpenFileName(
