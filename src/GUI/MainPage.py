@@ -62,7 +62,7 @@ class Ui_MainPage(QMainWindow):
         ), altera_memoria_de_dados=self.altera_memoria_de_dados, limpa_memoria=self.limpa_memoria_de_dados, importa_cdm=self.importa_cdm, salva_memmoria_de_dados_em_cdm=self.salva_memmoria_de_dados_em_cdm)
 
         self.ui_programa = Mem_Programa(memoria_de_programa=self.processador.pega_memoria_de_programa(
-        ), altera_memoria_de_programa=self.altera_memoria_de_programa, comandos=self.comandos, limpa_memoria=self.limpa_memoria_de_programa)
+        ), altera_memoria_de_programa=self.altera_memoria_de_programa, comandos=self.comandos, limpa_memoria=self.limpa_memoria_de_programa, salva_memoria_de_programa_em_cdm=self.salva_memmoria_de_programa_em_cdm)
 
         # Inicialização geral da página
         self.refresh_displays()
@@ -240,12 +240,27 @@ class Ui_MainPage(QMainWindow):
         self.ui_dados.preenche_tabela(self.processador.pega_memoria_de_dados())
 
     def salva_memmoria_de_dados_em_cdm(self, caminho: str):
-       self.processador.memoria_de_dados_para_cdm(caminho) 
-
+        extensao = caminho[-4:]
+        if extensao == ".cdm":
+            self.processador.memoria_de_dados_para_cdm(caminho) 
+        elif extensao == ".txt":
+            ## TODO implement this
+            print("txt")
+            
     def limpa_memoria_de_programa(self):
         self.processador.memoria_de_programa.limpa_memoria()
         self.ui_programa.preenche_tabela(
             self.processador.pega_memoria_de_programa())
+    
+    def salva_memmoria_de_programa_em_cdm(self, caminho: str):
+        extensao = caminho[-4:]
+        if extensao == ".cdm":
+            self.processador.memoria_de_programa_para_cdm(caminho)
+        elif extensao == ".txt":
+            ## TODO implement this
+            print("txt")
+
+
 
     def set_selecionado_mem_programa(self, linha, coluna):
         for i in range(self.ui_programa.tableWidget.rowCount()):
