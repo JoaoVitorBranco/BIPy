@@ -5,6 +5,7 @@ from src.enums.comparacao_enum import ComparacaoEnum
 from src.entidades.dominio import Dominio
 from src.memoria.repo.memoria_interface import MemoriaInterface
 from src.shared.erros.erro_de_processador import ErroDeProcessador
+from src.enums.tipo_de_memoria_enum import TipoDeMemoriaEnum
 
 
 class BIPy:
@@ -67,8 +68,8 @@ class BIPy:
                 nova_memoria_de_programa[f"{linha}{coluna}"] = valor_formatado
 
         self.memoria_de_programa.altera_todas_as_celulas(nova_memoria_de_programa)
-        
-    def altera_memoria_de_dados_com_cdm(self, cdm: List[str]) -> None:
+    
+    def __altera_memoria_com_cdm(self, cdm: List[str], tipo_da_memoria: TipoDeMemoriaEnum) -> None:
         indexes = [
             "0x" + Dominio.HEXADECIMAL[i] + Dominio.HEXADECIMAL[j] + Dominio.HEXADECIMAL[k]
             for i in range(0, 16)
@@ -76,39 +77,39 @@ class BIPy:
             for k in range(0, 16)
         ]
         i = 0
-        nova_memoria_de_dados = dict()
+        nova_memoria = dict()
         for val in cdm:
-            valor_a_inserir = val.split(" ")[2].replace('\n', '')
-            while len(valor_a_inserir) < 4:
-                valor_a_inserir = "0" + valor_a_inserir
-            nova_memoria_de_programa[indexes[i]] = valor_a_inserir
-            i += 1
+            split_do_val = val.split(" ")
+            valor_a_inserir = split_do_val[2].replace('\n', '').zfill(4)
+            index_a_inserir = "0x" + split_do_val[0].zfill(3)
+            while index_a_inserir != indexes[i]:
+                nova_memoria[indexes[i]] = "0000"
+                i += 1
+                if i == len(indexes):
+                    break
+            if i < len(indexes):
+                nova_memoria[indexes[i]] = valor_a_inserir
+                i += 1
+
         while(i != len(indexes)):
-            nova_memoria_de_dados[indexes[i]] = "0000"
+            nova_memoria[indexes[i]] = "0000"
             i += 1
-        self.memoria_de_dados.altera_todas_as_celulas(nova_memoria_de_dados)
-        self.memoria_de_dados.salvar_em_json()
+        
+        if type(tipo_da_memoria) != TipoDeMemoriaEnum:
+            raise ErroDeProcessador(metodo="altera_memoria_com_cdm", mensagem=f"Tipo da memoria deve ser um TipoDeMemoriaEnum")
+
+        if(tipo_da_memoria.value == "memoria_de_dados"):
+            self.memoria_de_dados.altera_todas_as_celulas(nova_memoria)
+            self.memoria_de_dados.salvar_em_json()
+        elif(tipo_da_memoria.value == "memoria_de_programa"):
+            self.memoria_de_programa.altera_todas_as_celulas(nova_memoria)
+            self.memoria_de_programa.salvar_em_json()
+
+    def altera_memoria_de_dados_com_cdm(self, cdm: List[str]) -> None:
+        self.__altera_memoria_com_cdm(cdm=cdm, tipo_da_memoria=TipoDeMemoriaEnum.MEMORIA_DE_DADOS)
 
     def altera_memoria_de_programa_com_cdm(self, cdm: List[str]) -> None:
-        indexes = [
-            "0x" + Dominio.HEXADECIMAL[i] + Dominio.HEXADECIMAL[j] + Dominio.HEXADECIMAL[k]
-            for i in range(0, 16)
-            for j in range(0, 16)
-            for k in range(0, 16)
-        ]
-        i = 0
-        nova_memoria_de_programa = dict()
-        for val in cdm:
-            valor_a_inserir = val.split(" ")[2].replace('\n', '')
-            while len(valor_a_inserir) < 4:
-                valor_a_inserir = "0" + valor_a_inserir
-            nova_memoria_de_programa[indexes[i]] = valor_a_inserir
-            i += 1
-        while(i != len(indexes)):
-            nova_memoria_de_programa[indexes[i]] = "0000"
-            i += 1
-        self.memoria_de_programa.altera_todas_as_celulas(nova_memoria_de_programa)
-        self.memoria_de_programa.salvar_em_json()
+        self.__altera_memoria_com_cdm(cdm=cdm, tipo_da_memoria=TipoDeMemoriaEnum.MEMORIA_DE_PROGRAMA)
 
     def limpa_memorias(self) -> None:
         self.limpa_memoria_de_dados()
