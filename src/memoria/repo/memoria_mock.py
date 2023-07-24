@@ -44,7 +44,7 @@ class MemoriaMock(MemoriaInterface):
             for k in range(0, 16)
         }
     
-    def salvar_em_cdm(self) -> None:
+    def salvar_em_cdm(caminho:str, nome: str) -> None:
         pass    
 
     def salvar_em_json(self, caminho:str) -> None:

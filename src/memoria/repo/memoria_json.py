@@ -50,10 +50,12 @@ class MemoriaJSON(MemoriaInterface):
         with open(self.caminho_do_arquivo, 'w') as f:
             json.dump(self.memoria, f, indent=4)
     
-    def salvar_em_cdm(self, caminho:str) -> None:
+    def salvar_em_cdm(self, caminho:str, nome:str=None) -> None:
+        if nome == None:
+            nome = self.nome_do_arquivo
         if caminho[-1] != '/':
             caminho += '/'
-        arquivo = open(f'{caminho}{self.nome_do_arquivo}.cdm', 'w')
+        arquivo = open(f'{caminho}{nome}.cdm', 'w')
         for idx, value in enumerate(self.memoria.values()):
             arquivo.write(f'{hex(idx).upper()[2:]} : {value}\n')
         arquivo.close()
