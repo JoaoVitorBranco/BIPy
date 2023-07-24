@@ -78,7 +78,10 @@ class BIPy:
         i = 0
         nova_memoria_de_dados = dict()
         for val in cdm:
-            nova_memoria_de_dados[indexes[i]] = val[len(val)-5:len(val)-1]
+            valor_a_inserir = val.split(" ")[2].replace('\n', '')
+            while len(valor_a_inserir) < 4:
+                valor_a_inserir = "0" + valor_a_inserir
+            nova_memoria_de_programa[indexes[i]] = valor_a_inserir
             i += 1
         while(i != len(indexes)):
             nova_memoria_de_dados[indexes[i]] = "0000"
