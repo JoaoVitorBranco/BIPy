@@ -207,6 +207,8 @@ class Ui_MainPage(QMainWindow):
         msg = QMessageBox()
         arquivo = io.open(resource_path(r'src\GUI\assets\creditos.txt'), 'r', encoding='utf8')
         msg.setText(arquivo.read())
+        # mudar o formato do texto para aceitar HTML inline
+        msg.setTextFormat(1)
         msg.setIcon(QMessageBox.Information)
         msg.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
         msg.setWindowTitle("Créditos do projeto")
