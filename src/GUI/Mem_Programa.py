@@ -8,15 +8,15 @@ from src.GUI.MemInterface import Mem_Interface
 class Mem_Programa(Mem_Interface):
     comandos: list
     altera_memoria_de_programa: callable
-    salva_memoria_de_programa_em_cdm: callable
+    salva_memoria_de_programa: callable
 
-    def __init__(self, memoria_de_programa: dict, altera_memoria_de_programa: callable, comandos: list, limpa_memoria, salva_memoria_de_programa_em_cdm):
+    def __init__(self, memoria_de_programa: dict, altera_memoria_de_programa: callable, comandos: list, limpa_memoria, salva_memoria_de_programa):
         super().__init__(titulo='Memoria de Programa', memoria=memoria_de_programa)
 
         self.comandos = [i+" " for i in comandos]
         self.altera_memoria_de_programa = altera_memoria_de_programa
         self.limpa_memoria = limpa_memoria
-        self.salva_memoria_de_programa_em_cdm = salva_memoria_de_programa_em_cdm
+        self.salva_memoria_de_programa = salva_memoria_de_programa
 
 
         for i in range(self.num_colunas):
@@ -55,7 +55,7 @@ class Mem_Programa(Mem_Interface):
 
     def salvar_arquivo(self):
         nome , tipo = QtWidgets.QFileDialog.getSaveFileName(self, 'Salvar arquivo', '', self.tipos_de_arquivo)
-        # self.salva_memoria_de_programa_em_cdm(nome)
+        self.salva_memoria_de_programa(nome, tipo)
 
     def carregar_arquivo(self):
         nome , tipo = QtWidgets.QFileDialog.getOpenFileName(self, 'Abrir Arquivo', '', self.tipos_de_arquivo)

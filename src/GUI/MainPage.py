@@ -62,7 +62,7 @@ class Ui_MainPage(QMainWindow):
         ), altera_memoria_de_dados=self.altera_memoria_de_dados, limpa_memoria=self.limpa_memoria_de_dados, importa_cdm=self.importa_cdm, salva_memoria_de_dados=self.salva_memoria_de_dados)
 
         self.ui_programa = Mem_Programa(memoria_de_programa=self.processador.pega_memoria_de_programa(
-        ), altera_memoria_de_programa=self.altera_memoria_de_programa, comandos=self.comandos, limpa_memoria=self.limpa_memoria_de_programa, salva_memoria_de_programa_em_cdm=self.salva_memoria_de_programa_em_cdm)
+        ), altera_memoria_de_programa=self.altera_memoria_de_programa, comandos=self.comandos, limpa_memoria=self.limpa_memoria_de_programa, salva_memoria_de_programa=self.salva_memoria_de_programa)
 
         # Inicialização geral da página
         self.refresh_displays()
@@ -256,7 +256,7 @@ class Ui_MainPage(QMainWindow):
         self.ui_programa.preenche_tabela(
             self.processador.pega_memoria_de_programa())
     
-    def salva_memoria_de_programa_em_cdm(self, caminho_completo: str, tipo: str):
+    def salva_memoria_de_programa(self, caminho_completo: str, tipo: str):
         nome = caminho_completo.rsplit("/", 1)[1].split(".")[0]
         caminho = caminho_completo.rsplit("/", 1)[0]
 
