@@ -59,7 +59,7 @@ class Ui_MainPage(QMainWindow):
         # Inicializando a tabela responsável pela memoria de programa e de dados
 
         self.ui_dados = Mem_Dados(memoria_de_dados=self.processador.pega_memoria_de_dados(
-        ), altera_memoria_de_dados=self.altera_memoria_de_dados, limpa_memoria=self.limpa_memoria_de_dados, importa_cdm=self.importa_cdm, salva_memmoria_de_dados_em_cdm=self.salva_memmoria_de_dados_em_cdm)
+        ), altera_memoria_de_dados=self.altera_memoria_de_dados, limpa_memoria=self.limpa_memoria_de_dados, importa_cdm=self.importa_cdm, salva_memmoria_de_dados=self.salva_memmoria_de_dados)
 
         self.ui_programa = Mem_Programa(memoria_de_programa=self.processador.pega_memoria_de_programa(
         ), altera_memoria_de_programa=self.altera_memoria_de_programa, comandos=self.comandos, limpa_memoria=self.limpa_memoria_de_programa, salva_memoria_de_programa_em_cdm=self.salva_memmoria_de_programa_em_cdm)
@@ -239,26 +239,34 @@ class Ui_MainPage(QMainWindow):
         self.processador.memoria_de_dados.limpa_memoria()
         self.ui_dados.preenche_tabela(self.processador.pega_memoria_de_dados())
 
-    def salva_memmoria_de_dados_em_cdm(self, caminho: str):
-        extensao = caminho[-4:]
-        if extensao == ".cdm":
-            self.processador.memoria_de_dados_para_cdm(caminho) 
-        elif extensao == ".txt":
-            ## TODO implement this
-            print("txt")
+    def salva_memmoria_de_dados(self, caminho: str, tipo: str):
+        nome = caminho.rsplit("/", 1)[1].split(".")[0]
+        caminho = caminho.rsplit("/", 1)[0]
+
+        if "cdm" in tipo:
+            self.processador.memoria_de_dados_para_cdm(caminho, nome)
+
+        # elif "txt" in tipo:
+        #     self.processador.memoria_de_dados_para_txt(caminho, nome)
+
+        # TODO implement error
             
     def limpa_memoria_de_programa(self):
         self.processador.memoria_de_programa.limpa_memoria()
         self.ui_programa.preenche_tabela(
             self.processador.pega_memoria_de_programa())
     
-    def salva_memmoria_de_programa_em_cdm(self, caminho: str):
-        extensao = caminho[-4:]
-        if extensao == ".cdm":
-            self.processador.memoria_de_programa_para_cdm(caminho)
-        elif extensao == ".txt":
-            ## TODO implement this
-            print("txt")
+    def salva_memmoria_de_programa_em_cdm(self, caminho_completo: str, tipo: str):
+        nome = caminho_completo.rsplit("/", 1)[1].split(".")[0]
+        caminho = caminho_completo.rsplit("/", 1)[0]
+
+        if "cdm" in tipo:
+            self.processador.memoria_de_programa_para_cdm(caminho, nome)
+
+        # elif "txt" in tipo:
+        #     self.processador.memoria_de_programa_para_txt(caminho, nome)
+
+        # TODO implement error
 
 
 
