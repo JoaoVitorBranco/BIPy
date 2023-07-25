@@ -199,6 +199,53 @@ class BIPy:
         """
         self.__altera_memoria_com_cdm(cdm=cdm, tipo_da_memoria=TipoDeMemoriaEnum.MEMORIA_DE_PROGRAMA)
 
+    def altera_memoria_de_programa_com_txt(self, txt: List[str]) -> None:
+        """
+        Recebe as linhas [f.readlines()] de um arquivo .txt e altera a memória de programa
+        com os valores do arquivo .cdm.
+        Exemplo de input:
+        ['HLT 000\n', 'STO 001\n', 'JUMP 010\n', 'NOP 000\n']
+
+        Exemplo de output:
+        {
+            "0x000": "0000",
+            "0x001": "1001",
+            "0x002": "8010",
+            "0x003": "9000",
+            ...
+        }
+        """
+        indexes = [
+            "0x" + Dominio.HEXADECIMAL[i] + Dominio.HEXADECIMAL[j] + Dominio.HEXADECIMAL[k]
+            for i in range(0, 16)
+            for j in range(0, 16)
+            for k in range(0, 16)
+        ]
+        i = 0
+        nova_memoria = dict()
+        for val in txt:
+            split_do_val = val.split(" ")
+            comando_a_inserir = self.dict_assemblador.get(split_do_val[0])
+            if comando_a_inserir == None:
+                raise ErroDeProcessador(metodo="altera_memoria_de_programa", mensagem=f"Comando {split_do_val[0]} não existe")
+            
+            valor_a_inserir = split_do_val[1].replace('\n', '')
+            if len(valor_a_inserir) <= 3:
+                valor_a_inserir = valor_a_inserir.zfill(3)
+            else:
+                raise ErroDeProcessador(metodo="altera_memoria_de_programa", mensagem=f"Valor {valor_a_inserir} deve ter no máximo 3 digitos")
+
+            valor_formatado = f'{comando_a_inserir}{valor_a_inserir}'
+            nova_memoria[indexes[i]] = valor_formatado
+            i += 1
+
+        while(i != len(indexes)):
+            nova_memoria[indexes[i]] = "0000"
+            i += 1
+        
+        self.memoria_de_programa.altera_todas_as_celulas(nova_memoria)
+        self.memoria_de_programa.salvar_em_json()
+
     def limpa_memorias(self) -> None:
         """
         Limpa ambas as memórias, ou seja, todas as células da memória de dados e de programa se torna 
@@ -283,7 +330,7 @@ class BIPy:
         Caso não seja inserido um nome, o arquivo se chamará "memoria_de_programa.cdm".
         """
         self.memoria_de_programa.salvar_em_cdm(caminho=caminho, nome=nome_do_arquivo)
-        
+
     def salva_memorias(self):
         """
         Após realizar operações com o processador, deve-se salvar os atributos que representam
