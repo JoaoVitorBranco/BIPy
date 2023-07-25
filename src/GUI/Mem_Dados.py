@@ -7,13 +7,13 @@ from src.GUI.MemInterface import Mem_Interface
 class Mem_Dados(Mem_Interface):
     altera_memoria_de_dados: callable
     limpa_memoria: callable
-    importa_cdm: callable
+    carrega_memoria_de_dados: callable
     salva_memoria_de_dados: callable
 
-    def __init__(self, memoria_de_dados: dict, altera_memoria_de_dados, limpa_memoria, importa_cdm, salva_memoria_de_dados):
+    def __init__(self, memoria_de_dados: dict, altera_memoria_de_dados, limpa_memoria, carrega_memoria_de_dados, salva_memoria_de_dados):
         super().__init__(titulo='Memoria de Dados', memoria=memoria_de_dados)
 
-        self.importa_cdm = importa_cdm
+        self.carrega_memoria_de_dados = carrega_memoria_de_dados
         self.altera_memoria_de_dados = altera_memoria_de_dados
         self.limpa_memoria = limpa_memoria
         self.salva_memoria_de_dados = salva_memoria_de_dados
@@ -72,7 +72,7 @@ class Mem_Dados(Mem_Interface):
             cdm = texto.split('\n')
             cdm = list(filter(None, cdm))
             cdm = [x for x in cdm if not x.startswith('#')]
-            self.importa_cdm(cdm)
+            self.carrega_memoria_de_dados(cdm, tipo)
         except (FileNotFoundError):
             print("Arquivo não encontrado")
 

@@ -59,10 +59,10 @@ class Ui_MainPage(QMainWindow):
         # Inicializando a tabela responsável pela memoria de programa e de dados
 
         self.ui_dados = Mem_Dados(memoria_de_dados=self.processador.pega_memoria_de_dados(
-        ), altera_memoria_de_dados=self.altera_memoria_de_dados, limpa_memoria=self.limpa_memoria_de_dados, importa_cdm=self.importa_cdm, salva_memoria_de_dados=self.salva_memoria_de_dados)
+        ), altera_memoria_de_dados=self.altera_memoria_de_dados, limpa_memoria=self.limpa_memoria_de_dados, carrega_memoria_de_dados=self.carrega_memoria_de_dados, salva_memoria_de_dados=self.salva_memoria_de_dados)
 
         self.ui_programa = Mem_Programa(memoria_de_programa=self.processador.pega_memoria_de_programa(
-        ), altera_memoria_de_programa=self.altera_memoria_de_programa, comandos=self.comandos, limpa_memoria=self.limpa_memoria_de_programa, salva_memoria_de_programa=self.salva_memoria_de_programa)
+        ), altera_memoria_de_programa=self.altera_memoria_de_programa, comandos=self.comandos, limpa_memoria=self.limpa_memoria_de_programa, salva_memoria_de_programa=self.salva_memoria_de_programa, carrega_memoria_de_programa=self.carrega_memoria_de_programa)
 
         # Inicialização geral da página
         self.refresh_displays()
@@ -135,10 +135,6 @@ class Ui_MainPage(QMainWindow):
         valor = self.dict_assemblador[split_valor[0]] + split_valor[1]
         self.processador.memoria_de_programa.altera_celula(endereco, valor)
 
-    def importa_cdm(self, cdm: List[str]):
-        self.processador.altera_memoria_de_dados_com_cdm(cdm)
-        self.ui_dados.preenche_tabela(self.processador.pega_memoria_de_dados())
-        self.set_selecionado_mem_programa(0, 0)
 
     # endregion
 
@@ -267,7 +263,29 @@ class Ui_MainPage(QMainWindow):
         #     self.processador.memoria_de_programa_para_txt(caminho, nome)
 
         # TODO implement error
+    
+    def carrega_memoria_de_dados(self, linhas: List[str], tipo: str):
+        if "cdm" in tipo:
+            self.processador.altera_memoria_de_dados_com_cdm(linhas)
 
+        else: 
+            return
+        
+        self.ui_dados.preenche_tabela(self.processador.pega_memoria_de_dados())
+        self.set_selecionado_mem_programa(0, 0)
+
+    def carrega_memoria_de_programa(self, linhas: List[str], tipo: str):
+        if "cdm" in tipo:
+            self.processador.altera_memoria_de_programa_com_cdm(linhas)
+
+        elif "txt" in tipo:
+            self.processador.altera_memoria_de_programa_com_txt(linhas)
+
+        else: 
+            return
+        
+        self.ui_programa.preenche_tabela(self.processador.pega_memoria_de_programa())
+        self.set_selecionado_mem_programa(0, 0)
 
 
     def set_selecionado_mem_programa(self, linha, coluna):
