@@ -146,7 +146,7 @@ class Ui_MainPage(QMainWindow):
         t.start()
 
     def halted(self):
-        while self.halt_check.isChecked():
+        while self.halt_check.isChecked(): 
             self.ui_refresh.emit()
             sleep(self.clock)
 
@@ -161,6 +161,9 @@ class Ui_MainPage(QMainWindow):
 
         endereco = self.processador.instrucao.endereco
         valor = self.processador.instrucao.valor
+
+        if(valor[0] == "0"):
+            self.halt_check.setChecked(False)
 
         linha = int(endereco[:-1], 16)
         coluna = int(endereco[-1], 16)
