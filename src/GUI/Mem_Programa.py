@@ -57,8 +57,12 @@ class Mem_Programa(Mem_Interface):
             qm.exec_()
 
     def salvar_arquivo(self):
-        nome , tipo = QtWidgets.QFileDialog.getSaveFileName(self, 'Salvar arquivo', '', self.tipos_de_arquivo.split(';;')[0])
-        self.salva_memoria_de_programa(nome, tipo)
+        try: 
+            nome , tipo = QtWidgets.QFileDialog.getSaveFileName(self, 'Salvar arquivo', '', self.tipos_de_arquivo.split(';;')[0])
+            self.salva_memoria_de_programa(nome, tipo)
+        except:
+            print("Erro ao salvar arquivo")
+            
     
     def carregar_arquivo(self):
         nome, tipo = QtWidgets.QFileDialog.getOpenFileName(
