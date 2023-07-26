@@ -9,6 +9,7 @@ class Mem_Dados(Mem_Interface):
     limpa_memoria: callable
     carrega_memoria_de_dados: callable
     salva_memoria_de_dados: callable
+    tipos_de_arquivo = "CEDAR Memory files (*.cdm)"
 
     def __init__(self, memoria_de_dados: dict, altera_memoria_de_dados, limpa_memoria, carrega_memoria_de_dados, salva_memoria_de_dados):
         super().__init__(titulo='Memoria de Dados', memoria=memoria_de_dados)

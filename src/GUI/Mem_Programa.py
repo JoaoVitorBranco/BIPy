@@ -11,6 +11,7 @@ class Mem_Programa(Mem_Interface):
     salva_memoria_de_programa: callable
     limpa_memoria: callable
     carrega_memoria_de_programa: callable
+    tipos_de_arquivo = "CEDAR Memory files (*.cdm);; Arquivo de Texto (*.txt)"
 
     def __init__(self, memoria_de_programa: dict, altera_memoria_de_programa: callable, comandos: list, limpa_memoria, salva_memoria_de_programa, carrega_memoria_de_programa):
         super().__init__(titulo='Memoria de Programa', memoria=memoria_de_programa)
@@ -56,7 +57,7 @@ class Mem_Programa(Mem_Interface):
             qm.exec_()
 
     def salvar_arquivo(self):
-        nome , tipo = QtWidgets.QFileDialog.getSaveFileName(self, 'Salvar arquivo', '', self.tipos_de_arquivo)
+        nome , tipo = QtWidgets.QFileDialog.getSaveFileName(self, 'Salvar arquivo', '', self.tipos_de_arquivo.split(';;')[0])
         self.salva_memoria_de_programa(nome, tipo)
     
     def carregar_arquivo(self):
