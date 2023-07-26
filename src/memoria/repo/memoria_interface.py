@@ -3,8 +3,8 @@ from typing import Dict
 
 
 class MemoriaInterface(ABC):
-    diretorio: str = "src/memoria/armazenamento"
-    arquivo: str
+    caminho_do_arquivo: str
+    nome_do_arquivo: str
     memoria: Dict[str, str] # endereco: valor
     
     @abstractmethod
@@ -12,23 +12,26 @@ class MemoriaInterface(ABC):
         pass
     
     @abstractmethod
-    def altera_celula(self, endereco: str, valor: str):
+    def altera_celula(self, endereco: str, valor: str) -> None:
         pass
     
     @abstractmethod
     def ler_todas_as_celulas(self) -> dict:
         pass
     
-    @abstractmethod
-    def altera_todas_as_celulas(self, dicionario: dict):
+    @abstractmethod 
+    def altera_todas_as_celulas(self, dicionario: dict) -> None:
         pass
     
     @abstractmethod
-    def limpa_memoria(self):
+    def limpa_memoria(self) -> None:
         pass
     
     @abstractmethod
-    def salvar_em_arquivo(self):
+    def salvar_em_cdm(self, caminho:str, nome: str) -> None:
         pass    
     
+    @abstractmethod
+    def salvar_em_json(self, caminho:str) -> None:
+        pass    
     

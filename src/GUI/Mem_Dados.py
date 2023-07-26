@@ -1,33 +1,29 @@
-import sys
 from PyQt5 import QtCore, QtWidgets, QtGui
-import os
+from PyQt5.QtWidgets import QMessageBox
 
 from src.GUI.MemInterface import Mem_Interface
 
 
-def resource_path(relative_path):
-    try:
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.abspath(".")
-
-    return os.path.join(base_path, relative_path)
-
-
 class Mem_Dados(Mem_Interface):
     altera_memoria_de_dados: callable
-    def __init__(self, memoria_de_dados: dict, altera_memoria_de_dados):
-        super().__init__(UI_string='MemoriaDados', memoria=memoria_de_dados)
+    limpa_memoria: callable
+    carrega_memoria_de_dados: callable
+    salva_memoria_de_dados: callable
+    tipos_de_arquivo = "CEDAR Memory files (*.cdm)"
 
+    def __init__(self, memoria_de_dados: dict, altera_memoria_de_dados, limpa_memoria, carrega_memoria_de_dados, salva_memoria_de_dados):
+        super().__init__(titulo='Memoria de Dados', memoria=memoria_de_dados)
+
+        self.carrega_memoria_de_dados = carrega_memoria_de_dados
         self.altera_memoria_de_dados = altera_memoria_de_dados
+        self.limpa_memoria = limpa_memoria
+        self.salva_memoria_de_dados = salva_memoria_de_dados
 
         for i in range(self.num_colunas):
             delegate = StyledItemDelegate(self.tableWidget)
             self.tableWidget.setItemDelegateForColumn(i, delegate)
-        
-        self.actionZero.triggered.connect(self.zerar_memoria)
-        self.actionSalvar.triggered.connect(self.salvar_arquivo)
-        self.actionCarregar.triggered.connect(self.carregar_arquivo)
+
+    # region Funções de controle
 
     def on_changed(self, item):
         linha = item.row()
@@ -38,51 +34,51 @@ class Mem_Dados(Mem_Interface):
         self.altera_memoria_de_dados(celula, valor)
 
     def zerar_memoria(self):
-            msg = QtWidgets.QMessageBox()
-            msg.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
-            msg.setWindowTitle("Zerar memória")
-            msg.setIcon(QtWidgets.QMessageBox.Question)
-            msg.addButton('Sim', QtWidgets.QMessageBox.YesRole)
-            msg.addButton('Não', QtWidgets.QMessageBox.NoRole)        
-            msg.setText('Certeza que quer zerar a memória? ')
-            msg.exec_()
-            resposta     = msg.buttonRole(msg.clickedButton())
+        msg = QMessageBox()
+        msg.setWindowIcon(QtGui.QIcon(self.resource_path('src/GUI/assets/icone.ico')))
+        msg.setWindowTitle("Zerar memória")
+        msg.setIcon(QMessageBox.Question)
+        msg.addButton('Sim', QMessageBox.YesRole)
+        msg.addButton('Não', QMessageBox.NoRole)
+        msg.setText('Certeza que quer zerar a memória? ')
+        msg.exec_()
+        resposta = msg.buttonRole(msg.clickedButton())
 
-            if resposta == QtWidgets.QMessageBox.YesRole:
-                '''
-                ZERAR MEMORIA
-                '''
-                qm = QtWidgets.QMessageBox()
-                qm.setWindowTitle("Zerar memória")
-                qm.setText("Memória zerada")
-                qm.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
-                qm.setIcon(QtWidgets.QMessageBox.Information)
-                qm.exec_()
-            
-            elif resposta == QtWidgets.QMessageBox.NoRole:
-                qm = QtWidgets.QMessageBox()
-                qm.setText("Operação cancelada. Memória permanece inalterada.")
-                qm.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
-                qm.setIcon(QtWidgets.QMessageBox.Information)
-                qm.setWindowTitle("Zerar memória")
-                qm.exec_()
+        if resposta == QMessageBox.YesRole:
+            self.limpa_memoria()
+            qm = QMessageBox()
+            qm.setWindowTitle("Zerar memória")
+            qm.setText("Memória zerada")
+            qm.setWindowIcon(QtGui.QIcon(
+                self.resource_path('src/GUI/assets/icone.ico')))
+            qm.setIcon(QMessageBox.Information)
+            qm.exec_()
 
     def salvar_arquivo(self):
-        tipos_de_arquivo = "CDM (*.cdm);;Texto (*.txt)"
-        nome , _ = QtWidgets.QFileDialog.getSaveFileName(self, 'Salvar arquivo', '', tipos_de_arquivo)
-        arquivo = open(nome[0], 'w')
-        texto = 'fodase'
-        arquivo.write(texto)
-        arquivo.close()
+        try:
+            nome, tipo = QtWidgets.QFileDialog.getSaveFileName(self, 'Salvar arquivo', '', self.tipos_de_arquivo)
+            self.salva_memoria_de_dados(nome, tipo)
+        except:
+            print("Erro ao salvar arquivo")
 
     def carregar_arquivo(self):
-        tipos_de_arquivo = "CDM (*.cdm);;Texto (*.txt)"
-        nome , _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Abrir Arquivo', '', tipos_de_arquivo)
-        arquivo = open(nome, 'r')
-    
-        with arquivo:
-            texto = arquivo.read()
-        print(texto)
+        nome, tipo = QtWidgets.QFileDialog.getOpenFileName(
+            self, 'Abrir Arquivo', '', self.tipos_de_arquivo)
+        try:
+            arquivo = open(nome, 'r')
+            cdm = list()
+            with arquivo:
+                texto = arquivo.read()
+
+            cdm = texto.split('\n')
+            cdm = list(filter(None, cdm))
+            cdm = [x for x in cdm if not x.startswith('#')]
+            self.carrega_memoria_de_dados(cdm, tipo)
+        except (FileNotFoundError):
+            print("Arquivo não encontrado")
+
+    # endregion
+
 
 class StyledItemDelegate(QtWidgets.QStyledItemDelegate):
     def createEditor(self, parent, option, index):
