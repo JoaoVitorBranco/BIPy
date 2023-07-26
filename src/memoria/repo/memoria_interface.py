@@ -28,7 +28,7 @@ class MemoriaInterface(ABC):
         pass
     
     @abstractmethod
-    def salvar_em_cdm(self) -> None:
+    def salvar_em_cdm(self, caminho:str, nome: str) -> None:
         pass    
     
     @abstractmethod
