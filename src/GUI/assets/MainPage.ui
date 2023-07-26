@@ -682,7 +682,7 @@ QPushButton:checked{
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap>assets/logo-IMT.png</pixmap>
+             <pixmap>logo-IMT.png</pixmap>
             </property>
             <property name="scaledContents">
              <bool>true</bool>

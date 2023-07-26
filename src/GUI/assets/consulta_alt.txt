@@ -7,7 +7,7 @@ ADDI constante  ->  ACC <- ACC + constante
 SUB endereço    ->  ACC <- ACC - (endereço)
 SUBI constante  ->  ACC <- ACC - constante
 JUMP endereço   ->  PC <- (endereço)
-NOP     ->  ??????????????????????
+NOP     ->  Pula um cilco de clock
 CMP endereço    ->  Compara o ACC com o (endereco)
 JNE endereço    ->  PC <- (endereco), se CMP!=ACC
 JL endereço ->  PC <- (endereco), se CMP<ACC
