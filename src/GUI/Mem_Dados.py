@@ -81,7 +81,7 @@ class Mem_Dados(Mem_Interface):
             msg.setWindowIcon(QtGui.QIcon(self.resource_path('src/GUI/assets/icone.ico')))
             msg.setWindowTitle("Erro ao carregar arquivo")
             msg.setIcon(QMessageBox.Warning)
-            msg.setText('Erro ao carregar arquivo\n' + str(e))
+            msg.setText(str(e))
             msg.exec_()
 
     # endregion
