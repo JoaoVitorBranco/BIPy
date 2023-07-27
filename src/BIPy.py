@@ -38,7 +38,7 @@ class BIPy:
         self.memoria_de_dados = memoria_de_dados
         self.dict_assemblador_inv = {v: k for k, v in self.dict_assemblador.items()}
         self.reset()
-    
+        
     def reset(self):
         """
         Funciona como o reset do processador BIP: 

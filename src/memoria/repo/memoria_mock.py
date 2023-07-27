@@ -21,6 +21,10 @@ class MemoriaMock(MemoriaInterface):
         self.memoria = memoria 
         self.arquivo = f"src/memoria/armazenamento/{self.nome_do_arquivo}.json"
         
+    @staticmethod
+    def valida_memoria(self) -> bool:
+        return True
+    
     def ler_celula(self, endereco: str) -> str:
         if(self.memoria.get(endereco) == None):
             raise ErroDeMemoria("MemoriaJSON", f"Endereço {endereco} não encontrado")

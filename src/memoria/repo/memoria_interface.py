@@ -8,6 +8,11 @@ class MemoriaInterface(ABC):
     memoria: Dict[str, str] # endereco: valor
     
     @abstractmethod
+    @staticmethod
+    def valida_memoria(self) -> bool:
+        pass
+    
+    @abstractmethod
     def ler_celula(self, endereco: str) -> str:
         pass
     

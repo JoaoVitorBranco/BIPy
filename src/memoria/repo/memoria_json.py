@@ -24,7 +24,22 @@ class MemoriaJSON(MemoriaInterface):
             memoria = json.load(f)
             f.close()
         self.memoria = memoria
-        
+    
+    @staticmethod
+    def valida_memoria(self) -> bool:
+        for index, value in self.memoria.items():
+            if len(index) != 5:
+                return False
+            if index[0:2] != "0x":
+                return False
+            if not Dominio.valida_4bit('0' + index):
+                return False
+            
+            if not Dominio.valida_4bit(value):
+                return False
+        return True
+
+    
     def ler_celula(self, endereco: str) -> str:
         if(self.memoria.get(endereco) == None):
             raise ErroDeMemoria("MemoriaJSON", f"Endereço {endereco} não encontrado")
