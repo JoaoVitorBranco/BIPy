@@ -4,6 +4,7 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtWidgets import QMessageBox
 
 from src.GUI.MemInterface import Mem_Interface
+from src.GUI.box.WarningMessageBox import WarningMessageBox
 
 class Mem_Programa(Mem_Interface):
     comandos: list
@@ -80,12 +81,7 @@ class Mem_Programa(Mem_Interface):
         except (FileNotFoundError):
             print("Arquivo não encontrado")
         except Exception as e:
-            msg = QMessageBox()
-            msg.setWindowIcon(QtGui.QIcon(self.resource_path('src/GUI/assets/icone.ico')))
-            msg.setWindowTitle("Erro ao carregar arquivo")
-            msg.setIcon(QMessageBox.Warning)
-            msg.setText(str(e))
-            msg.exec_()
+            WarningMessageBox(title="Erro ao carregar arquivo", message=str(e))
     
     #endregion
 
