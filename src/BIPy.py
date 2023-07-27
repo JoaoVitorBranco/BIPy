@@ -132,12 +132,28 @@ class BIPy:
             for j in range(0, 16)
             for k in range(0, 16)
         ]
+        
+        if len(cdm) > len(indexes):
+            raise ErroDeProcessador(metodo=f"altera_{tipo_da_memoria.value}_com_cdm", mensagem=f"Arquivo .cdm tem mais de 4096 linhas")
+        
         i = 0
         nova_memoria = dict()
+        
         for val in cdm:
             split_do_val = val.split(" ")
+            if len(split_do_val) != 3:
+                raise ErroDeProcessador(metodo=f"altera_{tipo_da_memoria.value}_com_cdm", mensagem=f"Célula \"{val}\" não está no formato correto")
+            
             valor_a_inserir = split_do_val[2].replace('\n', '').zfill(4)
-            index_a_inserir = self.valor_em_endereco(valor=split_do_val[0].zfill(3))
+            if Dominio.valida_4bit(valor_a_inserir) == False:
+                raise ErroDeProcessador(metodo=f"altera_{tipo_da_memoria.value}_com_cdm", mensagem=f"Valor \"{split_do_val[2]}\" não é válido")
+            
+            index_de_3_bits = split_do_val[0].zfill(3)
+            if Dominio.valida_4bit('0' + index_de_3_bits) == False:
+                raise ErroDeProcessador(metodo=f"altera_{tipo_da_memoria.value}_com_cdm", mensagem=f"Endereço \"{split_do_val[0]}\" não é válido")
+            
+            index_a_inserir = self.valor_em_endereco(valor=index_de_3_bits)
+                                        
             while index_a_inserir != indexes[i]:
                 nova_memoria[indexes[i]] = "0000"
                 i += 1
@@ -221,19 +237,30 @@ class BIPy:
             for j in range(0, 16)
             for k in range(0, 16)
         ]
+        if len(txt) > len(indexes):
+            raise ErroDeProcessador(metodo=f"altera_memoria_de_programa_com_txt", mensagem=f"Arquivo .cdm tem mais de 4096 linhas")
+        
         i = 0
         nova_memoria = dict()
+        
+        
         for val in txt:
             split_do_val = val.split(" ")
+            if len(split_do_val) != 2:
+                raise ErroDeProcessador(metodo=f"altera_memoria_de_programa_com_txt", mensagem=f"Célula \"{val}\" não está no formato correto")
+            
             comando_a_inserir = self.dict_assemblador.get(split_do_val[0])
             if comando_a_inserir == None:
-                raise ErroDeProcessador(metodo="altera_memoria_de_programa", mensagem=f"Comando {split_do_val[0]} não existe")
+                raise ErroDeProcessador(metodo="altera_memoria_de_programa_com_txt", mensagem=f"Comando \"{split_do_val[0]}\" não existe")
             
             valor_a_inserir = split_do_val[1].replace('\n', '')
             if len(valor_a_inserir) <= 3:
                 valor_a_inserir = valor_a_inserir.zfill(3)
             else:
-                raise ErroDeProcessador(metodo="altera_memoria_de_programa", mensagem=f"Valor {valor_a_inserir} deve ter no máximo 3 digitos")
+                raise ErroDeProcessador(metodo="altera_memoria_de_programa_com_txt", mensagem=f"Valor \"{valor_a_inserir}\" deve ter no máximo 3 digitos")
+            
+            if not Dominio.valida_4bit('0' + valor_a_inserir):
+                raise ErroDeProcessador(metodo="altera_memoria_de_programa_com_txt", mensagem=f"Valor \"{valor_a_inserir}\" deve ser um número hexadecimal de 4 bits")
 
             valor_formatado = f'{comando_a_inserir}{valor_a_inserir}'
             nova_memoria[indexes[i]] = valor_formatado
