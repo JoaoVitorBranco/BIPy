@@ -79,12 +79,12 @@ class Mem_Programa(Mem_Interface):
             self.carrega_memoria_de_programa(cdm, tipo)
         except (FileNotFoundError):
             print("Arquivo não encontrado")
-        except:
+        except Exception as e:
             msg = QMessageBox()
             msg.setWindowIcon(QtGui.QIcon(self.resource_path('src/GUI/assets/icone.ico')))
             msg.setWindowTitle("Erro ao carregar arquivo")
             msg.setIcon(QMessageBox.Warning)
-            msg.setText('Erro ao carregar arquivo')
+            msg.setText('Erro ao carregar arquivo\n' + str(e))
             msg.exec_()
     
     #endregion
