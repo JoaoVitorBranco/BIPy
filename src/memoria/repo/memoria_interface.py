@@ -7,7 +7,6 @@ class MemoriaInterface(ABC):
     nome_do_arquivo: str
     memoria: Dict[str, str] # endereco: valor
     
-    @abstractmethod
     @staticmethod
     def valida_memoria(self) -> bool:
         pass
