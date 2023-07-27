@@ -38,7 +38,27 @@ class BIPy:
         self.memoria_de_dados = memoria_de_dados
         self.dict_assemblador_inv = {v: k for k, v in self.dict_assemblador.items()}
         self.reset()
+    
+    @staticmethod
+    def valida_memorias(memoria_de_programa: MemoriaInterface, memoria_de_dados: MemoriaInterface) -> None:
+        memoria_de_programa_valida, memoria_de_dados_valida = True, True
         
+        if memoria_de_programa.valida_memoria() == False:
+            memoria_de_programa.limpa_memoria()
+            memoria_de_programa_valida = False
+        if memoria_de_dados.valida_memoria() == False:
+            memoria_de_dados.limpa_memoria()
+            memoria_de_dados_valida = False
+
+        if memoria_de_programa_valida == True and memoria_de_dados_valida == True:
+            return None        
+        elif memoria_de_dados_valida == False and memoria_de_programa_valida == False:
+            raise ErroDeProcessador("valida_memorias", "Memórias de programa e de dados inválidas")
+        elif memoria_de_dados == False:
+            raise ErroDeProcessador("valida_memorias", "Memória de dados inválida")
+        else:
+            raise ErroDeProcessador("valida_memorias", "Memória de programa inválida")
+     
     def reset(self):
         """
         Funciona como o reset do processador BIP: 
