@@ -26,32 +26,8 @@ class Mem_Programa(Mem_Interface):
             delegate = StyledItemDelegate(parent=self.tableWidget, comandos=self.comandos)
             self.tableWidget.setItemDelegateForColumn(i, delegate)
 
-        # feature para fazer ctrl-c ctrl-v
-        self.tableWidget.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
-        self.tableWidget.customContextMenuRequested.connect(self.context_menu)
-
-
 
     # region Funções de controle
-
-    def context_menu(self, pos):
-
-        menu = QtWidgets.QMenu()
-        copy_action = menu.addAction("Copiar")
-        paste_action = menu.addAction("Colar")
-        clear_action = menu.addAction("Limpar")
-        action = menu.exec_(self.tableWidget.mapToGlobal(pos))
-
-        if action == copy_action:
-            # copiar conteudo da célula atual
-            item = self.tableWidget.currentItem()
-            if item is not None:
-                QtWidgets.QApplication.clipboard().setText(item.text())
-                
-        elif action == paste_action:
-            self.paste()
-        elif action == clear_action:
-            self.clear()
 
     def on_changed(self, item):
         linha = item.row()
