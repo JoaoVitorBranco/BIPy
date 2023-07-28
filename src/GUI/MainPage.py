@@ -78,7 +78,6 @@ class Ui_MainPage(QMainWindow):
         self.halt_check.clicked.connect(self.halt)
         self.pushButton_3.clicked.connect(self.altera_acumulador_para_hexadecimal)
         self.pushButton_4.clicked.connect(self.altera_acumulador_para_decimal)
-
         # endregion
 
         # region Designando funções aos botões do menu
@@ -302,14 +301,12 @@ class Ui_MainPage(QMainWindow):
                 if i % 2 == 1:
                     color = QtGui.QColor(255, 255, 255)
                 else:
-                    color = QtGui.QColor(0, 71, 133)
-                    color.setAlphaF(0.2)
+                    color = QtGui.QColor(172, 192, 210)
 
                 item.setBackground(color)
 
         item = self.ui_programa.tableWidget.item(linha, coluna)
-        highlight = QtGui.QColor(0, 71, 133)
-        highlight.setAlphaF(0.8)
+        highlight = QtGui.QColor(102, 122, 140)
         item.setBackground(highlight)
 
     def set_selecionado_mem_dados(self, valor):
@@ -323,14 +320,13 @@ class Ui_MainPage(QMainWindow):
                 if i % 2 == 1:
                     color = QtGui.QColor(255, 255, 255)
                 else:
-                    color = QtGui.QColor(0, 71, 133)
-                    color.setAlphaF(0.1)
+                    color = QtGui.QColor(172, 192, 210)
 
                 item.setBackground(color)
 
         item = self.ui_dados.tableWidget.item(linha, coluna)
-        highlight = QtGui.QColor(0, 71, 133)
-        highlight.setAlphaF(0.8)
+        highlight = QtGui.QColor(102, 122, 140)
+        item.setBackground(highlight)
 
     def set_secret_feature(self):
 
