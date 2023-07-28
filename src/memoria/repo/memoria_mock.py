@@ -21,7 +21,6 @@ class MemoriaMock(MemoriaInterface):
         self.memoria = memoria 
         self.arquivo = f"src/memoria/armazenamento/{self.nome_do_arquivo}.json"
         
-    @staticmethod
     def valida_memoria(self) -> bool:
         return True
     

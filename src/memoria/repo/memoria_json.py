@@ -25,14 +25,13 @@ class MemoriaJSON(MemoriaInterface):
             f.close()
         self.memoria = memoria
     
-    @staticmethod
     def valida_memoria(self) -> bool:
         for index, value in self.memoria.items():
             if len(index) != 5:
                 return False
             if index[0:2] != "0x":
                 return False
-            if not Dominio.valida_4bit('0' + index):
+            if not Dominio.valida_4bit('0' + index[2:]):
                 return False
             
             if not Dominio.valida_4bit(value):
