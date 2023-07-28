@@ -115,5 +115,11 @@ class Test_MemoriaJSON:
         with open(f'src/cdm/{memoria.nome_do_arquivo}.cdm', 'r') as f:
             assert f.readlines() == expected
             f.close()
+            
+    def test_valida_memoria(self):
+        arquivo = TipoDeMemoriaEnum.MEMORIA_DE_DADOS
+        memoria = MemoriaJSON(arquivo=arquivo)
+        memoria.limpa_memoria()
+        assert memoria.valida_memoria() == True
         
     

@@ -8,9 +8,8 @@ class Dominio:
     def valida_4bit(valor: str) -> bool:
         if len(valor) != 4:
             return False
-        for i in valor:
-            if i not in Dominio.HEXADECIMAL:
-                return False
+        if not all([i in Dominio.HEXADECIMAL for i in valor]):
+            return False
         return True
     
     @staticmethod

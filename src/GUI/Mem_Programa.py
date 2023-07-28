@@ -4,6 +4,7 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtWidgets import QMessageBox
 
 from src.GUI.MemInterface import Mem_Interface
+from src.GUI.box.WarningMessageBox import WarningMessageBox
 
 class Mem_Programa(Mem_Interface):
     comandos: list
@@ -79,6 +80,8 @@ class Mem_Programa(Mem_Interface):
             self.carrega_memoria_de_programa(cdm, tipo)
         except (FileNotFoundError):
             print("Arquivo não encontrado")
+        except Exception as e:
+            WarningMessageBox(title="Erro ao carregar arquivo", message=str(e))
     
     #endregion
 
