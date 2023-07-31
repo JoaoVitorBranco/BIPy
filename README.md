@@ -10,6 +10,8 @@ Ele possui duas memórias, uma onde se armazenam os dados e outra onde se armaze
 
 É importante entendermos o funcionamento de processadores primordiais, para ampliar o nosso entendimento das máquinas atuais e o que pode ser feito para aprimorá-las.
 
+![BIP ARQ](https://github.com/JoaoVitorBranco/BIPy/assets/81604963/8e55a893-30dc-4ac5-883f-c33a735fcc29)
+
 ## Como executar
 Abra as releases, baixe o arquivo executável disponível para o seu Sistema Operacional. Extraia o arquivo, e abra o executável chamado *"BIPy.exe"*. Não editar nenhum conteúdo da pasta.
 
