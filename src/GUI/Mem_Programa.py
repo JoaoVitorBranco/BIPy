@@ -27,6 +27,7 @@ class Mem_Programa(Mem_Interface):
             delegate = StyledItemDelegate(parent=self.tableWidget, comandos=self.comandos)
             self.tableWidget.setItemDelegateForColumn(i, delegate)
 
+
     # region Funções de controle
 
     def on_changed(self, item):
