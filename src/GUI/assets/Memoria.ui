@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1030</width>
-    <height>600</height>
+    <width>1190</width>
+    <height>643</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1030</width>
+    <width>300</width>
     <height>300</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1030</width>
+    <width>1190</width>
     <height>100000</height>
    </size>
   </property>
@@ -26,8 +26,8 @@
    <string>Memoria de Programa</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QMainWindow{
-	background: white:
+   <string notr="true">QTableWidget{
+	background: rgb(172, 192, 210);
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -37,12 +37,6 @@
       <property name="autoFillBackground">
        <bool>false</bool>
       </property>
-      <property name="styleSheet">
-       <string notr="true">QTableWidget{
-	background: rgba(0, 71, 133,0.2
-);
-}</string>
-      </property>
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>
       </property>
@@ -51,6 +45,9 @@
       </property>
       <property name="lineWidth">
        <number>1</number>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
       </property>
       <property name="dragEnabled">
        <bool>true</bool>
@@ -71,6 +68,12 @@
        <enum>QAbstractItemView::ScrollPerItem</enum>
       </property>
       <property name="showGrid">
+       <bool>true</bool>
+      </property>
+      <property name="gridStyle">
+       <enum>Qt::SolidLine</enum>
+      </property>
+      <property name="wordWrap">
        <bool>true</bool>
       </property>
       <property name="rowCount">
@@ -366,12 +369,46 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>2000</width>
+     <width>1190</width>
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuArquivo">
+    <property name="title">
+     <string>Arquivo</string>
+    </property>
+    <addaction name="actionCarregar"/>
+    <addaction name="actionSalvar"/>
+    <addaction name="separator"/>
+    <addaction name="actionZero"/>
+   </widget>
+   <addaction name="menuArquivo"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionCarregar">
+   <property name="text">
+    <string>Carregar</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionSalvar">
+   <property name="text">
+    <string>Salvar</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionZero">
+   <property name="text">
+    <string>Zerar Memória</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Del</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
