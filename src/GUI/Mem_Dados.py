@@ -64,7 +64,7 @@ class Mem_Dados(Mem_Interface):
 
     def carregar_arquivo(self):
         nome, tipo = QtWidgets.QFileDialog.getOpenFileName(
-            self, 'Abrir Arquivo', '', self.tipos_de_arquivo)
+            self, 'Carregar Arquivo', '', self.tipos_de_arquivo)
         try:
             arquivo = open(nome, 'r')
             cdm = list()
