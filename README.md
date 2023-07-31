@@ -3,6 +3,13 @@
 ## Descrição
 Projeto indicado pelo nosso professor Nuncio Perrella da matéra ECM245-Arquitetura e Organização de Computadores do Instituto Mauá de Tecnologia. No primeiro semestre, aprendemos sobre como é formado um processador BIP de arquitetura Havard. Analisamos a eletrônica por trás dele a partir do software Cedar Logic. A fim de melhorar o aprendizado dos futuros alunos, este projeto visa facilitar a programação neste processador via um executável em linguagem Python que simula o projeto do BIP criado no Cedar Logic, utilizado na matéria.
 
+### BIP
+BIP (Basic Instruction-set Processor) é um tipo de processador que foi utilizada nos primórdios da computação. Consiste em instruções simples (como subtração, adição, carregar, etc.), um conjunto de instruções é uma coleção de comandos em nível de máquina que um processador pode executar para realizar várias operações. Para o seu funcionamento, ele possui componentes chaves como o PC (Program Counter) e ACC (Accumulator). 
+
+Ele possui duas memórias, uma onde se armazenam os dados e outra onde se armazenam as instruções, seguindo os preceitos da arquitetura Harvard.
+
+É importante entendermos o funcionamento de processadores primordiais, para ampliar o nosso entendimento das máquinas atuais e o que pode ser feito para aprimorá-las.
+
 ## Como executar
 Abra as releases, baixe o arquivo executável disponível para o seu Sistema Operacional. Extraia o arquivo, e abra o executável chamado *"BIPy.exe"*. Não editar nenhum conteúdo da pasta.
 
