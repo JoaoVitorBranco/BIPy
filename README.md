@@ -12,13 +12,13 @@ Projeto indicado pelo nosso professor Nuncio Perrella da matéra ECM245-Arquitet
 #### Windows
 
 ```console
-$ python -m venv venv
+python -m venv venv
 ```
 
 #### Linux
 
 ```
-$ virtualenv -p python3.10 venv
+virtualenv -p python3.10 venv
 ```
 
 ### Ativando a venv
@@ -26,29 +26,29 @@ $ virtualenv -p python3.10 venv
 #### Windows
 
 ```console
-$ venv\Scripts\activate
+venv\Scripts\activate
 ```
 
 #### Linux
 
 ```console
-$ source venv/bin/activate
+source venv/bin/activate
 ```
 
 ### Instalando os requirements
 
 ```console
-$ pip install -e .
+pip install -e .
 
-$ pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ### Executar o arquivo `main.py` para inicializar o software
 
 ```console
-$ cd src
+cd src
 
-$ python main.py
+python main.py
 ```
 
 ## Como utilizar
