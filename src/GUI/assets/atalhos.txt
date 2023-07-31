@@ -1,0 +1,14 @@
+<h1> Atalhos dentro do programa</h1>
+<h2> Atalhos da página principal</h2>
+<pre>Crtl+D        →    Abre a Memória de Dados</pre>
+<pre>Crtl+P        →    Abre a Memória de Programa</pre>
+<pre>Crtl+R        →    Reset</pre>
+<pre>Spacebar      →    Step</pre>
+<pre>Crtl+Spacebar →    Halt</pre>
+<pre>Crtl+H        →    Abre o menu de configuração do clock</pre>
+<pre>Crtl+Shift+D  →    Altera o modo do acumulador para decimal</pre>
+<pre>Crtl+Shift+H  →    Altera o modo do acumulador para hexadecimal</pre>
+<h2> Atalhos das páginas de memória</h2>
+<pre>Crtl+S      →  Salva a memória atual</pre>
+<pre>Crtl+O      →  Carrega uma nova memória</pre>
+<pre>Crtl+Del    →  Zera a memória atual</pre>

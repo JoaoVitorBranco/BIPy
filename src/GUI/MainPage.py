@@ -11,6 +11,7 @@ from PyQt5.QtWidgets import QMainWindow, QMessageBox, QInputDialog, QShortcut, Q
 from PyQt5.QtCore import pyqtSignal
 
 from src.BIPy import BIPy
+from src.GUI.Consulta import Ui_Consulta
 from src.GUI.Mem_Dados import Mem_Dados
 from src.GUI.Mem_Programa import Mem_Programa
 
@@ -64,13 +65,14 @@ class Ui_MainPage(QMainWindow):
         self.ui_programa = Mem_Programa(memoria_de_programa=self.processador.pega_memoria_de_programa(
         ), altera_memoria_de_programa=self.altera_memoria_de_programa, comandos=self.comandos, limpa_memoria=self.limpa_memoria_de_programa, salva_memoria_de_programa=self.salva_memoria_de_programa, carrega_memoria_de_programa=self.carrega_memoria_de_programa)
 
+        self.consulta = Ui_Consulta()
+
         # Inicialização geral da página
         self.refresh_displays()
         self.reset()
         self.clock = 1
 
         # region Designando funções aos botões da página
-
         self.pushButton.clicked.connect(self.show_popup_mem_dados)
         self.pushButton_2.clicked.connect(self.show_popup_mem_programa)
         self.reset_button.clicked.connect(self.reset)
@@ -87,6 +89,7 @@ class Ui_MainPage(QMainWindow):
         self.actionHexadecimal.triggered.connect(self.altera_acumulador_para_hexadecimal)
         self.actionSobre.triggered.connect(self.exibe_creditos)
         self.actionConsulta.triggered.connect(self.abre_consulta)
+        self.actionAtalhos.triggered.connect(self.show_popup_atalhos)
 
         # endregion
 
@@ -114,14 +117,9 @@ class Ui_MainPage(QMainWindow):
             pass
 
     def closeEvent(self, event):
-        try:
-            self.ui_dados.close()
-        except AttributeError:
-            print("Memoria de dados não iniciada")
-        try:
-            self.ui_programa.close()
-        except AttributeError:
-            print("Memoria de programa não iniciada")
+        self.ui_dados.close()
+        self.ui_programa.close()
+        self.consulta.close()
 
         self.processador.salva_memorias()
 
@@ -201,16 +199,6 @@ class Ui_MainPage(QMainWindow):
 
         # Cria popups
 
-    def exibe_creditos(self):
-        msg = QMessageBox()
-        arquivo = io.open(resource_path(r'src\GUI\assets\creditos.txt'), 'r', encoding='utf8')
-        msg.setText(arquivo.read())
-        # mudar o formato do texto para aceitar HTML inline
-        msg.setTextFormat(1)
-        msg.setIcon(QMessageBox.Information)
-        msg.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
-        msg.setWindowTitle("Créditos do projeto")
-        msg.exec_()
 
     def show_popup_mem_dados(self):
         self.ui_dados.show()
@@ -222,13 +210,32 @@ class Ui_MainPage(QMainWindow):
         self.ui_programa.setFocus(True)
         self.ui_programa.raise_()
 
-    def abre_consulta(self):      
+    def exibe_creditos(self):
         msg = QMessageBox()
-        arquivo = io.open(resource_path(r'src\GUI\assets\consulta_alt.txt'), 'r', encoding='utf8')
+        arquivo = io.open(resource_path(r'src\GUI\assets\creditos.txt'), 'r', encoding='utf8')
         msg.setText(arquivo.read())
+        msg.setTextFormat(1)
         msg.setIcon(QMessageBox.Information)
         msg.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
-        msg.setWindowTitle("Consulta de comnados")
+        msg.setWindowTitle("Créditos do projeto")
+        msg.setStyleSheet("background-color: rgb(213, 213, 213);color: rgb(0, 69, 135);")
+        msg.exec_()
+    
+    def abre_consulta(self):
+        self.consulta.show()
+        self.consulta.setFocus(True)
+        self.consulta.raise_()
+        self.consulta.setStyleSheet("background-color: rgb(213, 213, 213);color: rgb(0, 69, 135);")
+
+    def show_popup_atalhos(self):
+        msg = QMessageBox()
+        arquivo = io.open(resource_path(r'src\GUI\assets\atalhos.txt'), 'r', encoding='utf8')
+        msg.setText(arquivo.read())
+        msg.setTextFormat(1)
+        msg.setIcon(QMessageBox.Information)
+        msg.setWindowIcon(QtGui.QIcon(resource_path('src/GUI/assets/icone.ico')))
+        msg.setWindowTitle("Atalhos dentro do programa")
+        msg.setStyleSheet("background-color: rgb(213, 213, 213);color: rgb(0, 69, 135);")
         msg.exec_()
 
     # endregion
@@ -245,11 +252,6 @@ class Ui_MainPage(QMainWindow):
 
         if "cdm" in tipo:
             self.processador.memoria_de_dados_para_cdm(caminho, nome)
-
-        # elif "txt" in tipo:
-        #     self.processador.memoria_de_dados_para_txt(caminho, nome)
-
-        # TODO implement error
             
     def limpa_memoria_de_programa(self):
         self.processador.memoria_de_programa.limpa_memoria()
@@ -262,11 +264,6 @@ class Ui_MainPage(QMainWindow):
 
         if "cdm" in tipo:
             self.processador.memoria_de_programa_para_cdm(caminho, nome)
-
-        # elif "txt" in tipo:
-        #     self.processador.memoria_de_programa_para_txt(caminho, nome)
-
-        # TODO implement error
     
     def carrega_memoria_de_dados(self, linhas: List[str], tipo: str):
         if "cdm" in tipo:
