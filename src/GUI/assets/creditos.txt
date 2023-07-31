@@ -1,4 +1,4 @@
-<a href="https://github.com/JoaoVitorBranco/BIPy">BIPy</a> é um projeto realizado por alunos do 3º ano de Engenharia da Computação do Instituto Maua de Tecnologia, sobre supervisão do Prof. Nuncio Perella, com o intuito a ensinar alunos do curso de Ciência da Computação a programar usando um assemblador direto na memória de programa e de dados.
+<a href="https://github.com/JoaoVitorBranco/BIPy">BIPy</a> é um projeto realizado por alunos do 3º ano de Engenharia da Computação do Instituto Maua de Tecnologia, sobre supervisão do Prof. Nuncio Perrella, com o intuito a ensinar alunos do curso de Ciência da Computação a programar usando um assemblador direto na memória de programa e de dados.
 <br>
 <br>Autores:<br>
 
