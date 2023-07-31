@@ -109,6 +109,7 @@ class Ui_MainPage(QMainWindow):
         msg.setDoubleRange(0.1, 15)
         msg.setDoubleStep(0.5)
         msg.setWindowTitle("Setar Clock")
+        msg.setStyleSheet("background-color: rgb(213, 213, 213);color: rgb(0, 69, 135);")
         msg.exec_()
 
         try:
