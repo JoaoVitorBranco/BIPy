@@ -88,18 +88,18 @@ A integração com arquivos **.txt** se deve ao fato do assemblador criado em Py
 
 ## Atalhos dentro do programa
 #### Atalhos da página principal
-- *Crtl+D*        → Abre a Memória de Dados
-- *Crtl+P*        → Abre a Memória de Programa
-- *Crtl+R*        → Reset
-- *Spacebar*      → Step
-- *Crtl+Spacebar* → Halt
-- *Crtl+H*        → Abre o menu de configuração do clock
-- *Crtl+Shift+D*  → Altera o modo do acumulador para decimal
-- *Crtl+Shift+H*  → Altera o modo do acumulador para hexadecimal
+- *Ctrl+D*        → Abre a Memória de Dados
+- *Ctrl+P*        → Abre a Memória de Programa
+- *Ctrl+R*        → Reset
+- *spacebar*      → Step
+- *Ctrl+spacebar* → Halt
+- *Ctrl+H*        → Abre o menu de configuração do clock
+- *Ctrl+Shift+D*  → Altera o modo do acumulador para decimal
+- *Ctrl+Shift+H*  → Altera o modo do acumulador para hexadecimal
 #### Atalhos das páginas de memória
-- *Crtl+S*      → Salva a memória atual
-- *Crtl+O*      → Carrega uma nova memória
-- *Crtl+Del*    → Zera a memória atual
+- *Ctrl+S*      → Salva a memória atual
+- *Ctrl+O*      → Carrega uma nova memória
+- *Ctrl+Del*    → Zera a memória atual
 
 ## Como contribuir
 Caso queira contribuir com a nossa aplicação, você pode criar uma **issue** apontando bugs ou features novas, para que possamos dar a devida manutenção. Você também pode ajudar de forma ativa: crie um fork, modifique o que deseja e solicite um *pull request* para o repositório. Se acharmos pertinente, aceitaremos e creditaremos de forma devida.
