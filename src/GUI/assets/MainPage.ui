@@ -819,8 +819,9 @@ QPushButton:checked{
     <property name="title">
      <string>Mais</string>
     </property>
-    <addaction name="actionSobre"/>
+    <addaction name="actionAtalhos"/>
     <addaction name="actionConsulta"/>
+    <addaction name="actionSobre"/>
    </widget>
    <addaction name="menuConfigura_o"/>
    <addaction name="menuMais"/>
@@ -895,6 +896,17 @@ QPushButton:checked{
   <action name="actionConsulta">
    <property name="text">
     <string>Consulta</string>
+   </property>
+   <property name="statusTip">
+    <string>Consulta dos comandos disponíveis</string>
+   </property>
+  </action>
+  <action name="actionAtalhos">
+   <property name="text">
+    <string>Atalhos</string>
+   </property>
+   <property name="statusTip">
+    <string>Lista de atalhos no programa</string>
    </property>
   </action>
  </widget>
